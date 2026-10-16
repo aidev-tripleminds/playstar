@@ -1,0 +1,28 @@
+@keyframes summary-card-generation-bar-fill {
+  from {
+    width: 0%;
+  }
+
+  to {
+    width: 100%;
+  }
+}
+
+.summary-card-generation-bar-fill {
+  width: 0%;
+  height: 2px;
+  position: relative;
+  box-shadow: 4px 1px 11px 1px #fb64b6;
+  border-radius: 2px;
+  background: linear-gradient(90deg, rgba(251, 100, 182, 0), #fb64b6 25.48%);
+  animation-name: summary-card-generation-bar-fill;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .summary-card-generation-bar-fill {
+    animation: none;
+    width: 100%;
+  }
+}

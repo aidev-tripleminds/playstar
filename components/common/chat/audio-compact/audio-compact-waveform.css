@@ -1,0 +1,7 @@
+[data-slot="audio-compact-waveform-canvas"] > div::part(canvases) {
+  opacity: var(--audio-compact-waveform-unplayed-opacity, 0.6);
+}
+
+[data-slot="audio-compact-waveform-canvas"] > div::part(progress) {
+  opacity: 1;
+}

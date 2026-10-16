@@ -1,0 +1,11 @@
+<svg width="12.83" height="12.83" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="11" cy="11" r="11" fill="url(#testimonial-gold-star-gradient)"/>
+  <path d="M11 5.5L12.545 9.045L16.5 9.545L13.75 12.295L14.545 16.25L11 14.5L7.455 16.25L8.25 12.295L5.5 9.545L9.455 9.045L11 5.5Z" fill="#FFF5C3"/>
+  <defs>
+    <linearGradient id="testimonial-gold-star-gradient" x1="11" y1="0" x2="11" y2="22" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FCC738"/>
+      <stop offset="0.5" stop-color="#FDAF1C"/>
+      <stop offset="1" stop-color="#D77B08"/>
+    </linearGradient>
+  </defs>
+</svg>

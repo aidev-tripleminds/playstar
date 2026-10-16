@@ -1,0 +1,45 @@
+@keyframes placeholders-hybrid-wave {
+  0%,
+  100% {
+    transform: scaleY(0.35);
+  }
+
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+[data-slot="placeholders-hybrid-waveform"][data-playing="true"] > span {
+  transform-origin: center;
+  animation: placeholders-hybrid-wave 0.9s ease-in-out infinite;
+}
+
+[data-slot="placeholders-hybrid-waveform"][data-playing="true"] > span:nth-child(6n + 1) {
+  animation-delay: 0s;
+}
+
+[data-slot="placeholders-hybrid-waveform"][data-playing="true"] > span:nth-child(6n + 2) {
+  animation-delay: 0.12s;
+}
+
+[data-slot="placeholders-hybrid-waveform"][data-playing="true"] > span:nth-child(6n + 3) {
+  animation-delay: 0.24s;
+}
+
+[data-slot="placeholders-hybrid-waveform"][data-playing="true"] > span:nth-child(6n + 4) {
+  animation-delay: 0.36s;
+}
+
+[data-slot="placeholders-hybrid-waveform"][data-playing="true"] > span:nth-child(6n + 5) {
+  animation-delay: 0.48s;
+}
+
+[data-slot="placeholders-hybrid-waveform"][data-playing="true"] > span:nth-child(6n + 6) {
+  animation-delay: 0.6s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-slot="placeholders-hybrid-waveform"][data-playing="true"] > span {
+    animation: none;
+  }
+}

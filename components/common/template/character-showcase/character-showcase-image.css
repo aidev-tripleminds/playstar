@@ -1,0 +1,25 @@
+[data-slot="character-showcase-image"] {
+  --character-showcase-image-width: 270px;
+  --character-showcase-image-height: 330px;
+  --character-showcase-image-radius: 24px;
+  width: var(--character-showcase-image-width);
+  height: var(--character-showcase-image-height);
+  max-width: 100%;
+  position: relative;
+  margin-inline: auto;
+  overflow: hidden;
+  border-radius: var(--character-showcase-image-radius);
+}
+
+@media (min-width: 768px) {
+  [data-slot="character-showcase-image"] {
+    --character-showcase-image-radius: 32px;
+  }
+}
+
+[data-slot="character-showcase-image"] > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

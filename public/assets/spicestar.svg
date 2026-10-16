@@ -1,0 +1,20 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="12" cy="12" r="11.25" fill="url(#coin_rim)"/>
+<circle cx="12" cy="12" r="9.4" fill="url(#coin_face)"/>
+<path d="M12.0,5.6 13.47,9.98 18.09,10.02 14.38,12.77 15.76,17.18 12.0,14.5 8.24,17.18 9.62,12.77 5.91,10.02 10.53,9.98 Z" fill="url(#star_grad)"/>
+<defs>
+<linearGradient id="coin_rim" x1="3" y1="2" x2="21" y2="22" gradientUnits="userSpaceOnUse">
+<stop offset="0" stop-color="#FDDE9B"/>
+<stop offset="0.5" stop-color="#FBCA51"/>
+<stop offset="1" stop-color="#E8940A"/>
+</linearGradient>
+<linearGradient id="coin_face" x1="12" y1="3" x2="12" y2="21" gradientUnits="userSpaceOnUse">
+<stop offset="0" stop-color="#FBC851"/>
+<stop offset="1" stop-color="#DE8006"/>
+</linearGradient>
+<linearGradient id="star_grad" x1="8" y1="6" x2="16" y2="18" gradientUnits="userSpaceOnUse">
+<stop offset="0" stop-color="#F8B23A"/>
+<stop offset="1" stop-color="#B85706"/>
+</linearGradient>
+</defs>
+</svg>

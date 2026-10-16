@@ -1,0 +1,99 @@
+/**
+ * Desktop ModalLayout motion: 100ms ease-in-out fade+scale on open,
+ * instant close (1ms so Radix still receives animationend).
+ */
+
+.modal-layout-desktop,
+.modal-layout-desktop-overlay {
+  --modal-layout-desktop-duration: 100ms;
+  --modal-layout-desktop-exit-duration: 1ms;
+  --modal-layout-desktop-ease: ease-in-out;
+  --modal-layout-desktop-from-scale: 0.96;
+}
+
+@keyframes modal-layout-desktop-enter-opacity {
+  0% {
+    animation-timing-function: var(--modal-layout-desktop-ease);
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes modal-layout-desktop-enter-scale {
+  0% {
+    animation-timing-function: var(--modal-layout-desktop-ease);
+    scale: var(--modal-layout-desktop-from-scale);
+  }
+
+  100% {
+    scale: 1;
+  }
+}
+
+@keyframes modal-layout-desktop-exit-opacity {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes modal-layout-desktop-exit-scale {
+  0% {
+    scale: 1;
+  }
+
+  100% {
+    scale: var(--modal-layout-desktop-from-scale);
+  }
+}
+
+.modal-layout-desktop[data-state="open"] {
+  animation:
+    modal-layout-desktop-enter-opacity var(--modal-layout-desktop-duration)
+      var(--modal-layout-desktop-ease) both,
+    modal-layout-desktop-enter-scale var(--modal-layout-desktop-duration)
+      var(--modal-layout-desktop-ease) both;
+}
+
+.modal-layout-desktop[data-state="closed"] {
+  animation:
+    modal-layout-desktop-exit-opacity var(--modal-layout-desktop-exit-duration) linear both,
+    modal-layout-desktop-exit-scale var(--modal-layout-desktop-exit-duration) linear both;
+}
+
+.modal-layout-desktop-overlay[data-state="open"],
+.modal-layout-desktop-overlay[data-state="closed"] {
+  scale: 1;
+}
+
+.modal-layout-desktop-overlay[data-state="open"] {
+  animation: modal-layout-desktop-enter-opacity var(--modal-layout-desktop-duration)
+    var(--modal-layout-desktop-ease) both;
+}
+
+.modal-layout-desktop-overlay[data-state="closed"] {
+  animation: modal-layout-desktop-exit-opacity var(--modal-layout-desktop-exit-duration) linear both;
+}
+
+/* FrozenBackdropLayer zooms the page clone to 1.1 for blur bleed — keep it 1:1 here. */
+.modal-layout-desktop-overlay [data-slot="frozen-backdrop-layer"] > :first-child {
+  scale: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modal-layout-desktop[data-state="open"],
+  .modal-layout-desktop-overlay[data-state="open"] {
+    animation: modal-layout-desktop-enter-opacity 1ms linear both;
+  }
+
+  .modal-layout-desktop[data-state="closed"],
+  .modal-layout-desktop-overlay[data-state="closed"] {
+    animation: modal-layout-desktop-exit-opacity 1ms linear both;
+  }
+}

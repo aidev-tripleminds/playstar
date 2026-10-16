@@ -1,0 +1,152 @@
+﻿[data-slot="character-showcase-slider"] {
+  --character-showcase-slide-width: 270px;
+  --character-showcase-slide-height: 330px;
+  width: 100%;
+  min-width: 0;
+}
+
+@media (max-width: 600px) and (min-width: 320px) and (max-width: 480px) {
+  [data-slot="character-showcase-slider"] {
+    --character-showcase-slide-width: 160px;
+    --character-showcase-slide-height: 200px;
+  }
+}
+
+@media (min-width: 768px) {
+  [data-slot="character-showcase-slider"] [data-slot="carousel-item"] {
+    flex-basis: var(--character-showcase-slide-width);
+  }
+
+  [data-slot="character-showcase-slider"] [data-slot="character-slider-slide"] {
+    margin-inline: auto;
+    width: var(--character-showcase-slide-width);
+    max-width: 100%;
+  }
+
+  [data-slot="character-showcase-slider"] [data-slot="character-slider"] {
+    margin-inline: auto;
+  }
+
+  [data-slot="character-showcase-slider"] [data-slot="character-slider"] > div {
+    height: var(--character-showcase-slide-height);
+    border-radius: 32px;
+  }
+}
+
+[data-slot="character-showcase-slider"] [data-slot="character-slider"][data-size="mobile"] {
+  margin-inline: auto;
+  width: 342px;
+  max-width: 342px;
+}
+
+@media (max-width: 767px) {
+  [data-slot="character-showcase-slider"] [data-slot="character-slider"][data-size="mobile"] > div {
+    height: var(--character-showcase-slide-height);
+    border-radius: 32px;
+  }
+
+  [data-slot="character-showcase-slider"]
+    [data-slot="character-slider"][data-size="mobile"]
+    [data-slot="carousel-item"] {
+    height: var(--character-showcase-slide-height);
+    flex-basis: var(--character-showcase-slide-width);
+  }
+
+  [data-slot="character-showcase-slider"]
+    [data-slot="character-slider"][data-size="mobile"]
+    [data-slot="character-slider-slide"] {
+    height: var(--character-showcase-slide-height);
+    width: var(--character-showcase-slide-width);
+    max-width: var(--character-showcase-slide-width);
+    border-radius: 24px;
+  }
+
+  [data-slot="character-showcase-slider"]
+    [data-slot="character-slider"][data-size="mobile"]
+    [data-slot="character-slider-side-preview"] {
+    height: 193px;
+    max-height: 193px;
+    width: 153px;
+    max-width: 153px;
+    border-radius: 24px;
+  }
+
+  [data-slot="character-showcase-slider"] [data-slot="character-slider"] {
+    padding: 0;
+  }
+
+  [data-slot="character-showcase-slider"] [data-locked="true"] button {
+    width: 120px !important;
+    min-width: 120px !important;
+  }
+}
+
+@media (max-width: 639px) and (min-width: 320px) and (max-width: 480px) {
+  [data-slot="character-showcase-slider"] [data-slot="character-slider"][data-size="mobile"] {
+    width: 250px;
+    max-width: 250px;
+  }
+
+  [data-slot="character-showcase-slider"] [data-slot="character-slider"][data-size="mobile"] > div {
+    height: 220px;
+  }
+
+  [data-slot="character-showcase-slider"]
+    [data-slot="character-slider"][data-size="mobile"]
+    [data-slot="carousel-item"] {
+    height: 200px;
+    flex-basis: 175px;
+  }
+
+  [data-slot="character-showcase-slider"]
+    [data-slot="character-slider"][data-size="mobile"]
+    [data-slot="character-slider-slide"] {
+    height: 220px;
+    width: 180px;
+    max-width: 180px;
+  }
+
+  [data-slot="character-showcase-slider"]
+    [data-slot="character-slider"][data-size="mobile"]
+    [data-slot="character-slider-side-preview"] {
+    height: 126px;
+    max-height: 126px;
+    width: 103px;
+    max-width: 103px;
+    border-radius: 24px;
+  }
+
+  [data-slot="character-showcase-slider"]
+    [data-slot="character-slider"][data-size="mobile"]
+    [data-slot="character-slider-side-preview"][data-side="left"] {
+    left: 0;
+    right: auto;
+  }
+
+  [data-slot="character-showcase-slider"]
+    [data-slot="character-slider"][data-size="mobile"]
+    [data-slot="character-slider-side-preview"][data-side="right"] {
+    right: 0;
+    left: auto;
+  }
+
+  [data-slot="character-showcase-slider"]
+    [data-slot="character-slider"][data-size="mobile"]
+    [data-slot="character-slider-previous"] {
+    left: 15px;
+  }
+
+  [data-slot="character-showcase-slider"]
+    [data-slot="character-slider"][data-size="mobile"]
+    [data-slot="character-slider-next"] {
+    right: 15px;
+  }
+
+  [data-slot="character-showcase-slider"]
+    [data-slot="character-slider-slide"][data-locked="true"]
+    button
+    span {
+    font-size: 12px !important;
+    line-height: 16px !important;
+  }
+}

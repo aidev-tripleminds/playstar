@@ -19,7 +19,11 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@omnipink/logger": ["./lib/shims/omnipink-logger.ts"],
+      "@omnipink/logger/context": ["./lib/shims/omnipink-logger-context.ts"],
+      "@omnipink/logger/scrub": ["./lib/shims/omnipink-logger-scrub.ts"],
+      "@sentry/nextjs": ["./lib/shims/sentry-nextjs.ts"]
     }
   },
   "include": [
