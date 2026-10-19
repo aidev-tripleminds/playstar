@@ -7,7 +7,7 @@ import { GradientGrid } from "@/components/common/general/gradient-grid/gradient
 import { ModalLayout } from "@/components/common/general/modal-layout/modal-layout";
 import { GetTokensModal } from "@/components/common/token-modals/get-tokens-modal";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
-import { resolveAsset } from "@/lib/assets/asset-store";
+import { dummyImage } from "@/lib/dummy-images";
 import { cn } from "@/lib/utils";
 import { Microphone2Icon, PhoneRedIcon } from "@/public/assets/icons";
 import { MicrophoneSlashIcon } from "@/public/assets/icons/microphone-slash";
@@ -150,7 +150,7 @@ export function ActiveCallModal({
   open = false,
   onOpenChange,
   name = "Cassy Anderson",
-  avatarSrc = resolveAsset("demo_pics_profile2").image ?? "",
+  avatarSrc = dummyImage(103),
   frameSrc,
   transcript = DEFAULT_TRANSCRIPT,
   voicePhase: voicePhaseProp,

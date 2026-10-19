@@ -17,7 +17,7 @@ import {
   defaultMediaPreviewMetadata,
   defaultMediaPreviewPrompt,
 } from "@/components/common/image-preview/media-preview/constants";
-import { resolveAsset } from "@/lib/assets/asset-store";
+import { dummyImage } from "@/lib/dummy-images";
 import { SKIP_QUEUE_FEATURE_ENABLED } from "@/lib/feature-flags";
 import { ROUTES } from "@/lib/routes";
 import {
@@ -121,11 +121,11 @@ export const GENERATE_DEFAULT_SECTION_TAB_ID: GenerateSectionTabId = "templates"
 
 export const GENERATE_SEARCH_PLACEHOLDER = "Search...";
 
-export const GENERATE_BLUR_NSFW_LABEL_OFF = "Blur NSFW: No";
+export const GENERATE_BLUR_NSFW_LABEL_OFF = "Blur : No";
 
-export const GENERATE_BLUR_NSFW_LABEL_ON = "Blur NSFW: Yes";
+export const GENERATE_BLUR_NSFW_LABEL_ON = "Blur : Yes";
 
-export const GENERATE_BLUR_NSFW_LABEL = "Blur NSFW";
+export const GENERATE_BLUR_NSFW_LABEL = "Blur ";
 
 export const GENERATE_SELECT_LABEL = "Select";
 
@@ -522,7 +522,7 @@ export const GENERATE_PREVIEW_METADATA = defaultMediaPreviewMetadata;
 
 export const GENERATE_PREVIEW_MODEL_TITLE = "Eva Marina Petranova";
 
-export const GENERATE_PREVIEW_MODEL_IMAGE = resolveAsset("demo_pics_model4").image ?? "";
+export const GENERATE_PREVIEW_MODEL_IMAGE = dummyImage(1);
 
 export const GENERATE_PREVIEW_CREATE_VIDEO_LABEL = "Animate";
 
@@ -642,17 +642,14 @@ export const GENERATE_GALLERY_ITEMS: GenerateGalleryItem[] = defaultMediaPreview
 export const GENERATE_PREVIEW_SAMPLE_VIDEO_ID = "create-ai-style-intro";
 
 export function getGeneratePreviewSampleVideo(): GenerateGalleryItem {
-  const intro = resolveAsset("female_realistic_style_intro");
-  const poster = resolveAsset("demo_pics_model4");
+  const poster = dummyImage(0);
 
   return {
     id: GENERATE_PREVIEW_SAMPLE_VIDEO_ID,
-    src: poster.image || intro.video || "",
-    videoSrc: intro.video,
+    src: poster,
     alt: "Realistic style intro",
-    kind: "video",
+    kind: "image",
     prompt: "Realistic style intro",
-    description: intro.description,
   };
 }
 

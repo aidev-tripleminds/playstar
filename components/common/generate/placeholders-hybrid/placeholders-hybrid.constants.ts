@@ -1,4 +1,4 @@
-import { resolveAsset } from "@/lib/assets/asset-store";
+import { dummyImage } from "@/lib/dummy-images";
 
 export const PLACEHOLDERS_HYBRID_STATUSES = ["empty", "loaded", "audio"] as const;
 
@@ -12,7 +12,7 @@ export const PLACEHOLDERS_HYBRID_DEFAULT_SUBTITLE = "Required";
 
 export const PLACEHOLDERS_HYBRID_DEFAULT_AUDIO_LABEL = "Audio";
 
-export const PLACEHOLDERS_HYBRID_DEFAULT_IMAGE_SRC = resolveAsset("demo_pics_model9").image ?? "";
+export const PLACEHOLDERS_HYBRID_DEFAULT_IMAGE_SRC = dummyImage(123);
 
 export const PLACEHOLDERS_HYBRID_PLAY_ICON_SRC = "/assets/play.svg";
 

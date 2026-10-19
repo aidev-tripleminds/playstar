@@ -1,8 +1,8 @@
-import { resolveAsset } from "@/lib/assets/asset-store";
+import { dummyImage } from "@/lib/dummy-images";
 
 export const ACTION_DEFAULT_LABEL = "Clothing";
 
-export const ACTION_DEFAULT_IMAGE_SRC = resolveAsset("demo_pics_reso").image ?? "";
+export const ACTION_DEFAULT_IMAGE_SRC = dummyImage(120);
 
 export const ACTION_DEFAULT_IMAGE_SIZE = 32;
 

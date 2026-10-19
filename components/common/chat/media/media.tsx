@@ -5,10 +5,10 @@ import Image from "next/image";
 import * as React from "react";
 
 import { Button } from "@/components/ui/button";
-import { resolveAsset } from "@/lib/assets/asset-store";
+import { dummyImage } from "@/lib/dummy-images";
 import { cn } from "@/lib/utils";
 
-const DEFAULT_IMAGE_SRC = resolveAsset("demo_pics_profile2").image ?? "";
+const DEFAULT_IMAGE_SRC = dummyImage(74);
 const DEFAULT_MEDIA_WIDTH_PX = 328;
 const DEFAULT_MEDIA_HEIGHT_PX = 410;
 

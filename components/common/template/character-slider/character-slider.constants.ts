@@ -1,4 +1,4 @@
-import { resolveAsset } from "@/lib/assets/asset-store";
+import { dummyImage } from "@/lib/dummy-images";
 /** Figma Character Slider (node 16974-73566). */
 export type CharacterSliderSize = "desktop" | "mobile";
 
@@ -26,25 +26,25 @@ export const CHARACTER_SLIDER_LOCKED_TITLE = "Do you want more?";
 export const CHARACTER_SLIDER_LOCKED_CTA = "Check her content";
 
 export const CHARACTER_SLIDER_DEFAULT_SLIDES: CharacterSliderSlide[] = [
-  { id: "1", imageSrc: resolveAsset("demo_pics_dog").image ?? "", imageAlt: "Character slide 1" },
+  { id: "1", imageSrc: dummyImage(170), imageAlt: "Character slide 1" },
   {
     id: "2",
-    imageSrc: resolveAsset("demo_pics_model1").image ?? "",
+    imageSrc: dummyImage(171),
     imageAlt: "Character slide 2",
   },
   {
     id: "3",
-    imageSrc: resolveAsset("demo_pics_model2").image ?? "",
+    imageSrc: dummyImage(172),
     imageAlt: "Character slide 3",
   },
   {
     id: "4",
-    imageSrc: resolveAsset("demo_pics_model3").image ?? "",
+    imageSrc: dummyImage(173),
     imageAlt: "Character slide 4",
   },
   {
     id: "5",
-    imageSrc: resolveAsset("demo_pics_model4").image ?? "",
+    imageSrc: dummyImage(174),
     imageAlt: "Character slide 5",
   },
 ];

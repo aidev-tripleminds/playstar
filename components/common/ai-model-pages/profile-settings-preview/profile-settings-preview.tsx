@@ -4,7 +4,7 @@ import Image from "next/image";
 import * as React from "react";
 
 import { OptionList } from "@/components/common/general/option-list/option-list";
-import { resolveAsset } from "@/lib/assets/asset-store";
+import { dummyImage } from "@/lib/dummy-images";
 import { cn } from "@/lib/utils";
 
 import EditIconButton from "./components/edit-icon";
@@ -12,9 +12,9 @@ import type { ProfileSettingsMenuTarget, ProfileSettingsPreviewProps } from "./t
 import { profileSettingsBannerMenuItems, profileSettingsPhotoMenuItems } from "./types";
 
 export function ProfileSettingsPreview({
-  bannerSrc = resolveAsset("demo_pics_cat_cover").image ?? "",
+  bannerSrc = dummyImage(15),
   bannerAlt = "Profile banner",
-  avatarSrc = resolveAsset("demo_pics_profile2").image ?? "",
+  avatarSrc = dummyImage(16),
   avatarAlt = "Profile photo",
   openMenu: openMenuProp,
   defaultOpenMenu = null,

@@ -35,6 +35,8 @@ type GenerateToolbarProps = {
   galleryActionsDisabled?: boolean;
   /** Templates tab owns its own search + filters; hide the gallery search row. */
   showSearchRow?: boolean;
+  /** Templates, Images, and Videos are retired in favor of the studio nav. */
+  showSectionTabs?: boolean;
   /** False while video generation is closed: drops the tabs that only make videos. */
   videoEnabled?: boolean;
   /** False while the Templates tab is closed, even with video open. */
@@ -53,6 +55,7 @@ export function GenerateToolbar({
   onQuickActionsClick,
   galleryActionsDisabled = false,
   showSearchRow = true,
+  showSectionTabs = false,
   videoEnabled = true,
   templatesEnabled = true,
 }: GenerateToolbarProps) {
@@ -66,7 +69,7 @@ export function GenerateToolbar({
   return (
     <div data-slot="generate-toolbar" className="flex w-full shrink-0 flex-col gap-4">
       {/* A strip with a single tab is not a choice, so it is not drawn. */}
-      {tabs.length > 1 ? (
+      {showSectionTabs && tabs.length > 1 ? (
         <Tabs
           variant="link"
           unstyled

@@ -1,9 +1,9 @@
-import { resolveAsset } from "@/lib/assets/asset-store";
+import { dummyImage } from "@/lib/dummy-images";
 export const DEFAULT_AVATAR_GROUP_SOURCES = [
-  resolveAsset("demo_pics_profile2").image ?? "",
-  resolveAsset("demo_pics_model1").image ?? "",
-  resolveAsset("demo_pics_model2").image ?? "",
-  resolveAsset("demo_pics_model3").image ?? "",
+  dummyImage(18),
+  dummyImage(19),
+  dummyImage(20),
+  dummyImage(21),
 ] as const;
 
 export type AvatarGroupPersons = "two-person" | "three-person" | "four-person";

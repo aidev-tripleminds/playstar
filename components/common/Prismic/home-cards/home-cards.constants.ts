@@ -1,4 +1,4 @@
-import { resolveAsset } from "@/lib/assets/asset-store";
+import { dummyImage } from "@/lib/dummy-images";
 /** Figma Home Cards (node 11751-116464). */
 export const HOME_CARD_DESKTOP_WIDTH_PX = 277;
 export const HOME_CARD_DESKTOP_HEIGHT_PX = 410;
@@ -13,7 +13,7 @@ export const HOME_CARD_UNBLUR_CREATE_TINY_HEIGHT_PX = 255;
 export const HOME_CARD_MOBILE_WIDTH_PX = 175;
 export const HOME_CARD_MOBILE_HEIGHT_PX = 255;
 
-export const HOME_CARD_DEFAULT_IMAGE_SRC = resolveAsset("demo_pics_model1").image ?? "";
+export const HOME_CARD_DEFAULT_IMAGE_SRC = dummyImage(168);
 /** Figma home-cards Create fill (node 4152:31684). */
 export const HOME_CARD_UNBLUR_CREATE_IMAGE_SRC = "/assets/home-cards/unblur-create-bg.png";
 export const HOME_CARD_CROWN_ICON_SRC = "/assets/crown-filled.svg";

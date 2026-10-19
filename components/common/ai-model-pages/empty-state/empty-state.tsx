@@ -1,7 +1,7 @@
 import Image from "next/image";
 import * as React from "react";
 
-import { resolveAsset } from "@/lib/assets/asset-store";
+import { dummyImage } from "@/lib/dummy-images";
 import { cn } from "@/lib/utils";
 
 export type ModelEmptyStateCard = {
@@ -19,7 +19,7 @@ export type ModelEmptyStateCard = {
 export const modelEmptyStateDefaultCards: ModelEmptyStateCard[] = [
   {
     // image3: left: 0%, top: 0%, width: 69.86%, height: 82.12%
-    src: resolveAsset("demo_pics_model3").image ?? "",
+    src: dummyImage(8),
     alt: "",
     rotationDeg: -11.94,
     positionClassName: "left-0 top-0",
@@ -29,7 +29,7 @@ export const modelEmptyStateDefaultCards: ModelEmptyStateCard[] = [
   },
   {
     // image2: right: 0%, top: 9.03%, width: 69.11%, height: 81.66%
-    src: resolveAsset("demo_pics_model2").image ?? "",
+    src: dummyImage(9),
     alt: "",
     rotationDeg: 11.22,
     positionClassName: "right-0 top-[9.03%]",
@@ -39,7 +39,7 @@ export const modelEmptyStateDefaultCards: ModelEmptyStateCard[] = [
   },
   {
     // image1: left: 11.3%, top: 23.95%, width: 60.56%, height: 76.06%
-    src: resolveAsset("demo_pics_model1").image ?? "",
+    src: dummyImage(10),
     alt: "",
     rotationDeg: 3.9,
     positionClassName: "left-[11.3%] top-[23.95%]",

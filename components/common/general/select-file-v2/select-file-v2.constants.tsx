@@ -1,4 +1,4 @@
-import { resolveAsset } from "@/lib/assets/asset-store";
+import { dummyImage } from "@/lib/dummy-images";
 import { CoatHangerIcon, ProfileIcon, SofaIcon, VideoHorizontal } from "@/public/assets/icons";
 
 export const SELECT_FILE_V2_DEFAULT_TITLE = "Select Lorem Ipsum";
@@ -6,7 +6,7 @@ export const SELECT_FILE_V2_SEARCH_PLACEHOLDER = "Search...";
 export const SELECT_FILE_V2_EMPTY_LABEL = "No files found";
 export const SELECT_FILE_V2_NEW_LABEL = "New";
 export const SELECT_FILE_V2_CARD_NAME = "Lorem Ipsum";
-export const SELECT_FILE_V2_IMAGE_SRC = resolveAsset("demo_pics_model1").image ?? "";
+export const SELECT_FILE_V2_IMAGE_SRC = dummyImage(119);
 
 /** Desktop dialog: 32px inset on each side, capped at 1600px. Height stays 800px. */
 export const SELECT_FILE_V2_DIALOG_CLASS =

@@ -8,7 +8,7 @@ import {
   type OptionListItem,
 } from "@/components/common/general/option-list/option-list";
 import { useIsDesktop } from "@/hooks/use-is-desktop";
-import { resolveAsset } from "@/lib/assets/asset-store";
+import { dummyImage } from "@/lib/dummy-images";
 import { cn } from "@/lib/utils";
 import { PhoneGreenIcon, RefreshIcon } from "@/public/assets/icons";
 import { MicrophoneIcon } from "@/public/assets/icons/microphone";
@@ -81,7 +81,7 @@ function TopChatbarIdentity({
 export function TopChatbar({
   status = "default",
   name = "Cassy Anderson",
-  avatarSrc = resolveAsset("demo_pics_profile2").image ?? "",
+  avatarSrc = dummyImage(107),
   memberAvatars = [...DEFAULT_MEMBER_AVATARS],
   callMenuItems = DEFAULT_CALL_MENU_ITEMS,
   onBackClick,

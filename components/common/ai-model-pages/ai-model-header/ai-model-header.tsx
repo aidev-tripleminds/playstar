@@ -1,6 +1,6 @@
 "use client";
 
-import { resolveAsset } from "@/lib/assets/asset-store";
+import { dummyImage } from "@/lib/dummy-images";
 import { cn } from "@/lib/utils";
 
 import {
@@ -14,8 +14,8 @@ export type { AiModelHeaderProps, AiModelHeaderStatus } from "./variants";
 
 export function AiModelHeader({
   status = "default",
-  coverImageSrc = resolveAsset("demo_pics_cover_rec").image ?? "",
-  avatarSrc = resolveAsset("demo_pics_model4").image ?? "",
+  coverImageSrc = dummyImage(3),
+  avatarSrc = dummyImage(4),
   displayName = "Valentina",
   showVerified = true,
   followersCount = "30.3K",

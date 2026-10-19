@@ -1,15 +1,13 @@
 "use client";
 
-import "ldrs/react/Hourglass.css";
 import "./generation-loading-bar.css";
 
-import { Hourglass } from "ldrs/react";
 import Image from "next/image";
 import { type ReactNode } from "react";
 
 import { Badge } from "@/components/common/general/badge/badge";
 import { Buttons } from "@/components/common/general/button/buttons";
-import { GeneratingV2Dotfield } from "@/components/common/general/placeholder-processing/generating-v2-dotfield";
+import { AiLoading } from "@/components/common/general/ai-loading/ai-loading";
 
 import { CardShell } from "./shared";
 
@@ -17,8 +15,8 @@ import { CardShell } from "./shared";
  * Portrait-generation statuses for the summary card (FRONT-808).
  *
  * They share the funnel card shell with the older `loading` progress state.
- * Queued waits on a spinner. The active phases reuse the Generate dotted
- * animation; only the pill label changes. A fake bar along the bottom fills
+ * The active phases, including queued, use the loading animation;
+ * only the pill label changes. A fake bar along the bottom fills
  * over one minute (FRONT-895). The three failures share one layout.
  * Copy and whether Retry is offered are the only differences.
  */
@@ -67,8 +65,6 @@ const FAILURE_RETRIES: Record<FailureStatus, boolean> = {
 const GENERATION_STATUS_REFUNDED_NOTE = "Your tokens have been refunded.";
 const GENERATION_STATUS_START_OVER_LABEL = "Start over";
 const GENERATION_STATUS_RETRY_LABEL = "Retry";
-const GENERATION_STATUS_QUEUED_TITLE = "Queued…";
-const GENERATION_STATUS_QUEUED_SUBTITLE = "Starting soon.";
 
 /** Figma pill: 16/24, radius 80, padding 6×12. Fill matches the Generate pill. */
 const GENERATION_PILL_CLASS =
@@ -151,12 +147,11 @@ function renderGenerationStatus({
 }: GenerationStatusStateProps & { refunded: boolean; retryCost: ReactNode }) {
   switch (status) {
     case "queued":
-      return <QueuedBody />;
     case "extracting":
     case "first-moderation":
     case "generating":
     case "second-moderation":
-      return <AnimatedBody label={label ?? ANIMATED_LABEL[status]} />;
+      return <AnimatedBody label={label ?? (status === "queued" ? "Generating..." : ANIMATED_LABEL[status])} />;
     case "moderation-text":
     case "moderation-image":
     case "something-went-wrong":
@@ -177,31 +172,11 @@ function renderGenerationStatus({
   }
 }
 
-function QueuedBody() {
-  return (
-    <div
-      role="status"
-      aria-live="polite"
-      className="flex flex-1 flex-col items-center justify-center gap-3 p-4"
-    >
-      <Hourglass size="40" bgOpacity="0.1" speed="1.75" color="var(--tooltip-text)" />
-      <div className="flex flex-col gap-1">
-        <p className="text-tooltip-text text-center text-xs leading-4 font-medium">
-          {GENERATION_STATUS_QUEUED_TITLE}
-        </p>
-        <p className="text-modal-text text-center text-[12px]! leading-4 font-medium">
-          {GENERATION_STATUS_QUEUED_SUBTITLE}
-        </p>
-      </div>
-    </div>
-  );
-}
-
 function AnimatedBody({ label }: { label: string }) {
   return (
     <div role="status" aria-live="polite" className="relative min-h-0 flex-1">
-      <GeneratingV2Dotfield />
-      <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center p-6">
+      <AiLoading />
+      <div className="pointer-events-none absolute inset-0 z-10 flex items-end justify-center p-6">
         <p data-slot="summary-card-generation-label" className={GENERATION_PILL_CLASS}>
           {label}
         </p>

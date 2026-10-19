@@ -5,7 +5,7 @@ import * as React from "react";
 
 import { Buttons } from "@/components/common/general/button/buttons";
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { resolveAsset } from "@/lib/assets/asset-store";
+import { dummyImage } from "@/lib/dummy-images";
 import { cn } from "@/lib/utils";
 
 import { Countdown } from "../../general/countdown/countdown";
@@ -179,7 +179,7 @@ export function InfiniteUpsell({
   const resolvedDiscountLabel = discountLabel ?? defaults.discountLabel;
   const resolvedPrimaryLabel = primaryLabel ?? defaults.primaryLabel;
   const resolvedSecondaryLabel = secondaryLabel ?? defaults.secondaryLabel;
-  const photoSrc = resolveAsset("demo_pics_nangi").image ?? "";
+  const photoSrc = dummyImage(159);
 
   return (
     <Dialog

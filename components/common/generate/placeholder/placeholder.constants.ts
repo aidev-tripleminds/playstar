@@ -1,9 +1,9 @@
-import { resolveAsset } from "@/lib/assets/asset-store";
+import { dummyImage } from "@/lib/dummy-images";
 export const PLACEHOLDER_DEFAULT_TITLE = "Character";
 
 export const PLACEHOLDER_DEFAULT_SUBTITLE = "Optional";
 
-export const PLACEHOLDER_DEFAULT_IMAGE_SRC = resolveAsset("demo_pics_model9").image ?? "";
+export const PLACEHOLDER_DEFAULT_IMAGE_SRC = dummyImage(122);
 
 export const PLACEHOLDER_MOBILE_WIDTH = 69;
 

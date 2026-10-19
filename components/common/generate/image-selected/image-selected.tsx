@@ -5,7 +5,7 @@ import Image from "next/image";
 import * as React from "react";
 
 import { Button } from "@/components/ui/button";
-import { resolveAsset } from "@/lib/assets/asset-store";
+import { dummyImage } from "@/lib/dummy-images";
 import { cn } from "@/lib/utils";
 import { TickOnlyIcon } from "@/public/assets/icons/tick-only";
 
@@ -45,7 +45,7 @@ export type ImageSelectedProps = Omit<
 export function ImageSelected({
   selected,
   defaultSelected = true,
-  imageSrc = resolveAsset("demo_pics_model9").image ?? "",
+  imageSrc = dummyImage(121),
   imageAlt = "Selected image",
   showCheckbox = true,
   onSelectedChange,

@@ -7,7 +7,7 @@ import { SUMMARY_CARD_EDIT } from "@/components/common/create/summary-cards/summ
 import { SummaryCardEditForm } from "@/components/common/create/summary-cards/summary-card-edit-form";
 import { SummaryCardEditModal } from "@/components/common/create/summary-cards/summary-card-edit-modal";
 import { useIsDesktop } from "@/hooks/use-is-desktop";
-import { resolveAsset } from "@/lib/assets/asset-store";
+import { dummyImage } from "@/lib/dummy-images";
 import { cn } from "@/lib/utils";
 
 import { Close } from "../../general/close/close";
@@ -16,7 +16,7 @@ import { SIGNUP_CARD_STAR_SRC } from "./signup-star";
 export const profile = {
   name: "Nina Petrov",
   bio: "Fitness junkie searching for a partner in crime. and s#xual partner of the caverns.",
-  image: resolveAsset("demo_pics_dog").image ?? "",
+  image: dummyImage(111),
 };
 
 export function SignUpBackground() {

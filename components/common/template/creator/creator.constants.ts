@@ -1,4 +1,4 @@
-import { resolveAsset } from "@/lib/assets/asset-store";
+import { dummyImage } from "@/lib/dummy-images";
 /** Figma Creator bar (node 16974-72606). */
 export type CreatorSize = "desktop" | "mobile";
 
@@ -7,7 +7,7 @@ export const CREATOR_SIZES = ["desktop", "mobile"] as const satisfies readonly C
 export const CREATOR_DEFAULT_NAME = "Joan Doe";
 export const CREATOR_DEFAULT_INTERACTIONS = "7.4m interactions";
 export const CREATOR_DEFAULT_FOLLOWERS = "450 followers";
-export const CREATOR_DEFAULT_IMAGE_SRC = resolveAsset("demo_pics_kuta").image ?? "";
+export const CREATOR_DEFAULT_IMAGE_SRC = dummyImage(175);
 export const CREATOR_DEFAULT_FOLLOW_LABEL = "Follow";
 export const CREATOR_DEFAULT_FOLLOWING_LABEL = "Following";
 

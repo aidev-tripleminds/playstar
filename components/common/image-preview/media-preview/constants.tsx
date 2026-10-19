@@ -1,4 +1,4 @@
-import { resolveAsset } from "@/lib/assets/asset-store";
+import { dummyImage } from "@/lib/dummy-images";
 import {
   DownloadIcon,
   FaceFemaleIcon,
@@ -16,206 +16,198 @@ import type { MediaPreviewItem } from "./types";
 export const defaultMediaPreviewItems: MediaPreviewItem[] = [
   {
     id: "1",
-    src: resolveAsset("demo_pics_dummy").image ?? "",
-    // videoSrc: (resolveAsset("female_realistic_style_intro").video ?? ""),
+    src: dummyImage(133),
     alt: "Preview 1",
     description:
       "This preview captures soft studio lighting with warm amber backdrop, featuring relaxed three-quarter pose and polished editorial finish. The composition keeps the subject as the clear focal point while supporting details stay secondary. Texture, color temperature, and contrast are tuned for a polished yet natural look on mobile and desktop. Soft background gradients separate the figure without visual noise, and the crop leaves room for UI overlays. Choose this frame when you want a distinctive carousel slide that still matches the series mood, lighting language, and storytelling rhythm across neighboring media preview images.",
   },
   {
     id: "2",
-    src: resolveAsset("demo_pics_model1").image ?? "",
-    // videoSrc: (resolveAsset("female_anime_style_intro").video ?? ""),
+    src: dummyImage(134),
     alt: "Preview 2",
     description:
       "This preview captures close-up portrait with natural skin detail, featuring subtle side glance and gentle beauty lighting. The composition keeps the subject as the clear focal point while supporting details stay secondary. Texture, color temperature, and contrast are tuned for a polished yet natural look on mobile and desktop. Soft background gradients separate the figure without visual noise, and the crop leaves room for UI overlays. Choose this frame when you want a distinctive carousel slide that still matches the series mood, lighting language, and storytelling rhythm across neighboring media preview images.",
   },
   {
     id: "3",
-    src: resolveAsset("demo_pics_model2").image ?? "",
+    src: dummyImage(135),
     // videoSrc:
-    //   (resolveAsset("female_realistic_ethnicity_latina").video ?? ""),
     alt: "Preview 3",
     description:
       "This preview captures full-body fashion frame with muted concrete wall, featuring soft architectural shadows and elongated stance. The composition keeps the subject as the clear focal point while supporting details stay secondary. Texture, color temperature, and contrast are tuned for a polished yet natural look on mobile and desktop. Soft background gradients separate the figure without visual noise, and the crop leaves room for UI overlays. Choose this frame when you want a distinctive carousel slide that still matches the series mood, lighting language, and storytelling rhythm across neighboring media preview images.",
   },
   {
     id: "4",
-    src: resolveAsset("demo_pics_model4").image ?? "",
+    src: dummyImage(136),
     // videoSrc:
-    //   (resolveAsset("female_realistic_ethnicity_asian").video ?? ""),
     alt: "Preview 4",
     description:
       "This preview captures editorial headshot with cool daylight, featuring clean minimal background and quiet confident expression. The composition keeps the subject as the clear focal point while supporting details stay secondary. Texture, color temperature, and contrast are tuned for a polished yet natural look on mobile and desktop. Soft background gradients separate the figure without visual noise, and the crop leaves room for UI overlays. Choose this frame when you want a distinctive carousel slide that still matches the series mood, lighting language, and storytelling rhythm across neighboring media preview images.",
   },
   {
     id: "5",
-    src: resolveAsset("demo_pics_cover_image").image ?? "",
+    src: dummyImage(137),
     // videoSrc:
-    //   (resolveAsset("female_realistic_ethnicity_black").video ?? ""),
     alt: "Preview 5",
     description:
       "This preview captures wide cover composition with cinematic contrast, featuring layered depth of field and dramatic horizon line. The composition keeps the subject as the clear focal point while supporting details stay secondary. Texture, color temperature, and contrast are tuned for a polished yet natural look on mobile and desktop. Soft background gradients separate the figure without visual noise, and the crop leaves room for UI overlays. Choose this frame when you want a distinctive carousel slide that still matches the series mood, lighting language, and storytelling rhythm across neighboring media preview images.",
   },
   {
     id: "6",
-    src: resolveAsset("demo_pics_pexel5").image ?? "",
+    src: dummyImage(138),
     // videoSrc:
-    //   (resolveAsset("female_realistic_ethnicity_arab").video ?? ""),
     alt: "Preview 6",
     description:
       "This preview captures playful cover crop with vibrant color accents, featuring centered framing and bright cheerful mood. The composition keeps the subject as the clear focal point while supporting details stay secondary. Texture, color temperature, and contrast are tuned for a polished yet natural look on mobile and desktop. Soft background gradients separate the figure without visual noise, and the crop leaves room for UI overlays. Choose this frame when you want a distinctive carousel slide that still matches the series mood, lighting language, and storytelling rhythm across neighboring media preview images.",
   },
   {
     id: "7",
-    src: resolveAsset("demo_pics_model4").image ?? "",
+    src: dummyImage(139),
     // videoSrc:
-    //   (resolveAsset("female_realistic_ethnicity_indian").video ?? ""),
     alt: "Preview 7",
     description:
       "This preview captures mid-shot portrait with gentle rim light, featuring calm confident expression and balanced studio setup. The composition keeps the subject as the clear focal point while supporting details stay secondary. Texture, color temperature, and contrast are tuned for a polished yet natural look on mobile and desktop. Soft background gradients separate the figure without visual noise, and the crop leaves room for UI overlays. Choose this frame when you want a distinctive carousel slide that still matches the series mood, lighting language, and storytelling rhythm across neighboring media preview images.",
   },
   {
     id: "8",
-    src: resolveAsset("demo_pics_pexel5").image ?? "",
+    src: dummyImage(140),
     // videoSrc:
-    //   (resolveAsset("female_realistic_ethnicity_elf").video ?? ""),
     alt: "Preview 8",
     description:
       "This preview captures lifestyle still with natural outdoor light, featuring shallow depth of field and candid everyday energy. The composition keeps the subject as the clear focal point while supporting details stay secondary. Texture, color temperature, and contrast are tuned for a polished yet natural look on mobile and desktop. Soft background gradients separate the figure without visual noise, and the crop leaves room for UI overlays. Choose this frame when you want a distinctive carousel slide that still matches the series mood, lighting language, and storytelling rhythm across neighboring media preview images.",
   },
   {
     id: "9",
-    src: resolveAsset("demo_pics_profile2").image ?? "",
-    videoSrc: resolveAsset("female_realistic_style_intro").video ?? "",
+    src: dummyImage(141),
+    videoSrc: "",
     alt: "Preview 9",
     description:
       "This preview captures profile crop with even flattering light, featuring avatar-ready framing and soft neutral palette. The composition keeps the subject as the clear focal point while supporting details stay secondary. Texture, color temperature, and contrast are tuned for a polished yet natural look on mobile and desktop. Soft background gradients separate the figure without visual noise, and the crop leaves room for UI overlays. Choose this frame when you want a distinctive carousel slide that still matches the series mood, lighting language, and storytelling rhythm across neighboring media preview images.",
   },
   {
     id: "10",
-    src: resolveAsset("demo_pics_model7").image ?? "",
-    videoSrc: resolveAsset("female_realistic_style_intro").video ?? "",
+    src: dummyImage(142),
+    videoSrc: "",
     alt: "Preview 10",
     description:
       "This preview captures high-contrast fashion look with bold color blocking, featuring sharp subject focus and graphic wardrobe detail. The composition keeps the subject as the clear focal point while supporting details stay secondary. Texture, color temperature, and contrast are tuned for a polished yet natural look on mobile and desktop. Soft background gradients separate the figure without visual noise, and the crop leaves room for UI overlays. Choose this frame when you want a distinctive carousel slide that still matches the series mood, lighting language, and storytelling rhythm across neighboring media preview images.",
   },
   {
     id: "11",
-    src: resolveAsset("demo_pics_profile2").image ?? "",
-    videoSrc: resolveAsset("female_realistic_style_intro").video ?? "",
+    src: dummyImage(143),
+    videoSrc: "",
     alt: "Preview 11",
     description:
       "This preview captures alternate profile angle with softer highlights, featuring neutral palette and quiet intimate feel. The composition keeps the subject as the clear focal point while supporting details stay secondary. Texture, color temperature, and contrast are tuned for a polished yet natural look on mobile and desktop. Soft background gradients separate the figure without visual noise, and the crop leaves room for UI overlays. Choose this frame when you want a distinctive carousel slide that still matches the series mood, lighting language, and storytelling rhythm across neighboring media preview images.",
   },
   {
     id: "12",
-    src: resolveAsset("demo_pics_pexel2").image ?? "",
-    videoSrc: resolveAsset("female_realistic_style_intro").video ?? "",
+    src: dummyImage(144),
+    videoSrc: "",
     alt: "Preview 12",
     description:
       "This preview captures candid street-style frame with ambient city light, featuring subtle motion blur and urban documentary mood. The composition keeps the subject as the clear focal point while supporting details stay secondary. Texture, color temperature, and contrast are tuned for a polished yet natural look on mobile and desktop. Soft background gradients separate the figure without visual noise, and the crop leaves room for UI overlays. Choose this frame when you want a distinctive carousel slide that still matches the series mood, lighting language, and storytelling rhythm across neighboring media preview images.",
   },
   {
     id: "13",
-    src: resolveAsset("demo_pics_pexel5").image ?? "",
-    videoSrc: resolveAsset("female_realistic_style_intro").video ?? "",
+    src: dummyImage(145),
+    videoSrc: "",
     alt: "Preview 13",
     description:
       "This preview captures golden-hour crop with warm tones, featuring lightly blurred backdrop and sunlit romantic atmosphere. The composition keeps the subject as the clear focal point while supporting details stay secondary. Texture, color temperature, and contrast are tuned for a polished yet natural look on mobile and desktop. Soft background gradients separate the figure without visual noise, and the crop leaves room for UI overlays. Choose this frame when you want a distinctive carousel slide that still matches the series mood, lighting language, and storytelling rhythm across neighboring media preview images.",
   },
   {
     id: "14",
-    src: resolveAsset("demo_pics_model1").image ?? "",
-    videoSrc: resolveAsset("female_realistic_style_intro").video ?? "",
+    src: dummyImage(146),
+    videoSrc: "",
     alt: "Preview 14",
     description:
       "This preview captures beauty close-up with eye detail emphasis, featuring soft fill lighting and refined skin texture. The composition keeps the subject as the clear focal point while supporting details stay secondary. Texture, color temperature, and contrast are tuned for a polished yet natural look on mobile and desktop. Soft background gradients separate the figure without visual noise, and the crop leaves room for UI overlays. Choose this frame when you want a distinctive carousel slide that still matches the series mood, lighting language, and storytelling rhythm across neighboring media preview images.",
   },
   {
     id: "15",
-    src: resolveAsset("demo_pics_model2").image ?? "",
-    videoSrc: resolveAsset("female_realistic_style_intro").video ?? "",
+    src: dummyImage(147),
+    videoSrc: "",
     alt: "Preview 15",
     description:
       "This preview captures standing pose with elongated framing, featuring cool monochrome set and architectural negative space. The composition keeps the subject as the clear focal point while supporting details stay secondary. Texture, color temperature, and contrast are tuned for a polished yet natural look on mobile and desktop. Soft background gradients separate the figure without visual noise, and the crop leaves room for UI overlays. Choose this frame when you want a distinctive carousel slide that still matches the series mood, lighting language, and storytelling rhythm across neighboring media preview images.",
   },
   {
     id: "16",
-    src: resolveAsset("demo_pics_model3").image ?? "",
-    videoSrc: resolveAsset("female_realistic_style_intro").video ?? "",
+    src: dummyImage(148),
+    videoSrc: "",
     alt: "Preview 16",
     description:
       "This preview captures seated portrait with directional window light, featuring quiet atmosphere and contemplative mood. The composition keeps the subject as the clear focal point while supporting details stay secondary. Texture, color temperature, and contrast are tuned for a polished yet natural look on mobile and desktop. Soft background gradients separate the figure without visual noise, and the crop leaves room for UI overlays. Choose this frame when you want a distinctive carousel slide that still matches the series mood, lighting language, and storytelling rhythm across neighboring media preview images.",
   },
   {
     id: "17",
-    src: resolveAsset("demo_pics_model4").image ?? "",
-    videoSrc: resolveAsset("female_realistic_style_intro").video ?? "",
+    src: dummyImage(149),
+    videoSrc: "",
     alt: "Preview 17",
     description:
       "This preview captures classic three-point lighting with polished studio finish, featuring controlled highlights and timeless portrait look. The composition keeps the subject as the clear focal point while supporting details stay secondary. Texture, color temperature, and contrast are tuned for a polished yet natural look on mobile and desktop. Soft background gradients separate the figure without visual noise, and the crop leaves room for UI overlays. Choose this frame when you want a distinctive carousel slide that still matches the series mood, lighting language, and storytelling rhythm across neighboring media preview images.",
   },
   {
     id: "18",
-    src: resolveAsset("demo_pics_model7").image ?? "",
-    videoSrc: resolveAsset("female_realistic_style_intro").video ?? "",
+    src: dummyImage(150),
+    videoSrc: "",
     alt: "Preview 18",
     description:
       "This preview captures dynamic angle with saturated color grade, featuring crisp subject separation and energetic fashion energy. The composition keeps the subject as the clear focal point while supporting details stay secondary. Texture, color temperature, and contrast are tuned for a polished yet natural look on mobile and desktop. Soft background gradients separate the figure without visual noise, and the crop leaves room for UI overlays. Choose this frame when you want a distinctive carousel slide that still matches the series mood, lighting language, and storytelling rhythm across neighboring media preview images.",
   },
   {
     id: "19",
-    src: resolveAsset("demo_pics_profile2").image ?? "",
-    videoSrc: resolveAsset("female_realistic_style_intro").video ?? "",
+    src: dummyImage(151),
+    videoSrc: "",
     alt: "Preview 19",
     description:
       "This preview captures square profile crop with balanced exposure, featuring social thumbnail framing and clean edge detail. The composition keeps the subject as the clear focal point while supporting details stay secondary. Texture, color temperature, and contrast are tuned for a polished yet natural look on mobile and desktop. Soft background gradients separate the figure without visual noise, and the crop leaves room for UI overlays. Choose this frame when you want a distinctive carousel slide that still matches the series mood, lighting language, and storytelling rhythm across neighboring media preview images.",
   },
   {
     id: "20",
-    src: resolveAsset("demo_pics_pexel2").image ?? "",
-    videoSrc: resolveAsset("female_realistic_style_intro").video ?? "",
+    src: dummyImage(152),
+    videoSrc: "",
     alt: "Preview 20",
     description:
       "This preview captures documentary-style shot with natural grain, featuring available light only and honest unposed feeling. The composition keeps the subject as the clear focal point while supporting details stay secondary. Texture, color temperature, and contrast are tuned for a polished yet natural look on mobile and desktop. Soft background gradients separate the figure without visual noise, and the crop leaves room for UI overlays. Choose this frame when you want a distinctive carousel slide that still matches the series mood, lighting language, and storytelling rhythm across neighboring media preview images.",
   },
   {
     id: "21",
-    src: resolveAsset("demo_pics_pexel5").image ?? "",
-    videoSrc: resolveAsset("female_realistic_style_intro").video ?? "",
+    src: dummyImage(153),
+    videoSrc: "",
     alt: "Preview 21",
     description:
       "This preview captures sunlit outdoor frame with soft haze, featuring gentle color wash and breezy afternoon light. The composition keeps the subject as the clear focal point while supporting details stay secondary. Texture, color temperature, and contrast are tuned for a polished yet natural look on mobile and desktop. Soft background gradients separate the figure without visual noise, and the crop leaves room for UI overlays. Choose this frame when you want a distinctive carousel slide that still matches the series mood, lighting language, and storytelling rhythm across neighboring media preview images.",
   },
   {
     id: "22",
-    src: resolveAsset("demo_pics_model4").image ?? "",
-    videoSrc: resolveAsset("female_realistic_style_intro").video ?? "",
+    src: dummyImage(154),
+    videoSrc: "",
     alt: "Preview 22",
     description:
       "This preview captures refined studio portrait with mirror-soft reflections, featuring cool tones and elegant composure. The composition keeps the subject as the clear focal point while supporting details stay secondary. Texture, color temperature, and contrast are tuned for a polished yet natural look on mobile and desktop. Soft background gradients separate the figure without visual noise, and the crop leaves room for UI overlays. Choose this frame when you want a distinctive carousel slide that still matches the series mood, lighting language, and storytelling rhythm across neighboring media preview images.",
   },
   {
     id: "23",
-    src: resolveAsset("demo_pics_model7").image ?? "",
-    videoSrc: resolveAsset("female_realistic_style_intro").video ?? "",
+    src: dummyImage(155),
+    videoSrc: "",
     alt: "Preview 23",
     description:
       "This preview captures fashion mid-shot with graphic wardrobe, featuring high-key background and bold silhouette. The composition keeps the subject as the clear focal point while supporting details stay secondary. Texture, color temperature, and contrast are tuned for a polished yet natural look on mobile and desktop. Soft background gradients separate the figure without visual noise, and the crop leaves room for UI overlays. Choose this frame when you want a distinctive carousel slide that still matches the series mood, lighting language, and storytelling rhythm across neighboring media preview images.",
   },
   {
     id: "24",
-    src: resolveAsset("demo_pics_profile2").image ?? "",
-    videoSrc: resolveAsset("female_realistic_style_intro").video ?? "",
+    src: dummyImage(156),
+    videoSrc: "",
     alt: "Preview 24",
     description:
       "This preview captures compact avatar still with centered framing, featuring clean edges and simple usable crop. The composition keeps the subject as the clear focal point while supporting details stay secondary. Texture, color temperature, and contrast are tuned for a polished yet natural look on mobile and desktop. Soft background gradients separate the figure without visual noise, and the crop leaves room for UI overlays. Choose this frame when you want a distinctive carousel slide that still matches the series mood, lighting language, and storytelling rhythm across neighboring media preview images.",
   },
   {
     id: "25",
-    src: resolveAsset("demo_pics_pexel2").image ?? "",
-    videoSrc: resolveAsset("female_realistic_style_intro").video ?? "",
+    src: dummyImage(157),
+    videoSrc: "",
     alt: "Preview 25",
     description:
       "This preview captures urban lifestyle capture with deep shadows, featuring neon accents and night city atmosphere. The composition keeps the subject as the clear focal point while supporting details stay secondary. Texture, color temperature, and contrast are tuned for a polished yet natural look on mobile and desktop. Soft background gradients separate the figure without visual noise, and the crop leaves room for UI overlays. Choose this frame when you want a distinctive carousel slide that still matches the series mood, lighting language, and storytelling rhythm across neighboring media preview images.",

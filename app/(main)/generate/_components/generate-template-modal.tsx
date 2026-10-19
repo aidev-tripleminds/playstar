@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { Coins, Heart, Layers, Settings } from "lucide-react";
 import * as React from "react";
 
 import {
@@ -23,7 +23,6 @@ import { DialogDescription } from "@/components/ui/dialog";
 import { useIsDesktop } from "@/hooks/use-is-desktop";
 import { SKIP_QUEUE_FEATURE_ENABLED } from "@/lib/feature-flags";
 import { cn } from "@/lib/utils";
-import { HeartIcon, RecoveryIcon } from "@/public/assets/icons";
 
 import {
   GENERATE_TEMPLATE_ADVANCED_SETTINGS_DEFAULTS,
@@ -37,11 +36,9 @@ import {
   GENERATE_TEMPLATE_MODAL_LIKE_LABEL,
   GENERATE_TEMPLATE_MODAL_MODE_TABS,
   GENERATE_TEMPLATE_MODAL_PLACEHOLDER_COUNT,
-  GENERATE_TEMPLATE_MODAL_SETTINGS_ICON_SRC,
   GENERATE_TEMPLATE_MODAL_SETTINGS_LABEL,
   GENERATE_TEMPLATE_MODAL_TAGS,
   GENERATE_TEMPLATE_MODAL_TOKEN_COST,
-  GENERATE_TEMPLATE_MODAL_TOKEN_ICON_SRC,
   GENERATE_TEMPLATE_MODAL_UNLIKE_LABEL,
   GENERATE_TEMPLATE_STAGE_PROCESSING_MS,
   GENERATE_TEMPLATE_STAGE_PROGRESS_TICK_MS,
@@ -325,7 +322,7 @@ export function GenerateTemplateModal({
         open={open}
         onOpenChange={handleOpenChange}
         title={title}
-        titleIcon={<RecoveryIcon className="text-tooltip-text size-5" />}
+        titleIcon={<Layers className="text-tooltip-text size-5" />}
         showIcon
         showMobileHandle
         freezeBackdrop
@@ -333,7 +330,7 @@ export function GenerateTemplateModal({
         closeLabel={GENERATE_TEMPLATE_MODAL_CLOSE_LABEL}
         className={cn(GENERATE_TEMPLATE_MODAL_CLASS, className)}
       >
-        <div data-slot="generate-template-modal" className="flex flex-col gap-4">
+        <div data-slot="generate-template-modal" className="flex min-w-0 flex-col gap-4">
           <DialogDescription className="sr-only">
             Choose a start image and generate a video from {title}.
           </DialogDescription>
@@ -364,11 +361,8 @@ export function GenerateTemplateModal({
               onClick={() => setLiked((current) => !current)}
               className="flex size-6 shrink-0 cursor-pointer items-center justify-center"
             >
-              <HeartIcon
-                className="size-6"
-                filled={liked}
-                fillColor="var(--brand-primary)"
-                strokeColor={liked ? "var(--brand-primary)" : "var(--tooltip-text)"}
+              <Heart
+                className={cn("size-6", liked ? "fill-brand-primary text-brand-primary" : "text-tooltip-text")}
               />
             </button>
           </div>
@@ -404,16 +398,9 @@ export function GenerateTemplateModal({
               type="button"
               aria-label={GENERATE_TEMPLATE_MODAL_SETTINGS_LABEL}
               onClick={handleSettingsClick}
-              className="border-surface-strong bg-tooltip-default-bg flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-[32px] border"
+              className="border-surface-strong bg-tooltip-default-bg hidden size-11 shrink-0 items-center justify-center rounded-[32px] border"
             >
-              <Image
-                src={GENERATE_TEMPLATE_MODAL_SETTINGS_ICON_SRC}
-                alt=""
-                aria-hidden
-                width={20}
-                height={20}
-                className="size-5"
-              />
+              <Settings className="text-tooltip-text size-5" aria-hidden />
             </button>
 
             {isGenerationBusy ? (
@@ -433,9 +420,8 @@ export function GenerateTemplateModal({
                 variant="rose"
                 size="btn-m"
                 leftIcon={false}
-                rightIcon
-                rightIconSrc={GENERATE_TEMPLATE_MODAL_TOKEN_ICON_SRC}
-                rightIconSizeClassName="h-3.5! w-3.5!"
+                rightIcon={false}
+                rightIconNode={<Coins className="size-3.5" />}
                 label={GENERATE_TEMPLATE_MODAL_GENERATE_LABEL}
                 disabled={!canGenerate}
                 onClick={handleGenerate}

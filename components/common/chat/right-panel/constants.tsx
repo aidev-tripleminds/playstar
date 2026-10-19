@@ -1,4 +1,4 @@
-import { resolveAsset } from "@/lib/assets/asset-store";
+import { dummyImage } from "@/lib/dummy-images";
 import { ClockIcon, MemoryIcon, PersonaIcon } from "@/public/assets/icons";
 import { EditIcon } from "@/public/assets/icons/edit-icon";
 import { GroupIcon } from "@/public/assets/icons/group";
@@ -13,14 +13,14 @@ export const DEFAULT_RIGHT_PANEL_CHARACTER_AGE = 22;
 export const DEFAULT_RIGHT_PANEL_CHARACTER_BIO =
   "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor...";
 
-export const DEFAULT_RIGHT_PANEL_CHARACTER_IMAGE = resolveAsset("demo_pics_model4").image ?? "";
+export const DEFAULT_RIGHT_PANEL_CHARACTER_IMAGE = dummyImage(93);
 
 export const DEFAULT_RIGHT_PANEL_CHARACTER_IMAGES = [
-  resolveAsset("demo_pics_model4").image ?? "",
-  resolveAsset("demo_pics_model1").image ?? "",
-  resolveAsset("demo_pics_model2").image ?? "",
-  resolveAsset("demo_pics_model3").image ?? "",
-  resolveAsset("demo_pics_profile2").image ?? "",
+  dummyImage(94),
+  dummyImage(95),
+  dummyImage(96),
+  dummyImage(97),
+  dummyImage(98),
 ] as const;
 
 export const DEFAULT_RIGHT_PANEL_GROUP_TITLE = "Ana John, Marina Dona, Anita B...";
@@ -28,9 +28,9 @@ export const DEFAULT_RIGHT_PANEL_GROUP_TITLE = "Ana John, Marina Dona, Anita B..
 export const DEFAULT_RIGHT_PANEL_MEMBER_COUNT_LABEL = "3 members";
 
 export const DEFAULT_RIGHT_PANEL_MEMBER_AVATARS = [
-  resolveAsset("demo_pics_profile2").image ?? "",
-  resolveAsset("demo_pics_model1").image ?? "",
-  resolveAsset("demo_pics_model2").image ?? "",
+  dummyImage(99),
+  dummyImage(100),
+  dummyImage(101),
 ] as const;
 
 export const DEFAULT_RIGHT_PANEL_GALLERY_LABEL = "Gallery";

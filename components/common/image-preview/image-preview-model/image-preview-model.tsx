@@ -4,7 +4,7 @@ import type { StaticImageData } from "next/image";
 import Image from "next/image";
 import * as React from "react";
 
-import { resolveAsset } from "@/lib/assets/asset-store";
+import { dummyImage } from "@/lib/dummy-images";
 import { cn } from "@/lib/utils";
 
 import { MediaPreviewEmptyIcon } from "../components/helpers";
@@ -26,7 +26,7 @@ const EMPTY_SLOT_CLASS =
 
 export function ImagePreviewModel({
   status,
-  imageSrc = resolveAsset("demo_pics_model4").image ?? "",
+  imageSrc = dummyImage(132),
   imageAlt = "",
   title = "Eva Marina Petranova",
   emptyLabel = "Create AI Character",

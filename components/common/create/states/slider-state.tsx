@@ -12,17 +12,17 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { useIsDesktop } from "@/hooks/use-is-desktop";
-import { resolveAsset } from "@/lib/assets/asset-store";
+import { dummyImage } from "@/lib/dummy-images";
 import { cn } from "@/lib/utils";
 
 import { CardShell, ProfileContent, useProfile } from "./shared";
 
 const sliderImages = [
-  resolveAsset("demo_pics_dog").image ?? "",
-  resolveAsset("demo_pics_pexel2").image ?? "",
-  resolveAsset("demo_pics_dog2").image ?? "",
-  resolveAsset("demo_pics_pexel5").image ?? "",
-  resolveAsset("demo_pics_dog1").image ?? "",
+  dummyImage(112),
+  dummyImage(113),
+  dummyImage(114),
+  dummyImage(115),
+  dummyImage(116),
 ];
 
 function SliderStateContent() {

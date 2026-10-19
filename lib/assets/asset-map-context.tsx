@@ -5,19 +5,16 @@
  *
  * `AssetMapProvider` fetches active tags, then the map for those tags, and
  * exposes the merged (bundle ⊕ fetched-main ⊕ active-tags) map through context.
- * `useAsset(key)` resolves `{ image?, video?, description? }` for a logical key
- * with the bundled `main` as the last-known-good floor. Both the render layer
- * (`useAsset`) and module-level call sites (`resolveAsset`, via the store) see
- * the same merged result.
+ * `useAsset(key)` resolves `{ image?, video?, description? }` for a logical key,
+ * with the bundled `main` as the last-known-good floor.
  */
 
 import { useQuery } from "@tanstack/react-query";
-import { createContext, type ReactNode, useContext, useEffect, useMemo } from "react";
+import { createContext, type ReactNode, useContext, useMemo } from "react";
 
 import { fetchActiveTags, fetchAssetMap } from "@/lib/api/assets";
 
 import type { ResolvedAsset } from "./asset-map.types";
-import { setResolvedAssetMap } from "./asset-store";
 import { FALLBACK_ASSET_MAP, type FallbackAssetMap } from "./fallback-map";
 import { mergeAssetMap } from "./merge-asset-map";
 
@@ -51,11 +48,6 @@ export function AssetMapProvider({ children }: { children: ReactNode }) {
     () => mergeAssetMap(FALLBACK_ASSET_MAP, mapQuery.data, activeTags ?? []),
     [mapQuery.data, activeTags],
   );
-
-  // Keep the non-hook store in sync for module-level callers (constants file).
-  useEffect(() => {
-    setResolvedAssetMap(merged);
-  }, [merged]);
 
   return <AssetMapContext.Provider value={merged}>{children}</AssetMapContext.Provider>;
 }

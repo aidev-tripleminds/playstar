@@ -1,4 +1,4 @@
-import { resolveAsset } from "@/lib/assets/asset-store";
+import { dummyImage } from "@/lib/dummy-images";
 
 import type { PromptChatbarPose } from "./types";
 
@@ -21,47 +21,47 @@ export const MAKE_IMAGE_PROMPT_PREFILL = "Show me ";
 export const VIDEO_SCENE_REQUIRED_PLACEHOLDER = "Please select a video scene from above.";
 
 export const DEFAULT_GROUP_MEMBER_AVATARS = [
-  resolveAsset("demo_pics_profile2").image ?? "",
-  resolveAsset("demo_pics_model1").image ?? "",
-  resolveAsset("demo_pics_model2").image ?? "",
+  dummyImage(76),
+  dummyImage(77),
+  dummyImage(78),
 ] as const;
 
 export const DEFAULT_POSES: PromptChatbarPose[] = [
   {
     id: "pose-1",
     label: "Selfie",
-    imageSrc: resolveAsset("demo_pics_profile2").image ?? "",
+    imageSrc: dummyImage(79),
     imagePrompt: "Show me you taking a selfie",
     videoPrompt: "Show me a video of you taking a selfie",
   },
   {
     id: "pose-2",
     label: "Selfie",
-    imageSrc: resolveAsset("demo_pics_profile2").image ?? "",
+    imageSrc: dummyImage(80),
     imagePrompt: "Show me kneeling for a selfie",
     videoPrompt: "Show me a video of you waving",
   },
   {
     id: "pose-3",
     label: "Selfie",
-    imageSrc: resolveAsset("demo_pics_profile2").image ?? "",
+    imageSrc: dummyImage(81),
     imagePrompt: "Show me standing for a selfie",
     videoPrompt: "Show me a video of you blowing a kiss",
   },
   {
     id: "pose-4",
     label: "Selfie",
-    imageSrc: resolveAsset("demo_pics_profile2").image ?? "",
+    imageSrc: dummyImage(82),
     imagePrompt: "Show me sitting for a selfie",
   },
-  { id: "pose-5", label: "Selfie", imageSrc: resolveAsset("demo_pics_profile2").image ?? "" },
-  { id: "pose-6", label: "Selfie", imageSrc: resolveAsset("demo_pics_profile2").image ?? "" },
-  { id: "pose-7", label: "Selfie", imageSrc: resolveAsset("demo_pics_profile2").image ?? "" },
-  { id: "pose-8", label: "Selfie", imageSrc: resolveAsset("demo_pics_profile2").image ?? "" },
-  { id: "pose-9", label: "Selfie", imageSrc: resolveAsset("demo_pics_profile2").image ?? "" },
-  { id: "pose-10", label: "Selfie", imageSrc: resolveAsset("demo_pics_profile2").image ?? "" },
-  { id: "pose-11", label: "Selfie", imageSrc: resolveAsset("demo_pics_profile2").image ?? "" },
-  { id: "pose-12", label: "Selfie", imageSrc: resolveAsset("demo_pics_profile2").image ?? "" },
-  { id: "pose-13", label: "Selfie", imageSrc: resolveAsset("demo_pics_profile2").image ?? "" },
-  { id: "pose-14", label: "Selfie", imageSrc: resolveAsset("demo_pics_profile2").image ?? "" },
+  { id: "pose-5", label: "Selfie", imageSrc: dummyImage(83) },
+  { id: "pose-6", label: "Selfie", imageSrc: dummyImage(84) },
+  { id: "pose-7", label: "Selfie", imageSrc: dummyImage(85) },
+  { id: "pose-8", label: "Selfie", imageSrc: dummyImage(86) },
+  { id: "pose-9", label: "Selfie", imageSrc: dummyImage(87) },
+  { id: "pose-10", label: "Selfie", imageSrc: dummyImage(88) },
+  { id: "pose-11", label: "Selfie", imageSrc: dummyImage(89) },
+  { id: "pose-12", label: "Selfie", imageSrc: dummyImage(90) },
+  { id: "pose-13", label: "Selfie", imageSrc: dummyImage(91) },
+  { id: "pose-14", label: "Selfie", imageSrc: dummyImage(92) },
 ];

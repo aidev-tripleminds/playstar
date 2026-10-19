@@ -25,12 +25,20 @@ import {
   GENERATE_TEMPLATES_SORT_TABS_CLASS,
   GENERATE_TEMPLATES_TOOLBAR_CLASS,
   type GenerateTemplateItem,
+  type GenerateTemplateLane,
 } from "../_lib/generate-templates";
 import { GenerateTemplateModal } from "./generate-template-modal";
 
 export type GenerateTemplatesCatalogProps = {
   items?: readonly GenerateTemplateItem[];
   className?: string;
+  /** Limits the grid to one studio lane. Search and niche filters still apply. */
+  lane?: GenerateTemplateLane;
+  /**
+   * Let the grid grow with the page instead of owning a nested scroller.
+   * Used when the cover banner sits above the catalog.
+   */
+  growWithContent?: boolean;
   onGenerate?: (item: GenerateTemplateItem) => void;
   onGoToGallery?: () => void;
 };
@@ -38,6 +46,8 @@ export type GenerateTemplatesCatalogProps = {
 export function GenerateTemplatesCatalog({
   items = GENERATE_TEMPLATE_ITEMS,
   className,
+  lane,
+  growWithContent = false,
   onGenerate,
   onGoToGallery,
 }: GenerateTemplatesCatalogProps) {
@@ -57,10 +67,10 @@ export function GenerateTemplatesCatalog({
     setTemplateModalOpen(open);
   };
 
-  const visibleItems = React.useMemo(
-    () => filterGenerateTemplates(items, { query: searchValue, niche }),
-    [items, niche, searchValue],
-  );
+  const visibleItems = React.useMemo(() => {
+    const laneItems = lane ? items.filter((item) => item.lane === lane) : items;
+    return filterGenerateTemplates(laneItems, { query: searchValue, niche });
+  }, [items, lane, niche, searchValue]);
 
   const isSearchExpanded = searchExpanded || searchValue.length > 0;
 
@@ -75,7 +85,8 @@ export function GenerateTemplatesCatalog({
     <div
       data-slot="generate-templates"
       className={cn(
-        "flex min-w-0 flex-col gap-4 min-[768px]:min-h-0 min-[768px]:flex-1",
+        "flex min-w-0 flex-col gap-4",
+        growWithContent ? "h-auto" : "min-[768px]:min-h-0 min-[768px]:flex-1",
         className,
       )}
     >
@@ -119,8 +130,20 @@ export function GenerateTemplatesCatalog({
         />
       </div>
 
-      <div className="relative flex min-w-0 flex-col min-[768px]:min-h-0 min-[768px]:flex-1">
-        <div data-slot="generate-templates-scroll" className={GENERATE_TEMPLATES_SCROLL_CLASS}>
+      <div
+        className={cn(
+          "relative flex min-w-0 flex-col",
+          !growWithContent && "min-[768px]:min-h-0 min-[768px]:flex-1",
+        )}
+      >
+        <div
+          data-slot="generate-templates-scroll"
+          className={cn(
+            GENERATE_TEMPLATES_SCROLL_CLASS,
+            growWithContent &&
+              "min-[768px]:h-auto min-[768px]:flex-none min-[768px]:overflow-visible",
+          )}
+        >
           {visibleItems.length === 0 ? (
             <div
               data-slot="generate-templates-empty"
@@ -155,7 +178,7 @@ export function GenerateTemplatesCatalog({
                   insetImageSrc={item.insetImageSrc}
                   badgeLabel={item.badgeLabel}
                   showActionButton
-                  className={HOMEPAGE_MODEL_GRID_CLASS}
+                  className={cn(HOMEPAGE_MODEL_GRID_CLASS, "h-full")}
                   onClick={() => openTemplateModal(item)}
                   onActionClick={() => openTemplateModal(item)}
                 />

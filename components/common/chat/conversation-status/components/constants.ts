@@ -1,6 +1,6 @@
 import { dotOptionMenuItems } from "@/components/common/ai-model-pages/dot-option/dot-option";
 import { DEFAULT_AVATAR_GROUP_SOURCES } from "@/components/common/chat/avatar-group/constants";
-import { resolveAsset } from "@/lib/assets/asset-store";
+import { dummyImage } from "@/lib/dummy-images";
 
 export type ConversationStatusState =
   | "default"
@@ -26,7 +26,7 @@ export const DEFAULT_CONVERSATION_NAME = "Joan Doe";
 export const DEFAULT_CONVERSATION_PREVIEW =
   "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
 
-export const DEFAULT_CONVERSATION_AVATAR = resolveAsset("demo_pics_model1").image ?? "";
+export const DEFAULT_CONVERSATION_AVATAR = dummyImage(51);
 
 export const DEFAULT_CONVERSATION_MEMBER_AVATARS = [...DEFAULT_AVATAR_GROUP_SOURCES];
 

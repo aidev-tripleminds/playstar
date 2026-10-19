@@ -51,25 +51,22 @@ const resolvedImageSrc = useAssetImage(assetKey ?? "", imageSrc /* baked default
 
 See `CharacterHighlight`, `AiModel`, `HomeCard` for the full pattern (an optional `assetKey` prop layered on top of an existing `imageSrc` prop).
 
-## `resolveAsset` — module scope / non-React contexts only
+## Dummy images
 
-`resolveAsset(key)` (`lib/assets/asset-store.ts`) is a non-hook resolver for the rare case where a key must be resolved at **module-eval time** (e.g. building a plain constant in a `*.constants.ts` file, before any component has mounted). It cannot be reactive: whatever it returns is frozen into the constant forever, and it only ever sees the bundled `fallback-map.json` for anything evaluated before the live map hydrates.
-
-**Prefer `useAsset`/`useAssetImage` everywhere you can.** Only reach for `resolveAsset` when you have no choice but to compute a value outside a component (and even then, consider exporting the key string instead and resolving it with `useAsset` at the point of use).
+Module-level placeholders use `dummyImage()` from `lib/dummy-images.ts`, which cycles the pictures in `public/assets/playright`. Live keys still go through `useAsset` / `useAssetImage` inside client components.
 
 ## Does this cover all usages?
 
 Not fully — by design, `useAsset`/`useAssetImage` only work in client components:
 
-- **Server components** can't call hooks at all. There's currently no live-resolving option there; a server component needs to either become a client component, receive an already-resolved string from a client parent, or fall back to `resolveAsset`/the bundled map (build-time only, won't pick up live edits).
-- **Module-level constants** (`*.constants.ts` evaluated at import time) still need `resolveAsset`, which is frozen to the bundled floor unless the value is re-resolved later via `useAsset`/`useAssetImage` in the consuming component (the retrofit pattern above).
-- Most of the codebase (~250 call sites as of this writing) still uses the frozen `resolveAsset()`-at-import-time pattern and has **not** been converted — only `CharacterHighlight`, `AiModel`, `HomeCard`, the homepage explore grid, and the homepage category highlights currently re-resolve live. For any other existing component, a new/renamed backend-only key still requires a rebuild (which re-takes the `fallback-map.json` snapshot), until that component is retrofitted with the pattern above.
+- **Server components** can't call hooks at all. A server component needs to become a client component, or receive an already-resolved string from a client parent.
+- **Module-level constants** (`*.constants.ts` evaluated at import time) use `dummyImage()` for placeholder art.
 
-If you're adding a **new** component from scratch, none of that applies — just use `useAsset`/`useAssetImage` and you're covered.
+If you're adding a **new** component from scratch, use `useAsset`/`useAssetImage` for live assets.
 
 ## The bundled snapshot (`fallback-map.json`)
 
-`fallback-map.json` is what every viewer sees before the live map arrives, and all that the frozen `resolveAsset()` call sites ever see. It is a snapshot of the live `main` map, taken as an anonymous viewer by `scripts/snapshot-asset-map.mjs`, which runs as `prebuild`:
+`fallback-map.json` is what every viewer sees before the live map arrives. It is a snapshot of the live `main` map, taken as an anonymous viewer by `scripts/snapshot-asset-map.mjs`, which runs as `prebuild`:
 
 - **On Vercel** each build takes it from the backend in `NEXT_PUBLIC_API_BASE_URL`, with the Brand from `APP_PUBLIC_HOST`. Each environment therefore bundles its own bucket URLs and card renditions (`video_web`, `poster`, `image_web`), whose `derived/<etag>/` paths differ per backend. A Production build fails if the snapshot can't be taken or a video lacks its card renditions; other builds warn and keep the committed file.
 - **Locally** a build keeps the committed file. Refresh it from the test backend with `NEXT_PUBLIC_API_BASE_URL=https://test.api.omnipink.ai APP_PUBLIC_HOST=test.spicestars.ai npm run assets:snapshot` and commit the result.

@@ -1,4 +1,4 @@
-import { resolveAsset } from "@/lib/assets/asset-store";
+import { dummyImage } from "@/lib/dummy-images";
 /** Figma Template Manager (node 11979-88085). */
 export type TemplateManagerVariant =
   | "select-video"
@@ -26,7 +26,7 @@ export const TEMPLATE_MANAGER_SIZES = [
   "mobile",
 ] as const satisfies readonly TemplateManagerSize[];
 
-export const TEMPLATE_MANAGER_DEFAULT_IMAGE_SRC = resolveAsset("demo_pics_model1").image ?? "";
+export const TEMPLATE_MANAGER_DEFAULT_IMAGE_SRC = dummyImage(176);
 
 export const TEMPLATE_MANAGER_VIDEO_ICON_SRC = "/assets/video-square.svg";
 export const TEMPLATE_MANAGER_DELETE_ICON_SRC = "/assets/trash.svg";
@@ -42,19 +42,14 @@ export const TEMPLATE_MANAGER_COPY = {
   },
 } as const;
 
-export const TEMPLATE_MANAGER_QUEUED_TITLE = "Queued…";
-export const TEMPLATE_MANAGER_QUEUED_SUBTITLE = "You can close this popup safely.";
 export const TEMPLATE_MANAGER_PROCESSING_LABEL = "Processing…";
 export const TEMPLATE_MANAGER_GENERATING_LABEL = "Generating...";
 export const TEMPLATE_MANAGER_CHANGE_LABEL = "Change content";
-export const TEMPLATE_MANAGER_CANCEL_LABEL = "Cancel";
-export const TEMPLATE_MANAGER_SKIP_QUEUE_LABEL = "Skip queue";
-export const TEMPLATE_MANAGER_SKIP_QUEUE_TOKEN_COST = "1";
 export const TEMPLATE_MANAGER_DELETE_LABEL = "Delete content";
 
 export const TEMPLATE_MANAGER_DUO_STACK_CLASS = {
-  desktop: "h-[344px]",
-  mobile: "h-[282px]",
+  desktop: "h-[344px] w-[214px] shrink-0",
+  mobile: "h-auto min-h-0 w-auto min-w-0 flex-1",
 } as const;
 
 export type TemplateManagerPairSlots = {
@@ -123,14 +118,14 @@ export function resolveTemplateManagerFrameClass(
 ): string {
   if (frame === "duo-source") {
     return size === "mobile"
-      ? "h-auto min-h-0 w-[151px] flex-1 rounded-[16px]"
-      : "h-auto min-h-0 w-[214px] flex-1 rounded-[16px]";
+      ? "h-auto min-h-[132px] w-full min-w-0 flex-none rounded-[16px]"
+      : "h-auto min-h-0 w-full flex-1 rounded-[16px]";
   }
 
   if (frame === "duo-preview") {
     return size === "mobile"
-      ? "h-[281px] w-[151px] rounded-[16px]"
-      : "h-[344px] w-[214px] rounded-[24px]";
+      ? "min-h-0 w-full min-w-0 flex-1 self-stretch rounded-[16px]"
+      : "h-[344px] w-[214px] shrink-0 rounded-[24px]";
   }
 
   return size === "mobile"

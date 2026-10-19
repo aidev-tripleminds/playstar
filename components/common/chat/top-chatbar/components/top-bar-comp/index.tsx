@@ -1,13 +1,13 @@
 import Image from "next/image";
 import * as React from "react";
 
-import { resolveAsset } from "@/lib/assets/asset-store";
+import { dummyImage } from "@/lib/dummy-images";
 import { cn } from "@/lib/utils";
 
 export const DEFAULT_MEMBER_AVATARS = [
-  resolveAsset("demo_pics_profile2").image ?? "",
-  resolveAsset("demo_pics_model1").image ?? "",
-  resolveAsset("demo_pics_model2").image ?? "",
+  dummyImage(104),
+  dummyImage(105),
+  dummyImage(106),
 ] as const;
 
 export function ChatbarIconButton({

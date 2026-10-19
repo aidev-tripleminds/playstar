@@ -15,6 +15,9 @@ import { buildPremiumHref } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 
 import { GenerateTemplatesCatalog } from "../../_components/generate-templates-catalog";
+import { StudioChatPanel } from "../../_components/studio-chat-panel";
+import { StudioCoverBanner } from "../../_components/studio-cover-banner";
+import { StudioNav, type StudioTabId } from "../../_components/studio-nav";
 import { characterMediaIdFromGalleryItem } from "../../_lib/generate-media";
 import {
   useGenerateComposer,
@@ -33,7 +36,6 @@ import {
   GENERATE_ROUTE_SECTION_INDEX,
   GENERATE_SECTION_TABS,
   GENERATE_TAB_ROUTES,
-  GENERATE_VIDEOS_SECTION_INDEX,
   GENERATE_VIEW_SHELL_CLASS,
   GENERATE_VIEW_SHELL_MOBILE_TEMPLATES_CLASS,
   isGenerateTabAvailable,
@@ -88,6 +90,7 @@ export function GenerateView({
   templatesEnabled = true,
 }: GenerateViewProps = {}) {
   const promptDockRef = React.useRef<HTMLDivElement>(null);
+  const [studioTab, setStudioTab] = React.useState<StudioTabId>("explore");
   const [quickActionsOpen, setQuickActionsOpen] = React.useState(false);
   const [advancedSettingsOpen, setAdvancedSettingsOpen] = React.useState(false);
   const [premiumOpen, setPremiumOpen] = React.useState(false);
@@ -159,7 +162,10 @@ export function GenerateView({
     reservedTokenCost: processing.reservedTokenCost,
   });
   const dockSlide = useGenerateDockSlide(gallery.selectMode);
-  const isTemplatesTab = gallery.sectionTabId === "templates";
+  const showTemplateCatalog =
+    studioTab === "explore" || studioTab === "mini-movie" || studioTab === "cum-shorts";
+  const templateLane =
+    studioTab === "mini-movie" || studioTab === "cum-shorts" ? studioTab : undefined;
   const isPromptInteractive = composer.isInteractive;
   const promptScrollCompact = useGeneratePromptCompact(!isDesktop && isPromptInteractive);
   React.useEffect(() => {
@@ -293,29 +299,50 @@ export function GenerateView({
       data-version="v2"
       className={cn(
         GENERATE_VIEW_SHELL_CLASS,
-        isTemplatesTab && GENERATE_VIEW_SHELL_MOBILE_TEMPLATES_CLASS,
+        showTemplateCatalog &&
+          "min-[768px]:overflow-y-auto min-[768px]:overscroll-y-contain",
+        showTemplateCatalog && GENERATE_VIEW_SHELL_MOBILE_TEMPLATES_CLASS,
       )}
     >
-      <GenerateToolbar
-        selectedSectionIndex={gallery.selectedSectionIndex}
-        onSectionTabChange={handleSectionTabChange}
-        searchValue={gallery.searchValue}
-        onSearchValueChange={gallery.setSearchValue}
-        blurNsfw={gallery.blurNsfw}
-        onBlurNsfwChange={gallery.handleBlurNsfwChange}
-        selectMode={gallery.selectMode}
-        onSelectModeToggle={gallery.handleToggleSelectMode}
-        onQuickActionsClick={() => setQuickActionsOpen(true)}
-        galleryActionsDisabled={!isPromptInteractive}
-        showSearchRow={!isTemplatesTab}
-        videoEnabled={videoEnabled}
-        templatesEnabled={templatesEnabled}
-      />
-
-      {isTemplatesTab ? (
-        <GenerateTemplatesCatalog
-          onGoToGallery={() => handleSectionTabChange(GENERATE_VIDEOS_SECTION_INDEX)}
+      {showTemplateCatalog ? (
+        <StudioCoverBanner
+          onGenerateClick={() => {
+            document
+              .querySelector("[data-slot=generate-templates]")
+              ?.scrollIntoView({ behavior: "smooth", block: "start" });
+          }}
         />
+      ) : null}
+
+      <StudioNav value={studioTab} onChange={setStudioTab} />
+
+      {studioTab === "collection" ? (
+        <GenerateToolbar
+          selectedSectionIndex={gallery.selectedSectionIndex}
+          onSectionTabChange={handleSectionTabChange}
+          searchValue={gallery.searchValue}
+          onSearchValueChange={gallery.setSearchValue}
+          blurNsfw={gallery.blurNsfw}
+          onBlurNsfwChange={gallery.handleBlurNsfwChange}
+          selectMode={gallery.selectMode}
+          onSelectModeToggle={gallery.handleToggleSelectMode}
+          onQuickActionsClick={() => setQuickActionsOpen(true)}
+          galleryActionsDisabled={false}
+          showSearchRow
+          showSectionTabs={false}
+          videoEnabled={videoEnabled}
+          templatesEnabled={templatesEnabled}
+        />
+      ) : null}
+
+      {showTemplateCatalog ? (
+        <GenerateTemplatesCatalog
+          lane={templateLane}
+          growWithContent
+          onGoToGallery={() => setStudioTab("collection")}
+        />
+      ) : studioTab === "chat" ? (
+        <StudioChatPanel />
       ) : (
         <>
           <div
@@ -383,7 +410,7 @@ export function GenerateView({
               </div>
             ) : null}
           </div>
-          {dockSlide.kind === "prompt" ? (
+          {dockSlide.kind === "prompt" && isPromptInteractive ? (
             <GeneratePromptDock
               dockRef={promptDockRef}
               dockClassName={cn(
@@ -428,7 +455,7 @@ export function GenerateView({
         </>
       )}
 
-      {!isDesktop && !isTemplatesTab ? (
+      {!isDesktop && studioTab === "collection" ? (
         <GenerateQuickActionsModal
           open={quickActionsOpen}
           onOpenChange={setQuickActionsOpen}
@@ -436,7 +463,7 @@ export function GenerateView({
           onBlurNsfwChange={gallery.handleBlurNsfwChange}
           selectMode={gallery.selectMode}
           onSelectModeToggle={gallery.handleToggleSelectMode}
-          galleryActionsDisabled={!isPromptInteractive}
+          galleryActionsDisabled={false}
         />
       ) : null}
 

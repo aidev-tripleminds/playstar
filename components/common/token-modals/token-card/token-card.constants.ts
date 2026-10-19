@@ -1,6 +1,6 @@
 import type { StaticImageData } from "next/image";
 
-import { resolveAsset } from "@/lib/assets/asset-store";
+import { dummyImage } from "@/lib/dummy-images";
 
 export type TokenCardVariant = "yellow" | "pink" | "blue";
 
@@ -8,10 +8,10 @@ export type TokenCardVariant = "yellow" | "pink" | "blue";
 export const TOKEN_CARD_WIDTH_PX = 250;
 export const TOKEN_CARD_HEIGHT_PX = 360;
 
-export const TOKEN_CARD_COINS_TOKEN_PATH = resolveAsset("demo_pics_coins_token").image ?? "";
-export const TOKEN_CARD_DEFAULT_HERO_PATH = resolveAsset("demo_pics_sugarlab_pic").image ?? "";
-export const TOKEN_CARD_PINK_HERO_PATH = resolveAsset("demo_pics_2_photoroom").image ?? "";
-export const TOKEN_CARD_BLUE_HERO_PATH = resolveAsset("demo_pics_blue_photoroom").image ?? "";
+export const TOKEN_CARD_COINS_TOKEN_PATH = dummyImage(177);
+export const TOKEN_CARD_DEFAULT_HERO_PATH = dummyImage(178);
+export const TOKEN_CARD_PINK_HERO_PATH = dummyImage(179);
+export const TOKEN_CARD_BLUE_HERO_PATH = dummyImage(180);
 
 export type TokenCardVariantPreset = {
   variant: TokenCardVariant;

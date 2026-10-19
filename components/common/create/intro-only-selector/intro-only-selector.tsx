@@ -4,7 +4,7 @@ import Image from "next/image";
 import * as React from "react";
 
 import { useAsset } from "@/lib/assets/asset-map-context";
-import { resolveAsset } from "@/lib/assets/asset-store";
+import { dummyImage } from "@/lib/dummy-images";
 import { assetCardSources } from "@/lib/media-card-sources";
 import { cn } from "@/lib/utils";
 import TickIcon from "@/public/assets/icons/tick-icon";
@@ -37,7 +37,7 @@ export function IntroOnlySelector({
   defaultStatus = "unselected",
   label = "Lorem",
   assetKey,
-  imageSrc = resolveAsset("demo_pics_dog").image ?? "",
+  imageSrc = dummyImage(110),
   videoSrc = "",
   description = "",
   autoPlayAlways = true,

@@ -5,7 +5,7 @@ import * as React from "react";
 
 import { Buttons } from "@/components/common/general/button/buttons";
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { resolveAsset } from "@/lib/assets/asset-store";
+import { dummyImage } from "@/lib/dummy-images";
 import { cn } from "@/lib/utils";
 
 import { Countdown } from "../../general/countdown/countdown";
@@ -428,13 +428,12 @@ export function JoinPremiumFlow({
               // style={{
               //   backgroundImage: `
 
-              //   url((resolveAsset("demo_pics_nangi").image ?? ""))
               // `,
               // }}
             >
               <div className="bg-top-center absolute inset-0 bg-cover bg-no-repeat opacity-70 md:hidden">
                 <Image
-                  src={resolveAsset("demo_pics_nangi").image ?? ""}
+                  src={dummyImage(160)}
                   alt="Background"
                   fill
                   className="object-cover object-top md:hidden"
@@ -444,7 +443,7 @@ export function JoinPremiumFlow({
               <div
                 className="absolute inset-0 hidden bg-cover bg-center bg-no-repeat md:block"
                 style={{
-                  backgroundImage: `url(${resolveAsset("demo_pics_nangi").image ?? ""})`,
+                  backgroundImage: `url(${dummyImage(161)})`,
                 }}
               />
 

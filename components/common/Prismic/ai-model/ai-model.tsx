@@ -167,7 +167,7 @@ export function AiModel({
         src={resolvedImageSrc}
         alt={resolvedImageAlt}
         fill
-        className="object-cover"
+        className="h-full w-full object-cover"
       />
     ) : assetKey ? (
       <MediaSkeletonOverlay isLoaded={false} />
@@ -191,12 +191,24 @@ export function AiModel({
       aria-label={resolvedName}
       role={isCardClickable ? "button" : undefined}
       tabIndex={isCardClickable ? 0 : undefined}
-      className={cn(aiModelVariants({ size: resolvedSize }), className, "w-[100%]")}
+      className={cn(
+        aiModelVariants({ size: resolvedSize }),
+        variant === "templates" && "h-full w-full",
+        className,
+        "w-[100%]",
+      )}
       onClick={onClick}
       onKeyDown={handleKeyDown}
       {...props}
     >
-      <span className={aiModelCardVariants({ size: resolvedSize })} data-slot="ai-model-card">
+      <span
+        className={cn(
+          aiModelCardVariants({ size: resolvedSize }),
+          variant === "templates" &&
+            "aspect-[3/4] h-full min-h-0 md:aspect-[3/4] md:h-full md:min-h-0",
+        )}
+        data-slot="ai-model-card"
+      >
         {media}
 
         <span

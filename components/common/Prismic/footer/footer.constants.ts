@@ -1,5 +1,5 @@
 import type { LegalDocumentSummary } from "@/lib/api/legal";
-import { resolveAsset } from "@/lib/assets/asset-store";
+import { dummyImage } from "@/lib/dummy-images";
 import { policyRoute, ROUTES } from "@/lib/routes";
 
 /** Figma Footer (node 2116-17249). Cap matches Explore; 16px gutter lives inside it. */
@@ -11,9 +11,9 @@ export const FOOTER_LOGO_SRC = "/assets/logo-spicestars.svg";
 export const FOOTER_LOGO_WIDTH_PX = 121.2;
 export const FOOTER_LOGO_HEIGHT_PX = 12;
 
-export const FOOTER_PAYMENT_MASTERCARD_SRC = resolveAsset("demo_pics_master").image ?? "";
-export const FOOTER_PAYMENT_VISA_SRC = resolveAsset("demo_pics_visa").image ?? "";
-export const FOOTER_PAYMENT_VOLT_SRC = resolveAsset("demo_pics_volt").image ?? "";
+export const FOOTER_PAYMENT_MASTERCARD_SRC = dummyImage(165);
+export const FOOTER_PAYMENT_VISA_SRC = dummyImage(166);
+export const FOOTER_PAYMENT_VOLT_SRC = dummyImage(167);
 // NOT migrated: the asset manifest's "demo_pics_evershield" key still points at the
 // old EverShield logo — "omnifences.svg" (the OMNIFENCE rebrand from dev, 2026-07-30)
 // was never added to the manifest/Tigris, so this stays on the local path until it is.

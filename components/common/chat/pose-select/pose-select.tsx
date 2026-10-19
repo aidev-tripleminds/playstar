@@ -4,7 +4,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import Image from "next/image";
 import * as React from "react";
 
-import { resolveAsset } from "@/lib/assets/asset-store";
+import { dummyImage } from "@/lib/dummy-images";
 import { cn } from "@/lib/utils";
 
 const POSE_IMAGE_SIZE_DESKTOP = 70;
@@ -77,7 +77,7 @@ export function PoseSelect({
   selected,
   defaultSelected = false,
   label = "Selfie",
-  imageSrc = resolveAsset("demo_pics_profile2").image ?? "",
+  imageSrc = dummyImage(75),
   onSelectedChange,
   className,
   type = "button",

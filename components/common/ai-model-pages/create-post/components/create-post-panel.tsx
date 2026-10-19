@@ -7,7 +7,7 @@ import { PostContent } from "@/components/common/ai-model-pages/post-content/pos
 import { Buttons } from "@/components/common/general/button/buttons";
 import { Close } from "@/components/common/general/close/close";
 import { Textarea } from "@/components/ui/textarea";
-import { resolveAsset } from "@/lib/assets/asset-store";
+import { dummyImage } from "@/lib/dummy-images";
 import { cn } from "@/lib/utils";
 
 export type CreatePostPanelProps = Omit<React.ComponentProps<"div">, "onChange"> & {
@@ -35,7 +35,7 @@ export type CreatePostPanelProps = Omit<React.ComponentProps<"div">, "onChange">
 export function CreatePostPanel({
   title = "Create a post",
   titleIconSrc = "/assets/add-square.svg",
-  avatarSrc = resolveAsset("demo_pics_profile_pic").image ?? "",
+  avatarSrc = dummyImage(7),
   avatarAlt = "Your profile",
   placeholder = "Describe your post...",
   value,

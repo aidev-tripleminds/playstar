@@ -1,4 +1,4 @@
-import { resolveAsset } from "@/lib/assets/asset-store";
+import { dummyImage } from "@/lib/dummy-images";
 /** Figma AI Model cards — Characters, Images, Videos, Templates. */
 export const AI_MODEL_TINY_WIDTH_PX = 175;
 export const AI_MODEL_TINY_HEIGHT_PX = 255;
@@ -29,7 +29,7 @@ export const AI_MODEL_ANIMATE_ICON_SRC = "/assets/video-square.svg";
 export const AI_MODEL_GENERATE_LABEL = "Generate";
 export const AI_MODEL_TEMPLATES_DEFAULT_NAME = "Lorem Ipsum";
 export const AI_MODEL_TEMPLATES_DEFAULT_BADGE = "New";
-export const AI_MODEL_TEMPLATES_INSET_IMAGE_SRC = resolveAsset("demo_pics_kuta").image ?? "";
+export const AI_MODEL_TEMPLATES_INSET_IMAGE_SRC = dummyImage(162);
 
 export function resolveTemplateStatusBadgeSize(size: AiModelSize) {
   if (size === "default") return "large" as const;
@@ -39,7 +39,7 @@ export function resolveTemplateStatusBadgeSize(size: AiModelSize) {
 
 export const AI_MODEL_DEFAULT_DESCRIPTION =
   "Your girlfriend's younger sister. The one you were always warned about…";
-export const AI_MODEL_DEFAULT_IMAGE_SRC = resolveAsset("demo_pics_model1").image ?? "";
+export const AI_MODEL_DEFAULT_IMAGE_SRC = dummyImage(163);
 export const AI_MODEL_DEFAULT_STAT_VALUE = "12.8K";
 export const AI_MODEL_VERIFIED_ICON_SRC = "/assets/verified-badge.svg";
 

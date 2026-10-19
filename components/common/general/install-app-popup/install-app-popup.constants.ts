@@ -1,4 +1,4 @@
-import { resolveAsset } from "@/lib/assets/asset-store";
+import { dummyImage } from "@/lib/dummy-images";
 import type { InstallAppPlatform } from "@/lib/get-install-app-platform";
 
 export type { InstallAppPlatform };
@@ -8,9 +8,6 @@ export const INSTALL_APP_ANDROID_IMAGE_ASSET_KEY = "android_app_offer";
 
 /** Admin asset-management key for the iOS install-app hero image. */
 export const INSTALL_APP_IOS_IMAGE_ASSET_KEY = "ios_app_offer";
-
-const INSTALL_APP_ANDROID_IMAGE_FALLBACK_SRC = "/assets/install-app-android.png";
-const INSTALL_APP_IOS_IMAGE_FALLBACK_SRC = "/assets/install-app-ios.png";
 
 export type InstallAppPlatformContent = {
   title: string;
@@ -27,8 +24,7 @@ export const INSTALL_APP_PLATFORM_CONTENT: Record<InstallAppPlatform, InstallApp
     title: "Get our Android app",
     titleIconSrc: "/assets/google-play.svg",
     imageSrc:
-      resolveAsset(INSTALL_APP_ANDROID_IMAGE_ASSET_KEY).image ??
-      INSTALL_APP_ANDROID_IMAGE_FALLBACK_SRC,
+      dummyImage(117),
     imageAlt: "Install Spicestars on Android",
     description:
       "Get the full experience on Android. Enjoy push notifications, fullscreen mode, faster performance, and more.",
@@ -37,7 +33,7 @@ export const INSTALL_APP_PLATFORM_CONTENT: Record<InstallAppPlatform, InstallApp
     title: "Get our iOS app",
     titleIconSrc: "/assets/apple.svg",
     imageSrc:
-      resolveAsset(INSTALL_APP_IOS_IMAGE_ASSET_KEY).image ?? INSTALL_APP_IOS_IMAGE_FALLBACK_SRC,
+      dummyImage(118),
     imageAlt: "Install Spicestars on iOS",
     description:
       "Get the full experience on iOS. Enjoy push notifications, fullscreen mode, faster performance, and more.",

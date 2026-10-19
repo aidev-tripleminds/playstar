@@ -7,7 +7,7 @@ import {
   defaultMediaPreviewPrompt,
 } from "@/components/common/image-preview/media-preview/constants";
 import type { MediaPreviewItem } from "@/components/common/image-preview/media-preview/types";
-import { resolveAsset } from "@/lib/assets/asset-store";
+import { dummyImage } from "@/lib/dummy-images";
 import { GalleryIcon, SelectionFillIcon, VideoSquareIcon } from "@/public/assets/icons";
 import { GalleryIcon2 } from "@/public/assets/icons/gallery-icon2";
 
@@ -79,11 +79,11 @@ export const GENERATE_DEFAULT_SECTION_TAB_ID: GenerateSectionTabId = "templates"
 
 export const GENERATE_SEARCH_PLACEHOLDER = "Search...";
 
-export const GENERATE_BLUR_NSFW_LABEL_OFF = "Blur NSFW: No";
+export const GENERATE_BLUR_NSFW_LABEL_OFF = "Blur ";
 
-export const GENERATE_BLUR_NSFW_LABEL_ON = "Blur NSFW: Yes";
+export const GENERATE_BLUR_NSFW_LABEL_ON = "Blur : Yes";
 
-export const GENERATE_BLUR_NSFW_LABEL = "Blur NSFW";
+export const GENERATE_BLUR_NSFW_LABEL = "Blur ";
 
 export const GENERATE_SELECT_LABEL = "Select";
 
@@ -616,7 +616,7 @@ export const GENERATE_SELECT_ICON = <SelectionFillIcon className="size-5 shrink-
 export const GENERATE_PREVIEW_PROMPT = defaultMediaPreviewPrompt;
 export const GENERATE_PREVIEW_METADATA = defaultMediaPreviewMetadata;
 export const GENERATE_PREVIEW_MODEL_TITLE = "Eva Marina Petranova";
-export const GENERATE_PREVIEW_MODEL_IMAGE = resolveAsset("demo_pics_model4").image ?? "";
+export const GENERATE_PREVIEW_MODEL_IMAGE = dummyImage(0);
 export const GENERATE_PREVIEW_CREATE_VIDEO_LABEL = "Animate";
 
 /**

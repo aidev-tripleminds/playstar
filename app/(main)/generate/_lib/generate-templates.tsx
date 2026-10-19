@@ -1,21 +1,9 @@
 import { GENERATE_GROUP_TOKEN_ICON_SRC } from "@/components/common/generate/generate-group/generate-group.constants";
 import type { RatioIconRatio } from "@/components/common/generate/ratio-icon";
 import { AI_MODEL_TEMPLATES_DEFAULT_BADGE } from "@/components/common/Prismic/ai-model";
-import { AI_MODEL_TEMPLATES_INSET_IMAGE_SRC } from "@/components/common/Prismic/ai-model/ai-model.constants";
 import type { HomepageFilter } from "@/components/pages/homepage";
-import { resolveAsset } from "@/lib/assets/asset-store";
-import { GalleryIcon, HeartIcon, VideoSquareIcon } from "@/public/assets/icons";
-
-const TEMPLATE_ASSET_KEYS = [
-  "demo_explore_explore_char_images_character1",
-  "demo_explore_explore_char_images_character2",
-  "demo_explore_explore_char_images_character3",
-  "demo_explore_explore_char_images_character4",
-  "demo_explore_explore_char_images_character5",
-  "demo_explore_explore_char_images_character6",
-  "demo_explore_explore_char_images_character7",
-  "demo_explore_explore_char_images_character8",
-] as const;
+import { dummyImage } from "@/lib/dummy-images";
+import { Heart, ImageIcon, Video } from "lucide-react";
 
 const TEMPLATE_NICHES = ["MILF", "Blonde", "Athletic", "Latina"] as const;
 
@@ -42,7 +30,7 @@ export const GENERATE_TEMPLATES_SEARCH_PLACEHOLDER = "Search...";
 
 export const GENERATE_TEMPLATES_NICHE_FILTER: HomepageFilter = {
   id: "niche",
-  label: "Niche",
+  label: "",
   value: "All",
   options: ["All", ...TEMPLATE_NICHES],
 };
@@ -50,7 +38,7 @@ export const GENERATE_TEMPLATES_NICHE_FILTER: HomepageFilter = {
 export const GENERATE_TEMPLATES_SORT_TABS = [
   {
     label: "Liked",
-    leftIconSrc: <HeartIcon className="size-5 shrink-0" strokeColor="currentColor" />,
+    leftIconSrc: <Heart className="size-5 shrink-0" />,
     showBadge: false,
   },
   { label: "Trending", showBadge: false },
@@ -92,7 +80,19 @@ export const GENERATE_TEMPLATES_SCROLL_CLASS =
 
 /** Soft fade into the mobile bottom nav, same role as `/explore` `ButtonNavShadows`. */
 export const GENERATE_TEMPLATES_BOTTOM_FADE_CLASS =
-  "pointer-events-none absolute inset-x-0 -mx-4 bottom-0 z-20 h-32 min-[768px]:hidden bg-[linear-gradient(180deg,rgba(0,0,0,0)_0%,#000_100%)]";
+  "pointer-events-none absolute inset-x-0 -mx-4 bottom-0 z-20 h-32 min-[768px]:hidden bg-[linear-gradient(180deg,rgba(12,9,11,0)_0%,#0c090b_100%)]";
+
+export type GenerateTemplateLane = "mini-movie" | "cum-shorts";
+
+const MINI_MOVIE_TEMPLATE_NAMES = new Set<string>([
+  "Anal",
+  "Doggystyle",
+  "Cowgirl",
+  "Bouncing Boobs",
+  "Reverse Cowgirl",
+  "Missionary",
+  "Prone Bone",
+]);
 
 export type GenerateTemplateItem = {
   id: string;
@@ -104,6 +104,7 @@ export type GenerateTemplateItem = {
   niche?: string;
   tags?: readonly string[];
   liked?: boolean;
+  lane?: GenerateTemplateLane;
 };
 
 /** Figma **14817:81435** — template detail Master Modal on Create. */
@@ -130,18 +131,18 @@ export const GENERATE_TEMPLATE_MODAL_EXTEND_VIDEO_LABEL = "Extend Video";
 export const GENERATE_TEMPLATE_MODAL_MODE_TABS = [
   {
     label: GENERATE_TEMPLATE_MODAL_IMAGE2VIDEO_LABEL,
-    leftIconSrc: <GalleryIcon className="size-5 shrink-0" />,
+    leftIconSrc: <ImageIcon className="size-5 shrink-0" />,
     showBadge: false,
   },
   {
     label: GENERATE_TEMPLATE_MODAL_EXTEND_VIDEO_LABEL,
-    leftIconSrc: <VideoSquareIcon className="size-5 shrink-0" />,
+    leftIconSrc: <Video className="size-5 shrink-0" />,
     showBadge: false,
   },
 ] as const;
 
 export const GENERATE_TEMPLATE_MODAL_CLASS =
-  "z-999 md:max-w-[530px]! data-[vaul-drawer-direction=bottom]:h-fit! data-[vaul-drawer-direction=bottom]:max-h-[min(580px,calc(100dvh-1rem))]!";
+  "z-999 max-h-[calc(100dvh-1rem)] min-w-0 overflow-y-auto overscroll-contain md:max-h-[min(860px,calc(100dvh-2rem))] md:max-w-[530px]! md:overflow-y-auto data-[vaul-drawer-direction=bottom]:h-fit! data-[vaul-drawer-direction=bottom]:max-h-[min(580px,calc(100dvh-1rem))]!";
 
 /** Templates can expose 1 or 2 start-content slots. Show two placeholders for now. */
 export const GENERATE_TEMPLATE_MODAL_PLACEHOLDER_COUNT = 2 as const;
@@ -286,19 +287,18 @@ export function parseGenerateTemplateDurationSeconds(value: string) {
 
 export const GENERATE_TEMPLATE_ITEMS: GenerateTemplateItem[] = GENERATE_TEMPLATE_NAMES.map(
   (name, index) => {
-    const assetKey = TEMPLATE_ASSET_KEYS[index % TEMPLATE_ASSET_KEYS.length];
     const niche = TEMPLATE_NICHES[index % TEMPLATE_NICHES.length];
 
     return {
       id: `generate-template-${index + 1}`,
       name,
-      assetKey,
-      imageSrc: resolveAsset(assetKey).image ?? "",
-      insetImageSrc: AI_MODEL_TEMPLATES_INSET_IMAGE_SRC,
+      imageSrc: dummyImage(index),
+      insetImageSrc: dummyImage(index + 8),
       badgeLabel: AI_MODEL_TEMPLATES_DEFAULT_BADGE,
       niche,
       tags: GENERATE_TEMPLATE_MODAL_TAGS,
       liked: true,
+      lane: MINI_MOVIE_TEMPLATE_NAMES.has(name) ? "mini-movie" : "cum-shorts",
     };
   },
 );

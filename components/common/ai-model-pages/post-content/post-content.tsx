@@ -3,7 +3,7 @@
 import Image from "next/image";
 import * as React from "react";
 
-import { resolveAsset } from "@/lib/assets/asset-store";
+import { dummyImage } from "@/lib/dummy-images";
 import { cn } from "@/lib/utils";
 
 import { Close } from "../../general/close/close";
@@ -16,7 +16,7 @@ export type PostContentProps = React.ComponentProps<"div"> & {
 };
 
 export function PostContent({
-  imageSrc = resolveAsset("demo_pics_pexel2").image ?? "",
+  imageSrc = dummyImage(14),
   imageAlt = "Post content",
   onClose,
   closeLabel = "Close",

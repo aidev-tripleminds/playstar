@@ -1,4 +1,4 @@
-import { resolveAsset } from "@/lib/assets/asset-store";
+import { dummyImage } from "@/lib/dummy-images";
 
 import type {
   PromptBoxActionItem,
@@ -502,17 +502,17 @@ export const PROMPT_BOX_DEFAULT_PRESET_ACTIONS: PromptBoxActionItem[] = [
   {
     id: "action-1",
     label: "Action1",
-    imageSrc: resolveAsset("demo_pics_model9").image ?? "",
+    imageSrc: dummyImage(124),
   },
   {
     id: "action-2",
     label: "Action2",
-    imageSrc: resolveAsset("demo_pics_model3").image ?? "",
+    imageSrc: dummyImage(125),
   },
   {
     id: "action-3",
     label: "Action3",
-    imageSrc: resolveAsset("demo_pics_reso").image ?? "",
+    imageSrc: dummyImage(126),
   },
 ];
 

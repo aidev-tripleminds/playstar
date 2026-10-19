@@ -19,7 +19,7 @@ import {
 import type { QuickActionsModelStatus } from "@/components/common/image-preview/quick-actions/types";
 import { useIsDesktop } from "@/hooks/use-is-desktop";
 import { useMediaSaved } from "@/hooks/use-media-saved";
-import { resolveAsset } from "@/lib/assets/asset-store";
+import { dummyImage } from "@/lib/dummy-images";
 import { buildCreateAiCharacterIntroHref } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 import { InfoIcon } from "@/public/assets/icons";
@@ -81,7 +81,7 @@ export function MediaPreview({
   variant = "default",
   modelStatus = "ai-model",
   modelTitle = "Eva Marina Petranova",
-  modelImageSrc = resolveAsset("demo_pics_model4").image ?? "",
+  modelImageSrc = dummyImage(158),
   onCreateModelClick,
   postedAt = "23 days ago",
   prompt = defaultMediaPreviewPrompt,

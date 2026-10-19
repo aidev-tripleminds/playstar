@@ -1,22 +1,16 @@
 "use client";
 
-import "ldrs/react/Hourglass.css";
-
-import { Hourglass } from "ldrs/react";
+import { ArrowRight, ImageIcon, UserRound, Video } from "lucide-react";
 import Image from "next/image";
 import * as React from "react";
 
-import { Badge } from "@/components/common/general/badge/badge";
-import { Buttons } from "@/components/common/general/button/buttons";
-import { GeneratingV2Dotfield } from "@/components/common/general/placeholder-processing/generating-v2-dotfield";
 import {
-  GENERATING_V2_LABEL_CLASS,
-  GENERATING_V2_LABEL_WRAP_CLASS,
-} from "@/components/common/general/placeholder-processing/generating-v2-dotfield.constants";
+  AI_LOADING_LABEL_CLASS,
+  AI_LOADING_LABEL_WRAP_CLASS,
+  AiLoading,
+} from "@/components/common/general/ai-loading/ai-loading";
+import { Buttons } from "@/components/common/general/button/buttons";
 import { cn } from "@/lib/utils";
-import { FaceFemaleIcon } from "@/public/assets/icons/face-female-icon";
-import { GalleryIcon } from "@/public/assets/icons/gallery-icon";
-import { IxPublishIcon } from "@/public/assets/icons/ix-publish";
 
 import {
   isTemplateManagerEmptyVariant,
@@ -25,7 +19,6 @@ import {
   resolveTemplateManagerCopy,
   resolveTemplateManagerFrameClass,
   resolveTemplateManagerPairSlots,
-  TEMPLATE_MANAGER_CANCEL_LABEL,
   TEMPLATE_MANAGER_CHANGE_LABEL,
   TEMPLATE_MANAGER_DEFAULT_IMAGE_SRC,
   TEMPLATE_MANAGER_DELETE_ICON_SRC,
@@ -33,12 +26,7 @@ import {
   TEMPLATE_MANAGER_DUO_STACK_CLASS,
   TEMPLATE_MANAGER_GENERATING_LABEL,
   TEMPLATE_MANAGER_PROCESSING_LABEL,
-  TEMPLATE_MANAGER_QUEUED_SUBTITLE,
-  TEMPLATE_MANAGER_QUEUED_TITLE,
-  TEMPLATE_MANAGER_SKIP_QUEUE_LABEL,
-  TEMPLATE_MANAGER_SKIP_QUEUE_TOKEN_COST,
   TEMPLATE_MANAGER_VARIANTS,
-  TEMPLATE_MANAGER_VIDEO_ICON_SRC,
   type TemplateManagerFrame,
   type TemplateManagerSize,
   type TemplateManagerVariant,
@@ -56,23 +44,14 @@ function TemplateManagerEmptyIcon({
   variant: Extract<TemplateManagerVariant, "select-video" | "select-image-char">;
 }) {
   if (variant === "select-video") {
-    return (
-      <Image
-        src={TEMPLATE_MANAGER_VIDEO_ICON_SRC}
-        alt=""
-        width={24}
-        height={24}
-        aria-hidden
-        className="text-tooltip-text size-5 shrink-0"
-      />
-    );
+    return <Video className="text-tooltip-text size-5 shrink-0" aria-hidden />;
   }
 
   return (
     <div className="text-tooltip-text flex items-center gap-1.5" aria-hidden>
-      <GalleryIcon className="size-5" />
+      <ImageIcon className="size-5" />
       <span className="text-select-muted-text">/</span>
-      <FaceFemaleIcon className="size-5" />
+      <UserRound className="size-5" />
     </div>
   );
 }
@@ -86,7 +65,7 @@ function TemplateManagerEmpty({ variant, size, onSelectClick }: TemplateManagerE
       type="button"
       data-slot="template-manager-empty"
       className={cn(
-        "flex h-full w-full cursor-pointer flex-col items-center justify-center gap-2 text-center",
+        "flex h-auto min-h-full w-full cursor-pointer flex-col items-center justify-center gap-2 text-center",
         size === "mobile" ? "px-2 py-2" : "px-4 py-4",
       )}
       onClick={onSelectClick}
@@ -101,7 +80,7 @@ function TemplateManagerEmpty({ variant, size, onSelectClick }: TemplateManagerE
         </p>
         <p
           data-slot="template-manager-description"
-          className="text-select-muted-text text-xs leading-4 font-medium"
+          className="text-select-muted-text max-w-full text-xs leading-4 font-medium wrap-break-word"
         >
           {copy.description}
         </p>
@@ -171,7 +150,7 @@ function TemplateManagerLoaded({
             label={TEMPLATE_MANAGER_CHANGE_LABEL}
             className={cn(
               "bg-tooltip-default-bg!",
-              size === "mobile" ? "w-[135px]! min-w-[135px]!" : "min-w-[198px]",
+              size === "mobile" ? "w-full min-w-0 max-w-full" : "min-w-[198px]",
             )}
             onClick={onChangeClick}
           />
@@ -181,84 +160,7 @@ function TemplateManagerLoaded({
   );
 }
 
-type TemplateManagerQueuedProps = {
-  size: TemplateManagerSize;
-  showSkipQueue?: boolean;
-  skipQueueTokenCost?: React.ReactNode;
-  onCancelClick?: React.ComponentProps<typeof Buttons>["onClick"];
-  onSkipQueueClick?: React.ComponentProps<typeof Buttons>["onClick"];
-};
-
-function TemplateManagerQueued({
-  size,
-  showSkipQueue = true,
-  skipQueueTokenCost = TEMPLATE_MANAGER_SKIP_QUEUE_TOKEN_COST,
-  onCancelClick,
-  onSkipQueueClick,
-}: TemplateManagerQueuedProps) {
-  return (
-    <div
-      data-slot="template-manager-queued"
-      className={cn(
-        "flex h-full flex-col items-center justify-center gap-4 text-center",
-        size === "mobile" ? "px-2 py-2" : "px-4 py-4",
-      )}
-    >
-      <Hourglass size="40" bgOpacity="0.1" speed="1.75" color="var(--tooltip-text)" />
-      <div className="flex flex-col items-center gap-1">
-        <p
-          data-slot="template-manager-queued-title"
-          className="text-modal-text text-xs leading-4 font-medium"
-        >
-          {TEMPLATE_MANAGER_QUEUED_TITLE}
-        </p>
-        <p
-          data-slot="template-manager-queued-subtitle"
-          className="text-tooltip-text text-xs leading-4 font-medium"
-        >
-          {TEMPLATE_MANAGER_QUEUED_SUBTITLE}
-        </p>
-      </div>
-      <div className="flex w-full flex-col items-center gap-2">
-        {showSkipQueue ? (
-          <Buttons
-            data-slot="template-manager-skip-queue"
-            type="button"
-            variant="rose"
-            size="btn-s"
-            leftIcon={false}
-            rightIcon={false}
-            label={TEMPLATE_MANAGER_SKIP_QUEUE_LABEL}
-            rightIconNode={
-              <Badge
-                type="empty"
-                size="large"
-                text={skipQueueTokenCost}
-                showIcon
-                className="px-0!"
-              />
-            }
-            onClick={onSkipQueueClick}
-            className="w-full max-w-[127px]"
-          />
-        ) : null}
-        <Buttons
-          data-slot="template-manager-cancel"
-          type="button"
-          variant="neutral-border"
-          size="btn-s"
-          leftIcon={false}
-          rightIcon={false}
-          label={TEMPLATE_MANAGER_CANCEL_LABEL}
-          onClick={onCancelClick}
-          className="w-full max-w-[127px]"
-        />
-      </div>
-    </div>
-  );
-}
-
-function TemplateManagerDotfieldStage({
+function TemplateManagerLoadingStage({
   size,
   stage,
   label,
@@ -269,15 +171,15 @@ function TemplateManagerDotfieldStage({
 }) {
   return (
     <div data-slot={`template-manager-${stage}`} className="absolute inset-0">
-      <GeneratingV2Dotfield />
+      <AiLoading />
       <div
         data-slot={`template-manager-${stage}-label-wrap`}
         className={cn(
-          GENERATING_V2_LABEL_WRAP_CLASS,
+          AI_LOADING_LABEL_WRAP_CLASS,
           size === "mobile" ? "p-2 md:p-2" : "p-3 md:p-4",
         )}
       >
-        <p data-slot={`template-manager-${stage}-label`} className={GENERATING_V2_LABEL_CLASS}>
+        <p data-slot={`template-manager-${stage}-label`} className={AI_LOADING_LABEL_CLASS}>
           {label}
         </p>
       </div>
@@ -314,13 +216,13 @@ export function TemplateManager({
   loadedInteractive = true,
   loadedShowDelete = true,
   progressPercent: _progressPercent,
-  showSkipQueue = true,
-  skipQueueTokenCost,
+  showSkipQueue: _showSkipQueue = true,
+  skipQueueTokenCost: _skipQueueTokenCost,
   onSelectClick,
   onDeleteClick,
   onChangeClick,
-  onCancelClick,
-  onSkipQueueClick,
+  onCancelClick: _onCancelClick,
+  onSkipQueueClick: _onSkipQueueClick,
   className,
   ...props
 }: TemplateManagerProps) {
@@ -354,31 +256,22 @@ export function TemplateManager({
         />
       ) : null}
 
-      {variant === "queue" ? (
-        <TemplateManagerQueued
+      {variant === "queue" || variant === "generating" ? (
+        <TemplateManagerLoadingStage
           size={size}
-          showSkipQueue={showSkipQueue}
-          skipQueueTokenCost={skipQueueTokenCost}
-          onCancelClick={onCancelClick}
-          onSkipQueueClick={onSkipQueueClick}
+          stage="generating"
+          label={TEMPLATE_MANAGER_GENERATING_LABEL}
         />
       ) : null}
 
       {variant === "processing" ? (
-        <TemplateManagerDotfieldStage
+        <TemplateManagerLoadingStage
           size={size}
           stage="processing"
           label={TEMPLATE_MANAGER_PROCESSING_LABEL}
         />
       ) : null}
 
-      {variant === "generating" ? (
-        <TemplateManagerDotfieldStage
-          size={size}
-          stage="generating"
-          label={TEMPLATE_MANAGER_GENERATING_LABEL}
-        />
-      ) : null}
     </article>
   );
 }
@@ -387,11 +280,11 @@ function TemplateManagerPairConnector() {
   return (
     <div
       data-slot="template-manager-pair-connector"
-      className="relative flex w-[30px] shrink-0 items-center justify-center self-stretch"
+      className="relative flex w-6 shrink-0 items-center justify-center self-stretch md:w-[30px]"
       aria-hidden
     >
       <div className="text-tooltip-default-bg relative z-10 flex size-8 items-center justify-center rounded-full">
-        <IxPublishIcon className="size-6" />
+        <ArrowRight className="size-5" />
       </div>
     </div>
   );
@@ -487,7 +380,11 @@ export function TemplateManagerPair({
         data-slot="template-manager-pair"
         data-variant={variant}
         data-size={size}
-        className={cn("flex items-center gap-2", className)}
+        className={cn(
+          "flex w-full min-w-0 max-w-full items-stretch",
+          size === "mobile" ? "gap-1.5" : "gap-2",
+          className,
+        )}
       >
         <div
           data-slot="template-manager-duo-stack"

@@ -27,8 +27,7 @@ import { fetchRemixParams } from "@/lib/api/character-media";
 import { fetchExplorePreview } from "@/lib/api/explore";
 import type { MyCharacterListItem } from "@/lib/api/types";
 import { useAssetMap } from "@/lib/assets/asset-map-context";
-import { resolveAsset } from "@/lib/assets/asset-store";
-import { assetCardSources, characterCardSrc } from "@/lib/media-card-sources";
+import { characterCardSrc } from "@/lib/media-card-sources";
 
 import {
   buildCreateImageRequest,
@@ -556,9 +555,7 @@ export function useGenerateComposer({
     (slotId: Exclude<GeneratePromptTagSlot, "custom-prompt">, action: PromptBoxActionItem) => {
       if (slotId === "character") setSeededCharacterId(initialCharacterId ?? null);
 
-      // The slot shows a thumbnail, so a live asset resolves to its card.
-      const live = assetCardSources(action.assetKey ? resolveAsset(action.assetKey) : {});
-      const imageSrc = live.image ?? action.imageSrc ?? "";
+      const imageSrc = action.imageSrc ?? "";
 
       setSources((previous) => ({
         ...previous,
@@ -612,8 +609,7 @@ export function useGenerateComposer({
         return;
       }
 
-      const live = assetCardSources(template.assetKey ? resolveAsset(template.assetKey) : {});
-      const imageSrc = live.image ?? template.imageSrc ?? template.insetImageSrc ?? "";
+      const imageSrc = template.imageSrc ?? template.insetImageSrc ?? "";
       const slotId: GenerateSourceSlotId = pickerTarget === "see-all" ? "action" : pickerTarget;
       const isCatalogSlot = slotId === "action" || slotId === "clothing" || slotId === "location";
       if (!imageSrc && !isCatalogSlot) {

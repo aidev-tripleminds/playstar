@@ -12,7 +12,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { resolveAsset } from "@/lib/assets/asset-store";
+import { dummyImage } from "@/lib/dummy-images";
 import { cn } from "@/lib/utils";
 
 import { Alert } from "../../general/alert/alert";
@@ -115,7 +115,7 @@ export type PaywallModalPanelProps = VariantProps<typeof panelVariants> & {
 
 export function PaywallModalPanel({
   status = "default",
-  avatarSrc = resolveAsset("demo_pics_model4").image ?? "",
+  avatarSrc = dummyImage(11),
   title,
   subtitle,
   description,

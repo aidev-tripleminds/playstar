@@ -4,7 +4,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import Image from "next/image";
 import * as React from "react";
 
-import { resolveAsset } from "@/lib/assets/asset-store";
+import { dummyImage } from "@/lib/dummy-images";
 import { cn } from "@/lib/utils";
 
 import { Buttons } from "../../general/button/buttons";
@@ -27,8 +27,8 @@ export type AiModelProfileProps = React.ComponentProps<"article"> &
   };
 
 export function AiModelProfile({
-  coverImageSrc = resolveAsset("demo_pics_model_profile").image ?? "",
-  avatarSrc = resolveAsset("demo_pics_model1").image ?? "",
+  coverImageSrc = dummyImage(5),
+  avatarSrc = dummyImage(6),
   displayName = "Valentina",
   handle = "ai/@sexyvalentina",
   showVerified = true,

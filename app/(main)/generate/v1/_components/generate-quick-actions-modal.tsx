@@ -42,7 +42,7 @@ export function GenerateQuickActionsModal({
     >
       <div data-slot="generate-quick-actions-modal" className="flex flex-col gap-2">
         <DialogDescription className="sr-only">
-          Toggle blur NSFW and bulk select for the gallery.
+          Toggle blur  and bulk select for the gallery.
         </DialogDescription>
 
         <div

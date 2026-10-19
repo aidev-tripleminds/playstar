@@ -1,7 +1,7 @@
 import Image from "next/image";
 import * as React from "react";
 
-import { resolveAsset } from "@/lib/assets/asset-store";
+import { dummyImage } from "@/lib/dummy-images";
 import { cn } from "@/lib/utils";
 
 export type AvatarFrameVariant = "listening" | "speaking";
@@ -29,7 +29,7 @@ const FRAME_GRADIENT: Record<AvatarFrameVariant, string> = {
 
 export function Avatar({
   frameSrc = "/assets/pics/rectangle.svg",
-  src = resolveAsset("demo_pics_profile2").image ?? "",
+  src = dummyImage(17),
   alt = "Call avatar",
   className,
   showFrame = true,

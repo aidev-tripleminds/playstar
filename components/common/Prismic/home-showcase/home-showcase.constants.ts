@@ -1,11 +1,11 @@
-import { resolveAsset } from "@/lib/assets/asset-store";
+import { dummyImage } from "@/lib/dummy-images";
 /** Figma Home Showcase section (node 2919-17863). */
 export const HOME_SHOWCASE_MAX_WIDTH_PX = 1148;
 export const HOME_SHOWCASE_PADDING_Y_PX = 48;
 export const HOME_SHOWCASE_DEFAULT_HEADING = "Heading 2";
 export const HOME_SHOWCASE_DEFAULT_CTA_LABEL = "Start Creating";
 export const HOME_SHOWCASE_DEFAULT_COUNT = "+30";
-export const HOME_SHOWCASE_DEFAULT_IMAGE_SRC = resolveAsset("demo_pics_model1").image ?? "";
+export const HOME_SHOWCASE_DEFAULT_IMAGE_SRC = dummyImage(169);
 
 export const HOME_SHOWCASE_CENTER_CARD_WIDTH_PX = 125;
 export const HOME_SHOWCASE_CENTER_CARD_HEIGHT_PX = 156;

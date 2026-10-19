@@ -1,11 +1,11 @@
 import Image from "next/image";
 import * as React from "react";
 
-import { resolveAsset } from "@/lib/assets/asset-store";
+import { dummyImage } from "@/lib/dummy-images";
 import { cn } from "@/lib/utils";
 
 export const SENDER_NAME_DEFAULT_NAME = "Cassy Anderson";
-export const SENDER_NAME_DEFAULT_AVATAR_SRC = resolveAsset("demo_pics_profile2").image ?? "";
+export const SENDER_NAME_DEFAULT_AVATAR_SRC = dummyImage(102);
 
 export type SenderNameProps = {
   name?: string;

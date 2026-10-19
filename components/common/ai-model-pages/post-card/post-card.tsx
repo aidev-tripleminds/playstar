@@ -4,7 +4,7 @@ import Image from "next/image";
 import * as React from "react";
 
 import { DotOption } from "@/components/common/ai-model-pages/dot-option/dot-option";
-import { resolveAsset } from "@/lib/assets/asset-store";
+import { dummyImage } from "@/lib/dummy-images";
 import { cn } from "@/lib/utils";
 
 import { PostCardFooter } from "./components/post-card-footer";
@@ -26,13 +26,13 @@ export { mediaVariants, postCardVariants } from "./variants";
 
 export function PostCard({
   ratio = "default",
-  avatarSrc = resolveAsset("demo_pics_profile_pic").image ?? "",
+  avatarSrc = dummyImage(12),
   displayName = "Miranda Ming",
   handle = "@mirandaming",
   showVerified = false,
   date = "23 sept. 2026",
   body = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-  mediaSrc = resolveAsset("demo_pics_pexel2").image ?? "",
+  mediaSrc = dummyImage(13),
   mediaAlt = "Post media",
   chatLabel,
   shareLabel,
