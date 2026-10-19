@@ -1,7 +1,8 @@
 "use client";
 
+import { Sparkles } from "lucide-react";
+
 import { cn } from "@/lib/utils";
-import { SparklesIcon } from "@/public/assets/icons";
 
 const COVER_VIDEO_SRC = "/assets/playright/banner.mp4";
 const COVER_POSTER_SRC = "/assets/playright/pic1.webp";
@@ -49,7 +50,7 @@ export function StudioCoverBanner({ className, onGenerateClick }: StudioCoverBan
           onClick={onGenerateClick}
           className="mt-1 inline-flex w-fit cursor-pointer items-center gap-2 rounded-full bg-white px-4 py-2.5 text-sm font-semibold text-[#ff4d6a] shadow-[0_8px_24px_rgba(0,0,0,0.25)] transition-transform duration-200 hover:scale-[1.03]"
         >
-          <SparklesIcon className="size-4" />
+          <Sparkles className="size-4" aria-hidden />
           Generate for Free now
         </button>
       </div>

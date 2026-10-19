@@ -1,7 +1,4 @@
-import { REQUEST_ID_HEADER } from "@omnipink/logger/context";
 import * as Sentry from "@sentry/nextjs";
-
-import { outgoingRequestId } from "./request-id";
 
 /**
  * Report the API failures the backend cannot see (BACK-413).
@@ -103,43 +100,14 @@ export function reportApiFailure(failure: ApiFailure, now: number = Date.now()):
   }
 }
 
-/**
- * `fetch` for a call to the backend: the same request and response, plus a
- * report of each failure only this side can see. Every backend call goes
- * through it — `apiFetch`, the Better Auth client and the server-side session
- * check — so a deploy that takes the API down is visible on whichever one the
- * user hit first.
- *
- * A call with no `x-request-id` gets one here (`outgoingRequestId`), so the
- * Better Auth client and the session check send one too (INF-83). Not for a
- * `Request` input: a `headers` init would replace all of its own headers.
- */
+/** Backend calls are disabled. This returns an empty response and does not use the network. */
 export async function fetchBackend(
   input: string | URL | Request,
-  init?: RequestInit,
+  _init?: RequestInit,
 ): Promise<Response> {
   const url = typeof input === "string" ? input : input instanceof URL ? input.href : input.url;
-  const path = new URL(url, "http://localhost").pathname;
-  const method = (init?.method ?? (input instanceof Request ? input.method : "GET")).toUpperCase();
-  const headers = new Headers(init?.headers);
-  let requestId = headers.get(REQUEST_ID_HEADER) ?? undefined;
-  if (!requestId && !(input instanceof Request)) {
-    requestId = outgoingRequestId(init);
-    if (requestId) {
-      headers.set(REQUEST_ID_HEADER, requestId);
-      init = { ...init, headers };
-    }
-  }
-
-  let response: Response;
-  try {
-    response = await fetch(input, init);
-  } catch (error) {
-    reportApiFailure({ kind: "network", method, path, error, requestId });
-    throw error;
-  }
-  if (response.status >= 500 && !response.headers.has(BACKEND_RESPONSE_HEADER)) {
-    reportApiFailure({ kind: "gateway", method, path, status: response.status, requestId });
-  }
-  return response;
+  return new Response(null, {
+    status: 204,
+    headers: { "x-playstar-api": "disabled", "x-playstar-path": url },
+  });
 }

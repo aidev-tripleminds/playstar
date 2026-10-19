@@ -1,4 +1,3 @@
-import { useQuery } from "@tanstack/react-query";
 import * as React from "react";
 
 import {
@@ -23,8 +22,6 @@ import {
 import { EMPTY_GENERATE_OPTIONS, useGenerateOptions } from "@/hooks/use-generate-options";
 import { useMe } from "@/hooks/use-me";
 import { useMyCharacters } from "@/hooks/use-my-characters";
-import { fetchRemixParams } from "@/lib/api/character-media";
-import { fetchExplorePreview } from "@/lib/api/explore";
 import type { MyCharacterListItem } from "@/lib/api/types";
 import { useAssetMap } from "@/lib/assets/asset-map-context";
 import { characterCardSrc } from "@/lib/media-card-sources";
@@ -155,7 +152,6 @@ export function useGenerateComposer({
   reservedTokenCost = 0,
 }: UseGenerateComposerOptions) {
   const {
-    session,
     isLoggedIn,
     isSessionPending,
     isPremium,
@@ -255,37 +251,17 @@ export function useGenerateComposer({
   const ownedInitialCharacter = characterTemplates.find(
     (template) => template.id === initialCharacterId,
   );
-  const publicCharacterQuery = useQuery({
-    queryKey: ["explore", "preview", session?.user.id ?? "guest", initialCharacterId],
-    queryFn: () => fetchExplorePreview(initialCharacterId!),
-    enabled: Boolean(initialCharacterId) && !isSessionPending && !ownedInitialCharacter,
-    retry: false,
-  });
-  const publicCharacter = publicCharacterQuery.data?.character;
-  const isLinkedCharacterPending = Boolean(
-    initialCharacterId &&
-    seededCharacterId !== initialCharacterId &&
-    !ownedInitialCharacter &&
-    publicCharacterQuery.isPending,
-  );
+  const isLinkedCharacterPending = false;
 
-  /** Seed once from My AIs or the public preview, preserving later user changes. */
+  /** Seed once from a character already on this device. */
   const initialCharacterTemplate =
     initialCharacterId && seededCharacterId !== initialCharacterId
-      ? (ownedInitialCharacter ??
-        (publicCharacter && {
-          id: publicCharacter.id,
-          name: publicCharacter.name,
-          imageSrc: characterCardSrc(publicCharacter),
-          imageAlt: publicCharacter.name,
-        }))
+      ? ownedInitialCharacter
       : undefined;
 
   const initialCharacterBlocksImages =
     sectionTabId !== "videos" &&
-    (ownedInitialCharacter
-      ? imageBlockedCharacterIds.has(ownedInitialCharacter.id)
-      : publicCharacter?.can_generate_from === false);
+    Boolean(ownedInitialCharacter && imageBlockedCharacterIds.has(ownedInitialCharacter.id));
 
   if (initialCharacterId && initialCharacterTemplate?.imageSrc && !initialCharacterBlocksImages) {
     setSeededCharacterId(initialCharacterId);
@@ -1074,18 +1050,8 @@ export function useGenerateComposer({
 
       const applyRemixParamsPrompt = async () => {
         if (!item.mediaId) return null;
-        try {
-          const params = await fetchRemixParams(item.mediaId);
-          if (loadId !== previewLoadIdRef.current) return null;
-          if (params.prompt_available && params.prompt) {
-            setPromptValue(params.prompt);
-          } else if (!params.prompt_available) {
-            setPromptValue("");
-          }
-          return params;
-        } catch {
-          return null;
-        }
+        applyItemPrompt();
+        return null;
       };
 
       if (action === "animate") {

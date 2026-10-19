@@ -1,14 +1,5 @@
 import type { MediaPreviewItem } from "@/components/common/image-preview/media-preview/types";
-import {
-  createCharacterImage,
-  createCharacterVideo,
-  editCharacterImage,
-  editCharacterVideo,
-  extendCharacterVideo,
-  fetchUsersCharacterMedia,
-  USERS_CHARACTER_MEDIA_PAGE_SIZE,
-  waitForCharacterVideoJob,
-} from "@/lib/api/character-media";
+import { dummyImage } from "@/lib/dummy-images";
 import type {
   CharacterCardUrls,
   CharacterMediaRef,
@@ -610,13 +601,9 @@ function mediaIdFromVideoPayload(
 }
 
 async function fetchPersistedMediaForIdLookup(
-  signal?: AbortSignal,
+  _signal?: AbortSignal,
 ): Promise<UsersCharacterMediaItem[]> {
-  const response = await fetchUsersCharacterMedia(
-    { limit: USERS_CHARACTER_MEDIA_PAGE_SIZE },
-    { signal },
-  );
-  return response.media;
+  return [];
 }
 
 async function resolveCompletedVideoMediaId(
@@ -869,71 +856,40 @@ export function mapCreateVideoResult(
   };
 }
 
+const LOCAL_SCENE_VIDEO = "/assets/playright/banner.mp4";
+let localSceneIndex = 0;
+
+/** Local stand-in. Nothing is sent to a generation API. */
 export async function runGenerateMediaRequest(
   request: GenerateMediaRequest,
   signal?: AbortSignal,
 ): Promise<GeneratedMediaItem[]> {
-  if (request.type === "create-image") {
-    const response = await createCharacterImage(request.body, { signal });
-    return attachMissingPersistedMediaIds(
-      generatedItemsFromCreateImageResponse(response, request.body, {
-        characterImageSrc: request.characterImageSrc,
-      }),
-      signal,
-    );
+  if (signal?.aborted) {
+    throw new DOMException("Aborted", "AbortError");
   }
 
-  if (request.type === "edit-image") {
-    const response = await editCharacterImage(request.body, { signal });
-    return attachMissingPersistedMediaIds(
-      generatedItemsFromCreateImageResponse(
-        response,
-        {
-          prompt: request.body.prompt,
-          num_images: request.body.num_images,
-        },
-        { requireRequestedCharacter: false },
-      ),
-      signal,
-    );
-  }
+  const prompt = request.body.prompt ?? "";
+  const isVideo =
+    request.type === "create-video" ||
+    request.type === "edit-video" ||
+    request.type === "extend-video";
+  const index = localSceneIndex;
+  localSceneIndex += 1;
+  const still = dummyImage(index);
 
-  if (request.type === "edit-video" || request.type === "extend-video") {
-    const started =
-      request.type === "extend-video"
-        ? await extendCharacterVideo(request.body, { signal })
-        : await editCharacterVideo(request.body, { signal });
-    const status = await waitForCharacterVideoJob(started.job_id, signal);
-    const videoUrl = status.video_url;
-    if (!videoUrl) {
-      throw new Error("Video generation completed without a URL");
-    }
-
-    const mediaId = await resolveCompletedVideoMediaId(videoUrl, started, status, signal);
-    const item = mapCreateVideoResult(
-      {
-        character_id: "",
-        name: "Video",
-        prompt: request.body.prompt,
-        duration: request.body.duration,
-        source_media_id: request.body.source_media_id,
-        ...(request.body.resolution ? { resolution: request.body.resolution } : {}),
-        ...(request.body.aspect_ratio ? { aspect_ratio: request.body.aspect_ratio } : {}),
-      },
-      started.job_id,
-      videoUrl,
-      mediaId,
-    );
-    return [{ ...item, characterId: null, characterName: undefined }];
-  }
-
-  const started = await createCharacterVideo(request.body, { signal });
-  const status = await waitForCharacterVideoJob(started.job_id, signal);
-  const videoUrl = status.video_url;
-  if (!videoUrl) {
-    throw new Error("Video generation completed without a URL");
-  }
-
-  const mediaId = await resolveCompletedVideoMediaId(videoUrl, started, status, signal);
-  return [mapCreateVideoResult(request.body, started.job_id, videoUrl, mediaId)];
+  return [
+    {
+      id: `generated-${Date.now()}-${index}`,
+      src: still,
+      posterSrc: still,
+      cardSrc: still,
+      fullSrc: isVideo ? LOCAL_SCENE_VIDEO : still,
+      videoSrc: isVideo ? LOCAL_SCENE_VIDEO : undefined,
+      kind: isVideo ? "video" : "image",
+      prompt,
+      description: prompt,
+      alt: prompt || "Generated scene",
+      createdAt: new Date().toISOString(),
+    },
+  ];
 }

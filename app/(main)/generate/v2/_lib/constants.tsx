@@ -20,12 +20,7 @@ import {
 import { dummyImage } from "@/lib/dummy-images";
 import { SKIP_QUEUE_FEATURE_ENABLED } from "@/lib/feature-flags";
 import { ROUTES } from "@/lib/routes";
-import {
-  GalleryIcon,
-  RecoveryIcon,
-  SelectionFillIcon,
-  VideoSquareIcon,
-} from "@/public/assets/icons";
+import { Check, Clapperboard, Images, LayoutTemplate } from "lucide-react";
 
 import type {
   GenerateCreatePayload,
@@ -48,21 +43,21 @@ export const GENERATE_SECTION_TABS = [
   {
     id: "templates" as const,
     label: "Templates",
-    leftIconSrc: <RecoveryIcon className={TAB_ICON_CLASS} />,
+    leftIconSrc: <LayoutTemplate className={TAB_ICON_CLASS} />,
     media: "image-presets" as PromptBoxMedia,
     makesVideo: true,
   },
   {
     id: "images" as const,
     label: "Images",
-    leftIconSrc: <GalleryIcon className={TAB_ICON_CLASS} />,
+    leftIconSrc: <Images className={TAB_ICON_CLASS} />,
     media: "image-presets" as PromptBoxMedia,
     makesVideo: false,
   },
   {
     id: "videos" as const,
     label: "Videos",
-    leftIconSrc: <VideoSquareIcon className={TAB_ICON_CLASS} />,
+    leftIconSrc: <Clapperboard className={TAB_ICON_CLASS} />,
     media: "video-presets" as PromptBoxMedia,
     makesVideo: true,
   },
@@ -133,7 +128,7 @@ export const GENERATE_BULK_SELECT_LABEL = "Bulk Select";
 
 export const GENERATE_QUICK_ACTIONS_TITLE = "Quick actions";
 
-export const GENERATE_SELECT_ICON = <SelectionFillIcon className="size-5 shrink-0" aria-hidden />;
+export const GENERATE_SELECT_ICON = <Check className="size-5 shrink-0" aria-hidden />;
 
 export const GENERATE_SOURCE_SLOTS: readonly {
   id: GenerateSourceSlotId;

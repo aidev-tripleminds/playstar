@@ -11,9 +11,7 @@ import {
 } from "../../_lib/generate-media";
 import {
   filterGenerateProcessingBySection,
-  GENERATE_STAGE_PROCESSING_MS,
   GENERATE_STAGE_PROGRESS_TICK_MS,
-  GENERATE_STAGE_QUEUING_MS,
   GENERATE_STAGE_RESULT_HOLD_MS,
   GENERATE_TOKEN_COST_AMOUNT,
 } from "../_lib/constants";
@@ -191,9 +189,6 @@ export function useGenerateProcessing({
   const runGenerateStageMachine = React.useCallback(
     (item: GenerateProcessingItem, options?: { skipQueue?: boolean; failed?: boolean }) => {
       const failed = options?.failed ?? item.willFail ?? false;
-      // Only the promptbox skip toggle / card Skip CTA may jump past Queue.
-      // Otherwise always: Queue → Processing → Generating (1–100%) → Result.
-      const skipQueue = options?.skipQueue ?? false;
 
       clearProcessingTimers(item.id);
 
@@ -266,32 +261,7 @@ export function useGenerateProcessing({
         trackProcessingTimer(item.id, progressTimer);
       };
 
-      const startProcessingStage = () => {
-        updateProcessingItem(item.id, { state: "processing", progressPercent: undefined });
-
-        const toGenerating = window.setTimeout(() => {
-          startGeneratingStage();
-        }, GENERATE_STAGE_PROCESSING_MS);
-
-        trackProcessingTimer(item.id, toGenerating);
-      };
-
-      const startQueuingStage = () => {
-        updateProcessingItem(item.id, { state: "queuing", progressPercent: undefined });
-
-        const toProcessing = window.setTimeout(() => {
-          startProcessingStage();
-        }, GENERATE_STAGE_QUEUING_MS);
-
-        trackProcessingTimer(item.id, toProcessing);
-      };
-
-      if (skipQueue) {
-        startProcessingStage();
-        return;
-      }
-
-      startQueuingStage();
+      startGeneratingStage();
     },
     [
       abortProcessingItem,
@@ -351,7 +321,7 @@ export function useGenerateProcessing({
         const nextItem: GenerateProcessingItem = {
           id,
           kind: payload.kind,
-          state: "queuing",
+          state: "generating",
           willFail: hasRequest ? false : processingIdRef.current % 3 === 0,
           prompt: payload.prompt,
           waitingForTurn: true,
@@ -411,7 +381,7 @@ export function useGenerateProcessing({
       }
       updateProcessingItem(item.id, {
         waitingForTurn: true,
-        state: "queuing",
+        state: "generating",
         willFail: false,
         progressPercent: undefined,
         failure: undefined,

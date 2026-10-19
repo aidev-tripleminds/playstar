@@ -1,22 +1,18 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
-
-import { isUnauthorizedError } from "@/lib/api/client";
-import { fetchSubscription } from "@/lib/api/subscription";
-import { useSession } from "@/lib/auth/auth-client";
-
-import { useIsHydrated } from "./use-is-hydrated";
-
 export const SUBSCRIPTION_QUERY_KEY = ["subscription"] as const;
 
+/** No subscription request. Premium state stays local. */
 export function useSubscription() {
-  const { data: session } = useSession();
-  const isHydrated = useIsHydrated();
-  return useQuery({
-    queryKey: [...SUBSCRIPTION_QUERY_KEY, session?.user.id],
-    queryFn: fetchSubscription,
-    enabled: isHydrated && Boolean(session?.user),
-    retry: (failureCount, error) => !isUnauthorizedError(error) && failureCount < 1,
-  });
+  return {
+    data: undefined,
+    error: null,
+    isError: false,
+    isPending: false,
+    isLoading: false,
+    isSuccess: true,
+    isFetched: true,
+    status: "success" as const,
+    refetch: async () => ({ data: undefined }),
+  };
 }

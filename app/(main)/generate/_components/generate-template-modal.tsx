@@ -1,6 +1,6 @@
 "use client";
 
-import { Coins, Heart, Layers, Settings } from "lucide-react";
+import { Bookmark, Coins, Settings } from "lucide-react";
 import * as React from "react";
 
 import {
@@ -8,13 +8,11 @@ import {
   ChooseTemplate,
   type ChooseTemplateItem,
 } from "@/components/common/chat/choose-template";
-import { Buttons } from "@/components/common/general/button/buttons";
 import {
   INNER_MODAL_LAYOUT_OVERLAY_CLASSNAME,
   MODAL_LAYOUT_OVERLAY_CLASSNAME,
   ModalLayout,
 } from "@/components/common/general/modal-layout/modal-layout";
-import Tabs from "@/components/common/general/tabs/tabs";
 import {
   TemplateManagerPair,
   type TemplateManagerSourceSlot,
@@ -31,18 +29,17 @@ import {
   GENERATE_TEMPLATE_CHOOSE_TEMPLATE_OVERLAY_CLASS,
   GENERATE_TEMPLATE_MODAL_CLASS,
   GENERATE_TEMPLATE_MODAL_CLOSE_LABEL,
+  GENERATE_TEMPLATE_MODAL_EXTEND_VIDEO_LABEL,
   GENERATE_TEMPLATE_MODAL_GALLERY_LABEL,
   GENERATE_TEMPLATE_MODAL_GENERATE_LABEL,
+  GENERATE_TEMPLATE_MODAL_IMAGE2VIDEO_LABEL,
   GENERATE_TEMPLATE_MODAL_LIKE_LABEL,
-  GENERATE_TEMPLATE_MODAL_MODE_TABS,
   GENERATE_TEMPLATE_MODAL_PLACEHOLDER_COUNT,
   GENERATE_TEMPLATE_MODAL_SETTINGS_LABEL,
   GENERATE_TEMPLATE_MODAL_TAGS,
   GENERATE_TEMPLATE_MODAL_TOKEN_COST,
   GENERATE_TEMPLATE_MODAL_UNLIKE_LABEL,
-  GENERATE_TEMPLATE_STAGE_PROCESSING_MS,
   GENERATE_TEMPLATE_STAGE_PROGRESS_TICK_MS,
-  GENERATE_TEMPLATE_STAGE_QUEUING_MS,
   GENERATE_TEMPLATE_STAGE_RESULT_HOLD_MS,
   type GenerateTemplateAdvancedSettingsValues,
   type GenerateTemplateItem,
@@ -54,6 +51,11 @@ import {
   isGenerateTemplateStageInFlight,
 } from "../_lib/generate-templates";
 import { GenerateTemplateAdvancedSettingsModal } from "./generate-template-advanced-settings-modal";
+
+const SCENE_MODES = [
+  GENERATE_TEMPLATE_MODAL_IMAGE2VIDEO_LABEL,
+  GENERATE_TEMPLATE_MODAL_EXTEND_VIDEO_LABEL,
+] as const;
 
 type GenerateTemplateSlotSelection = {
   templateId: string;
@@ -125,52 +127,28 @@ export function GenerateTemplateModal({
     setProgressPercent(undefined);
   }, [clearGenerationTimers]);
 
-  const startGeneration = React.useCallback(
-    (options?: { skipQueue?: boolean }) => {
-      clearGenerationTimers();
+  const startGeneration = React.useCallback(() => {
+    clearGenerationTimers();
 
-      const startGeneratingStage = () => {
-        let progress = 1;
-        setStage("generating");
-        setProgressPercent(progress);
+    let progress = 1;
+    setStage("generating");
+    setProgressPercent(progress);
 
-        const progressTimer = window.setInterval(() => {
-          progress = Math.min(100, progress + 1);
-          setProgressPercent(progress);
-          if (progress < 100) return;
+    const progressTimer = window.setInterval(() => {
+      progress = Math.min(100, progress + 1);
+      setProgressPercent(progress);
+      if (progress < 100) return;
 
-          window.clearInterval(progressTimer);
-          const doneTimer = window.setTimeout(() => {
-            setStage("result");
-            setProgressPercent(undefined);
-          }, GENERATE_TEMPLATE_STAGE_RESULT_HOLD_MS);
-          trackGenerationTimer(doneTimer);
-        }, GENERATE_TEMPLATE_STAGE_PROGRESS_TICK_MS);
-
-        trackGenerationTimer(progressTimer);
-      };
-
-      const startProcessingStage = () => {
-        setStage("processing");
+      window.clearInterval(progressTimer);
+      const doneTimer = window.setTimeout(() => {
+        setStage("result");
         setProgressPercent(undefined);
-        trackGenerationTimer(
-          window.setTimeout(startGeneratingStage, GENERATE_TEMPLATE_STAGE_PROCESSING_MS),
-        );
-      };
+      }, GENERATE_TEMPLATE_STAGE_RESULT_HOLD_MS);
+      trackGenerationTimer(doneTimer);
+    }, GENERATE_TEMPLATE_STAGE_PROGRESS_TICK_MS);
 
-      if (options?.skipQueue) {
-        startProcessingStage();
-        return;
-      }
-
-      setStage("queuing");
-      setProgressPercent(undefined);
-      trackGenerationTimer(
-        window.setTimeout(startProcessingStage, GENERATE_TEMPLATE_STAGE_QUEUING_MS),
-      );
-    },
-    [clearGenerationTimers, trackGenerationTimer],
-  );
+    trackGenerationTimer(progressTimer);
+  }, [clearGenerationTimers, trackGenerationTimer]);
 
   React.useEffect(() => {
     clearGenerationTimers();
@@ -229,7 +207,7 @@ export function GenerateTemplateModal({
 
   const handleSkipQueue = () => {
     if (stage !== "queuing") return;
-    startGeneration({ skipQueue: true });
+    startGeneration();
   };
 
   const handleSettingsClick = () => {
@@ -322,35 +300,22 @@ export function GenerateTemplateModal({
         open={open}
         onOpenChange={handleOpenChange}
         title={title}
-        titleIcon={<Layers className="text-tooltip-text size-5" />}
-        showIcon
+        showIcon={false}
         showMobileHandle
         freezeBackdrop
         overlayClassName={MODAL_LAYOUT_OVERLAY_CLASSNAME}
         closeLabel={GENERATE_TEMPLATE_MODAL_CLOSE_LABEL}
         className={cn(GENERATE_TEMPLATE_MODAL_CLASS, className)}
       >
-        <div data-slot="generate-template-modal" className="flex min-w-0 flex-col gap-4">
+        <div data-slot="generate-template-modal" className="flex min-w-0 flex-col gap-3">
           <DialogDescription className="sr-only">
-            Choose a start image and generate a video from {title}.
+            Set the opening frame, then create a scene from {title}.
           </DialogDescription>
 
-          <div className="flex items-center justify-between gap-4">
-            <div className="flex min-w-0 flex-wrap items-center gap-2">
-              {tags.map((tag) => (
-                <Buttons
-                  key={tag}
-                  type="button"
-                  variant="neutral"
-                  size="btn-xs"
-                  leftIcon={false}
-                  rightIcon={false}
-                  label={tag}
-                  tabIndex={-1}
-                  className="h-6! w-auto! px-2! py-1!"
-                />
-              ))}
-            </div>
+          <div className="flex items-start justify-between gap-4">
+            <p className="text-select-muted-text min-w-0 text-sm leading-5">
+              {tags.join(" · ")}
+            </p>
 
             <button
               type="button"
@@ -359,28 +324,44 @@ export function GenerateTemplateModal({
               }
               aria-pressed={liked}
               onClick={() => setLiked((current) => !current)}
-              className="flex size-6 shrink-0 cursor-pointer items-center justify-center"
+              className="flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-full border border-white/10"
             >
-              <Heart
-                className={cn("size-6", liked ? "fill-brand-primary text-brand-primary" : "text-tooltip-text")}
+              <Bookmark
+                className={cn(
+                  "size-4",
+                  liked ? "fill-brand-primary text-brand-primary" : "text-tooltip-text",
+                )}
               />
             </button>
           </div>
 
-          <Tabs
-            variant="compact"
-            compactLayout="segmented"
-            unstyled
-            showTabIcon
-            listLabel="Template mode"
-            selected={modeIndex}
-            onChange={setModeIndex}
-            tabs={[...GENERATE_TEMPLATE_MODAL_MODE_TABS]}
-            className="p-0!"
-          />
+          <div className="flex gap-6 border-b border-white/10" role="tablist" aria-label="Scene mode">
+            {SCENE_MODES.map((label, index) => {
+              const selected = modeIndex === index;
+
+              return (
+                <button
+                  key={label}
+                  type="button"
+                  role="tab"
+                  aria-selected={selected}
+                  onClick={() => setModeIndex(index)}
+                  className={cn(
+                    "cursor-pointer border-b-2 pb-2 text-sm leading-5",
+                    selected
+                      ? "border-white text-white"
+                      : "border-transparent text-white/45",
+                  )}
+                >
+                  {label}
+                </button>
+              );
+            })}
+          </div>
 
           <TemplateManagerPair
             variant={managerVariant}
+            layout="stage"
             size={isDesktop ? "desktop" : "mobile"}
             sources={managerSources}
             previewVariant={previewVariant}
@@ -390,7 +371,7 @@ export function GenerateTemplateModal({
             onCancelClick={resetGeneration}
             showSkipQueue={SKIP_QUEUE_FEATURE_ENABLED}
             onSkipQueueClick={handleSkipQueue}
-            className="w-full justify-center"
+            className="w-full"
           />
 
           <div className="flex items-center gap-2">
@@ -398,39 +379,32 @@ export function GenerateTemplateModal({
               type="button"
               aria-label={GENERATE_TEMPLATE_MODAL_SETTINGS_LABEL}
               onClick={handleSettingsClick}
-              className="border-surface-strong bg-tooltip-default-bg hidden size-11 shrink-0 items-center justify-center rounded-[32px] border"
+              className="hidden"
             >
-              <Settings className="text-tooltip-text size-5" aria-hidden />
+              <Settings className="size-5" aria-hidden />
             </button>
 
             {isGenerationBusy ? (
-              <Buttons
+              <button
                 type="button"
-                variant="rose"
-                size="btn-m"
-                leftIcon={false}
-                rightIcon={false}
-                label={GENERATE_TEMPLATE_MODAL_GALLERY_LABEL}
                 onClick={handleGoToGallery}
-                className="min-w-0 flex-1"
-              />
+                className="h-10 min-w-0 flex-1 cursor-pointer rounded-2xl border border-white/15 text-sm font-medium text-white"
+              >
+                {GENERATE_TEMPLATE_MODAL_GALLERY_LABEL}
+              </button>
             ) : (
-              <Buttons
+              <button
                 type="button"
-                variant="rose"
-                size="btn-m"
-                leftIcon={false}
-                rightIcon={false}
-                rightIconNode={<Coins className="size-3.5" />}
-                label={GENERATE_TEMPLATE_MODAL_GENERATE_LABEL}
                 disabled={!canGenerate}
                 onClick={handleGenerate}
-                className="min-w-0 flex-1 disabled:opacity-40"
+                className="flex h-10 min-w-0 flex-1 cursor-pointer items-center justify-between rounded-2xl bg-white px-4 text-sm font-medium text-black disabled:cursor-not-allowed disabled:opacity-40"
               >
-                <span className="text-sm leading-5 font-medium">
+                <span>{GENERATE_TEMPLATE_MODAL_GENERATE_LABEL}</span>
+                <span className="inline-flex items-center gap-1 text-black/70">
+                  <Coins className="size-3.5" aria-hidden />
                   {GENERATE_TEMPLATE_MODAL_TOKEN_COST}
                 </span>
-              </Buttons>
+              </button>
             )}
           </div>
         </div>

@@ -1,18 +1,16 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
-
-import { fetchInfo } from "@/lib/api/info";
-
-/** Fetch on mount/focus so returning visitors can pick up an IP change. */
-export function useInfo(enabled = true) {
-  return useQuery({
-    queryKey: ["info"],
-    queryFn: fetchInfo,
-    enabled,
-    staleTime: 0,
-    refetchOnMount: "always",
-    refetchOnWindowFocus: "always",
-    retry: 1,
-  });
+/** Local info snapshot. The visitor IP lookup is not called. */
+export function useInfo(_enabled = true) {
+  return {
+    data: undefined,
+    error: null,
+    isError: false,
+    isPending: false,
+    isLoading: false,
+    isSuccess: true,
+    isFetched: true,
+    status: "success" as const,
+    refetch: async () => ({ data: undefined }),
+  };
 }

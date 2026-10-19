@@ -15,7 +15,6 @@ import {
 } from "@/components/common/generate/promptbox-hybrid";
 import { useMe } from "@/hooks/use-me";
 import { useMyCharacters } from "@/hooks/use-my-characters";
-import { fetchRemixParams } from "@/lib/api/character-media";
 import type { MyCharacterListItem } from "@/lib/api/types";
 
 import {
@@ -446,43 +445,13 @@ export function useGenerateComposer({
         setPromptValue(item.prompt);
       }
 
-      if (!item.mediaId) return;
-
-      try {
-        const params = await fetchRemixParams(item.mediaId);
-        if (params.character?.removed_at) {
-          setRemixSource(null);
-          return;
-        }
-
+      if (item.mediaId) {
         setRemixSource({
-          mediaId: params.media_id,
-          characterId: params.character_id ?? params.character?.id ?? null,
-          characterName: params.character?.name,
-          action: params.action,
-          clothing: params.clothing,
-          location: params.location,
+          mediaId: item.mediaId,
+          characterId: item.characterId ?? null,
+          characterName: item.characterName,
+          action: item.pose,
         });
-
-        if (params.prompt_available && params.prompt) {
-          setPromptValue(params.prompt);
-        } else if (!params.prompt_available) {
-          setPromptValue("");
-        }
-
-        if (params.character?.image_url) {
-          setPlaceholderSelections((previous) => ({
-            ...previous,
-            [characterKey]: {
-              kind: "image",
-              templateId: params.character!.id,
-              imageSrc: params.character!.image_url,
-              imageAlt: params.character!.name,
-            },
-          }));
-        }
-      } catch {
-        // Keep the gallery-item prefill when remix-params is unavailable.
       }
     },
     [],

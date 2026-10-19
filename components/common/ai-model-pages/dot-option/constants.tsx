@@ -1,8 +1,8 @@
+import { Pin, Trash2 } from "lucide-react";
+
 import type { OptionListItem } from "@/components/common/general/option-list/option-list";
-import { PinIcon } from "@/public/assets/icons/pin-icon";
-import { TrashIcon } from "@/public/assets/icons/trash-icon";
 
 export const dotOptionMenuItems: OptionListItem[] = [
-  { value: "pin", label: "Pin", leftIconSrc: <PinIcon /> },
-  { value: "delete", label: "Delete", leftIconSrc: <TrashIcon /> },
+  { value: "pin", label: "Pin", leftIconSrc: <Pin className="size-5" /> },
+  { value: "delete", label: "Delete", leftIconSrc: <Trash2 className="size-5" /> },
 ];

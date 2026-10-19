@@ -4,7 +4,7 @@ import { ModalLayout } from "@/components/common/general/modal-layout/modal-layo
 import { Toggle } from "@/components/common/general/toggle/toggle";
 import { DialogDescription } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
-import { BlurIcon, CursorPointerIcon } from "@/public/assets/icons";
+import { EyeOff, MousePointer2, Zap } from "lucide-react";
 
 import {
   GENERATE_BLUR_NSFW_LABEL,
@@ -36,7 +36,7 @@ export function GenerateQuickActionsModal({
       open={open}
       onOpenChange={onOpenChange}
       title={GENERATE_QUICK_ACTIONS_TITLE}
-      titleIconSrc="/assets/flash.svg"
+      titleIcon={<Zap className="size-5" aria-hidden />}
       showIcon
       showMobileHandle
       closeLabel="Close quick actions"
@@ -53,7 +53,7 @@ export function GenerateQuickActionsModal({
             galleryActionsDisabled && "opacity-50",
           )}
         >
-          <BlurIcon className={cn("text-tooltip-text size-5 shrink-0")} aria-hidden />
+          <EyeOff className={cn("text-tooltip-text size-5 shrink-0")} aria-hidden />
           <span className={cn("text-tooltip-text min-w-0 flex-1 text-sm leading-5 font-medium")}>
             {GENERATE_BLUR_NSFW_LABEL}
           </span>
@@ -79,7 +79,7 @@ export function GenerateQuickActionsModal({
             galleryActionsDisabled ? "cursor-not-allowed opacity-50" : "cursor-pointer",
           )}
         >
-          <CursorPointerIcon className="size-5 shrink-0" aria-hidden />
+          <MousePointer2 className="size-5 shrink-0" aria-hidden />
           <span className="min-w-0 flex-1 text-sm leading-5 font-medium">
             {GENERATE_BULK_SELECT_LABEL}
           </span>

@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, ImageIcon, UserRound, Video } from "lucide-react";
+import { ArrowRight, ImageIcon, Trash2, UserRound, Video } from "lucide-react";
 import Image from "next/image";
 import * as React from "react";
 
@@ -21,11 +21,9 @@ import {
   resolveTemplateManagerPairSlots,
   TEMPLATE_MANAGER_CHANGE_LABEL,
   TEMPLATE_MANAGER_DEFAULT_IMAGE_SRC,
-  TEMPLATE_MANAGER_DELETE_ICON_SRC,
   TEMPLATE_MANAGER_DELETE_LABEL,
   TEMPLATE_MANAGER_DUO_STACK_CLASS,
   TEMPLATE_MANAGER_GENERATING_LABEL,
-  TEMPLATE_MANAGER_PROCESSING_LABEL,
   TEMPLATE_MANAGER_VARIANTS,
   type TemplateManagerFrame,
   type TemplateManagerSize,
@@ -95,6 +93,7 @@ type TemplateManagerLoadedProps = {
   imageAlt: string;
   interactive?: boolean;
   showDelete?: boolean;
+  compact?: boolean;
   onDeleteClick?: React.ComponentProps<"button">["onClick"];
   onChangeClick?: React.ComponentProps<typeof Buttons>["onClick"];
 };
@@ -105,6 +104,7 @@ function TemplateManagerLoaded({
   imageAlt,
   interactive = true,
   showDelete = true,
+  compact = false,
   onDeleteClick,
   onChangeClick,
 }: TemplateManagerLoadedProps) {
@@ -124,37 +124,47 @@ function TemplateManagerLoaded({
           type="button"
           data-slot="template-manager-delete"
           aria-label={TEMPLATE_MANAGER_DELETE_LABEL}
-          className="bg-tooltip-default-bg absolute top-3 right-3 z-10 flex size-9 items-center justify-center rounded-full"
+          className={cn(
+            "bg-tooltip-default-bg absolute z-10 flex items-center justify-center rounded-full",
+            compact ? "top-2 right-2 size-7" : "top-3 right-3 size-9",
+          )}
           onClick={onDeleteClick}
         >
-          <Image
-            src={TEMPLATE_MANAGER_DELETE_ICON_SRC}
-            alt=""
-            width={20}
-            height={20}
+          <Trash2
             aria-hidden
-            className="size-5"
+            className={cn("shrink-0 text-white", compact ? "size-3.5" : "size-4")}
           />
         </button>
       ) : null}
 
       {interactive ? (
-        <div className="absolute inset-x-0 bottom-0 z-10 flex justify-center p-3">
-          <Buttons
-            data-slot="template-manager-change"
+        compact ? (
+          <button
             type="button"
-            variant="neutral-border"
-            size="btn-s"
-            leftIcon={false}
-            rightIcon={false}
-            label={TEMPLATE_MANAGER_CHANGE_LABEL}
-            className={cn(
-              "bg-tooltip-default-bg!",
-              size === "mobile" ? "w-full min-w-0 max-w-full" : "min-w-[198px]",
-            )}
+            data-slot="template-manager-change"
             onClick={onChangeClick}
-          />
-        </div>
+            className="bg-tooltip-default-bg/90 absolute bottom-2 left-2 z-10 h-7 cursor-pointer rounded-full px-2.5 text-xs leading-none font-medium text-white"
+          >
+            {TEMPLATE_MANAGER_CHANGE_LABEL}
+          </button>
+        ) : (
+          <div className="absolute inset-x-0 bottom-0 z-10 flex justify-center p-3">
+            <Buttons
+              data-slot="template-manager-change"
+              type="button"
+              variant="neutral-border"
+              size="btn-s"
+              leftIcon={false}
+              rightIcon={false}
+              label={TEMPLATE_MANAGER_CHANGE_LABEL}
+              className={cn(
+                "bg-tooltip-default-bg!",
+                size === "mobile" ? "w-full min-w-0 max-w-full" : "min-w-[198px]",
+              )}
+              onClick={onChangeClick}
+            />
+          </div>
+        )
       ) : null}
     </>
   );
@@ -196,6 +206,7 @@ export type TemplateManagerProps = Omit<React.ComponentProps<"article">, "childr
   imageAlt?: string;
   loadedInteractive?: boolean;
   loadedShowDelete?: boolean;
+  compactActions?: boolean;
   progressPercent?: number;
   showSkipQueue?: boolean;
   skipQueueTokenCost?: React.ReactNode;
@@ -215,6 +226,7 @@ export function TemplateManager({
   imageAlt = "Selected template content",
   loadedInteractive = true,
   loadedShowDelete = true,
+  compactActions = false,
   progressPercent: _progressPercent,
   showSkipQueue: _showSkipQueue = true,
   skipQueueTokenCost: _skipQueueTokenCost,
@@ -251,24 +263,17 @@ export function TemplateManager({
           imageAlt={imageAlt}
           interactive={loadedInteractive}
           showDelete={loadedShowDelete}
+          compact={compactActions}
           onDeleteClick={onDeleteClick}
           onChangeClick={onChangeClick}
         />
       ) : null}
 
-      {variant === "queue" || variant === "generating" ? (
+      {variant === "queue" || variant === "processing" || variant === "generating" ? (
         <TemplateManagerLoadingStage
           size={size}
           stage="generating"
           label={TEMPLATE_MANAGER_GENERATING_LABEL}
-        />
-      ) : null}
-
-      {variant === "processing" ? (
-        <TemplateManagerLoadingStage
-          size={size}
-          stage="processing"
-          label={TEMPLATE_MANAGER_PROCESSING_LABEL}
         />
       ) : null}
 
@@ -309,6 +314,8 @@ export type TemplateManagerPairProps = Omit<React.ComponentProps<"div">, "childr
     previewVariant?: TemplateManagerVariant;
     /** Per-slot source cards. Two entries use the stacked duo layout. */
     sources?: readonly TemplateManagerSourceSlot[];
+    /** `stage` puts the preview above the source cards. */
+    layout?: "split" | "stage";
   };
 
 function resolveTemplateManagerSourceSlots({
@@ -347,6 +354,7 @@ export function TemplateManagerPair({
   variant = "select-video",
   size = "desktop",
   sources,
+  layout = "split",
   className,
   imageSrc,
   imageAlt,
@@ -373,6 +381,61 @@ export function TemplateManagerPair({
   });
   const isDuoLayout = variant === "duo" || sourceSlots.length > 1;
   const resultVariant = previewVariant ?? (isDuoLayout ? "loaded" : right);
+
+  if (isDuoLayout && layout === "stage") {
+    return (
+      <div
+        data-slot="template-manager-pair"
+        data-variant={variant}
+        data-size={size}
+        data-layout="stage"
+        className={cn("flex w-full min-w-0 flex-col gap-3", className)}
+      >
+        <TemplateManager
+          {...props}
+          variant={resultVariant}
+          imageSrc={imageSrc}
+          imageAlt={imageAlt}
+          size={size}
+          frame="default"
+          slot="secondary"
+          loadedInteractive={false}
+          loadedShowDelete={false}
+          progressPercent={progressPercent}
+          showSkipQueue={showSkipQueue}
+          skipQueueTokenCost={skipQueueTokenCost}
+          onCancelClick={onCancelClick}
+          onSkipQueueClick={onSkipQueueClick}
+          className="h-[250px]! w-full! min-w-0 rounded-[16px]"
+        />
+        <div className="grid w-full min-w-0 grid-cols-2 gap-3">
+          {sourceSlots.slice(0, 2).map((source, index) => {
+            const sourceVariant = source.variant ?? "loaded";
+
+            return (
+              <TemplateManager
+                key={index}
+                {...props}
+                variant={sourceVariant}
+                imageSrc={source.imageSrc}
+                imageAlt={source.imageAlt}
+                onSelectClick={source.onSelectClick}
+                onDeleteClick={source.onDeleteClick}
+                onChangeClick={source.onChangeClick}
+                size="mobile"
+                frame="default"
+                slot="primary"
+                loadedInteractive={source.loadedInteractive ?? true}
+                loadedShowDelete={source.loadedShowDelete ?? true}
+                compactActions
+                className="h-[116px]! w-full! min-w-0 rounded-[14px]"
+              />
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
 
   if (isDuoLayout) {
     return (

@@ -26,30 +26,25 @@ import {
 import { DialogDescription } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 import {
-  AspectRatioIcon,
-  ClockIcon,
-  FlashIcon,
-  InfoIcon,
-  LayersIcon,
-  ModelTvIcon,
-  VideoHorizontal,
-} from "@/public/assets/icons";
+  Clock,
+  Info,
+  Layers,
+  MonitorPlay,
+  Proportions,
+  RectangleHorizontal,
+  Settings,
+  Zap,
+} from "lucide-react";
 
 import {
-  GENERATE_ADVANCED_SETTINGS_ASPECT_RATIO_ICON_SRC,
   GENERATE_ADVANCED_SETTINGS_ASPECT_RATIO_LABEL,
-  GENERATE_ADVANCED_SETTINGS_AUTO_SKIP_ICON_SRC,
   GENERATE_ADVANCED_SETTINGS_AUTO_SKIP_LABEL,
   GENERATE_ADVANCED_SETTINGS_AUTO_SKIP_OPTIONS,
   GENERATE_ADVANCED_SETTINGS_DURATION_LABEL,
-  GENERATE_ADVANCED_SETTINGS_GENERATIONS_ICON_SRC,
   GENERATE_ADVANCED_SETTINGS_GENERATIONS_LABEL,
-  GENERATE_ADVANCED_SETTINGS_MODEL_ICON_SRC,
   GENERATE_ADVANCED_SETTINGS_MODEL_LABEL,
-  GENERATE_ADVANCED_SETTINGS_RESOLUTION_ICON_SRC,
   GENERATE_ADVANCED_SETTINGS_RESOLUTION_LABEL,
   GENERATE_ADVANCED_SETTINGS_TITLE,
-  GENERATE_ADVANCED_SETTINGS_TITLE_ICON_SRC,
   GENERATE_ADVANCED_SETTINGS_TUTORIAL_LABEL,
   GENERATE_ASPECT_RATIO_MODAL_TITLE,
   GENERATE_ASPECT_RATIO_OPTIONS,
@@ -238,7 +233,7 @@ export function GenerateAdvancedSettingsModal({
         open={open}
         onOpenChange={handleOpenChange}
         title={GENERATE_ADVANCED_SETTINGS_TITLE}
-        titleIconSrc={GENERATE_ADVANCED_SETTINGS_TITLE_ICON_SRC}
+        titleIcon={<Settings className="size-5" aria-hidden />}
         showIcon
         showMobileHandle
         overlayClassName={MODAL_LAYOUT_OVERLAY_CLASSNAME}
@@ -265,7 +260,7 @@ export function GenerateAdvancedSettingsModal({
                 label={GENERATE_ADVANCED_SETTINGS_TUTORIAL_LABEL}
                 value="tutorial"
                 options={[{ value: "tutorial", label: "" }]}
-                leftIcon={<InfoIcon className="text-text-muted-strong size-5" />}
+                leftIcon={<Info className="text-text-muted-strong size-5" />}
                 widthMode="trigger"
                 disableMenu
                 expanded={activePicker === "tutorial"}
@@ -280,7 +275,7 @@ export function GenerateAdvancedSettingsModal({
                 value: option.value,
                 label: getPromptBoxCheckpointTriggerLabel(option.value, resolvedModelOptions),
               }))}
-              leftIcon={<ModelTvIcon className="text-text-muted-strong size-5" />}
+              leftIcon={<MonitorPlay className="text-text-muted-strong size-5" />}
               widthMode="trigger"
               disableMenu
               expanded={activePicker === "model"}
@@ -292,7 +287,7 @@ export function GenerateAdvancedSettingsModal({
                 label={GENERATE_ADVANCED_SETTINGS_ASPECT_RATIO_LABEL}
                 value={aspectRatio}
                 options={aspectRatioOptions}
-                leftIcon={<AspectRatioIcon className="text-text-muted-strong size-5" />}
+                leftIcon={<Proportions className="text-text-muted-strong size-5" />}
                 widthMode="trigger"
                 disableMenu
                 expanded={activePicker === "aspectRatio"}
@@ -306,7 +301,7 @@ export function GenerateAdvancedSettingsModal({
                   label={GENERATE_ADVANCED_SETTINGS_DURATION_LABEL}
                   value={duration}
                   options={[{ value: duration, label: duration }]}
-                  leftIcon={<ClockIcon className="text-text-muted-strong size-5" />}
+                  leftIcon={<Clock className="text-text-muted-strong size-5" />}
                   widthMode="trigger"
                   disableMenu
                   expanded={activePicker === "duration"}
@@ -317,7 +312,7 @@ export function GenerateAdvancedSettingsModal({
                   label={GENERATE_ADVANCED_SETTINGS_RESOLUTION_LABEL}
                   value={resolution}
                   options={resolutionOptions}
-                  leftIcon={<VideoHorizontal className="text-text-muted-strong size-5" />}
+                  leftIcon={<RectangleHorizontal className="text-text-muted-strong size-5" />}
                   widthMode="trigger"
                   disableMenu
                   expanded={activePicker === "resolution"}
@@ -329,7 +324,7 @@ export function GenerateAdvancedSettingsModal({
                 label={GENERATE_ADVANCED_SETTINGS_GENERATIONS_LABEL}
                 value={generations}
                 options={generationCountOptions}
-                leftIcon={<LayersIcon className="text-text-muted-strong size-5" />}
+                leftIcon={<Layers className="text-text-muted-strong size-5" />}
                 widthMode="trigger"
                 disableMenu
                 expanded={activePicker === "generations"}
@@ -342,7 +337,7 @@ export function GenerateAdvancedSettingsModal({
                 label={GENERATE_ADVANCED_SETTINGS_AUTO_SKIP_LABEL}
                 value={autoSkipQueue}
                 options={[...GENERATE_ADVANCED_SETTINGS_AUTO_SKIP_OPTIONS]}
-                leftIcon={<FlashIcon className="text-text-muted-strong size-5" />}
+                leftIcon={<Zap className="text-text-muted-strong size-5" />}
                 widthMode="trigger"
                 disableMenu
                 expanded={activePicker === "autoSkipQueue"}
@@ -357,7 +352,7 @@ export function GenerateAdvancedSettingsModal({
         open={open && activePicker === "model"}
         onOpenChange={handlePickerOpenChange}
         title={modelPickerTitle}
-        titleIconSrc={GENERATE_ADVANCED_SETTINGS_MODEL_ICON_SRC}
+        titleIcon={<MonitorPlay className="size-5" aria-hidden />}
         showIcon
         showMobileHandle
         overlayClassName={cn(MODAL_LAYOUT_OVERLAY_CLASSNAME, "z-1000")}
@@ -421,7 +416,7 @@ export function GenerateAdvancedSettingsModal({
       <GenerateSettingsPickerModal
         open={open && activePicker === "aspectRatio"}
         title={GENERATE_ASPECT_RATIO_MODAL_TITLE}
-        titleIconSrc={GENERATE_ADVANCED_SETTINGS_ASPECT_RATIO_ICON_SRC}
+        titleIcon={<Proportions className="size-5" aria-hidden />}
         closeLabel="Close aspect ratio"
         description="Choose an aspect ratio."
         value={aspectRatio}
@@ -433,7 +428,7 @@ export function GenerateAdvancedSettingsModal({
       <GenerateSettingsPickerModal
         open={open && activePicker === "generations"}
         title={GENERATE_GENERATIONS_MODAL_TITLE}
-        titleIconSrc={GENERATE_ADVANCED_SETTINGS_GENERATIONS_ICON_SRC}
+        titleIcon={<Layers className="size-5" aria-hidden />}
         closeLabel="Close number of generations"
         description="Choose how many images to generate."
         value={generations}
@@ -452,7 +447,7 @@ export function GenerateAdvancedSettingsModal({
       <GenerateSettingsPickerModal
         open={open && activePicker === "resolution"}
         title={GENERATE_RESOLUTION_MODAL_TITLE}
-        titleIconSrc={GENERATE_ADVANCED_SETTINGS_RESOLUTION_ICON_SRC}
+        titleIcon={<RectangleHorizontal className="size-5" aria-hidden />}
         closeLabel="Close resolution"
         description="Choose a video resolution."
         value={resolution}
@@ -465,7 +460,7 @@ export function GenerateAdvancedSettingsModal({
         <GenerateSettingsPickerModal
           open={open && activePicker === "autoSkipQueue"}
           title={GENERATE_AUTO_SKIP_MODAL_TITLE}
-          titleIconSrc={GENERATE_ADVANCED_SETTINGS_AUTO_SKIP_ICON_SRC}
+          titleIcon={<Zap className="size-5" aria-hidden />}
           closeLabel="Close auto skip queue"
           description="Choose whether to auto skip the queue."
           value={autoSkipQueue}

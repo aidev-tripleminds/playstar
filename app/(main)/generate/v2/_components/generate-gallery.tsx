@@ -12,7 +12,7 @@ import { UnblurOverlay } from "@/components/common/general/unblur-overlay";
 import { isRemoteImageSrc } from "@/components/common/image-preview/components/helpers";
 import { SKIP_QUEUE_FEATURE_ENABLED } from "@/lib/feature-flags";
 import { cn } from "@/lib/utils";
-import { TickOnlyIcon } from "@/public/assets/icons/tick-only";
+import { Check } from "lucide-react";
 
 import {
   GENERATE_EMPTY_STATE_CTA_BADGE,
@@ -346,7 +346,7 @@ function GenerateMediaTile({
               className="border-brand-primary pointer-events-none absolute inset-0 z-10 rounded-[inherit] border-4"
             />
             <span className="bg-brand-primary absolute top-1/2 left-1/2 z-20 inline-flex size-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full p-1.5">
-              <TickOnlyIcon className="text-tooltip-text size-6" />
+              <Check className="text-tooltip-text size-6" />
             </span>
           </>
         ) : null}

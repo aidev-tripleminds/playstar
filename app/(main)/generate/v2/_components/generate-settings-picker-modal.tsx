@@ -26,7 +26,8 @@ export type GenerateSettingsPickerModalProps = {
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
   title: string;
-  titleIconSrc: string;
+  titleIconSrc?: string;
+  titleIcon?: React.ReactNode;
   closeLabel: string;
   description: string;
   value?: string;
@@ -40,6 +41,7 @@ export function GenerateSettingsPickerModal({
   onOpenChange,
   title,
   titleIconSrc,
+  titleIcon,
   closeLabel,
   description,
   value,
@@ -63,6 +65,7 @@ export function GenerateSettingsPickerModal({
       onOpenChange={onOpenChange}
       title={title}
       titleIconSrc={titleIconSrc}
+      titleIcon={titleIcon}
       showIcon
       showMobileHandle
       overlayClassName={cn(MODAL_LAYOUT_OVERLAY_CLASSNAME, "z-1000")}

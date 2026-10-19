@@ -33,19 +33,19 @@ export const TEMPLATE_MANAGER_DELETE_ICON_SRC = "/assets/trash.svg";
 
 export const TEMPLATE_MANAGER_COPY = {
   "select-video": {
-    title: "Select video",
-    description: "The last frame of the video you upload will be used as first image.",
+    title: "Add a clip",
+    description: "The ending frame becomes the opening of the scene.",
   },
   "select-image-char": {
-    title: "Select Content",
-    description: "The content you select will be used as start image for the video.",
+    title: "Add a still",
+    description: "This frame opens the scene.",
   },
 } as const;
 
-export const TEMPLATE_MANAGER_PROCESSING_LABEL = "Processing…";
-export const TEMPLATE_MANAGER_GENERATING_LABEL = "Generating...";
-export const TEMPLATE_MANAGER_CHANGE_LABEL = "Change content";
-export const TEMPLATE_MANAGER_DELETE_LABEL = "Delete content";
+export const TEMPLATE_MANAGER_PROCESSING_LABEL = "Creating scene";
+export const TEMPLATE_MANAGER_GENERATING_LABEL = "Creating scene";
+export const TEMPLATE_MANAGER_CHANGE_LABEL = "Replace";
+export const TEMPLATE_MANAGER_DELETE_LABEL = "Remove still";
 
 export const TEMPLATE_MANAGER_DUO_STACK_CLASS = {
   desktop: "h-[344px] w-[214px] shrink-0",

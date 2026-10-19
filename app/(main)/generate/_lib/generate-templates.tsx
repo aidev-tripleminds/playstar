@@ -5,25 +5,25 @@ import type { HomepageFilter } from "@/components/pages/homepage";
 import { dummyImage } from "@/lib/dummy-images";
 import { Heart, ImageIcon, Video } from "lucide-react";
 
-const TEMPLATE_NICHES = ["MILF", "Blonde", "Athletic", "Latina"] as const;
+const TEMPLATE_NICHES = ["Night", "Gold", "Studio", "Warm"] as const;
 
 /** One name per catalog card, in grid order. */
 export const GENERATE_TEMPLATE_NAMES = [
-  "Blowjob",
-  "Anal",
-  "Side Blowjob",
-  "JOI",
-  "Cumshot",
-  "Doggystyle",
-  "Cowgirl",
-  "Bouncing Boobs",
-  "Reverse Cowgirl",
-  "Deepthroat",
-  "Boobjob",
-  "Footjob",
-  "Handjob",
-  "Missionary",
-  "Prone Bone",
+  "Slow close",
+  "Rear view",
+  "From the side",
+  "Direct me",
+  "Last second",
+  "Down low",
+  "On top",
+  "In motion",
+  "Turned back",
+  "All the way",
+  "Between",
+  "At my feet",
+  "In hand",
+  "Eye to eye",
+  "Pressed flat",
 ] as const;
 
 export const GENERATE_TEMPLATES_SEARCH_PLACEHOLDER = "Search...";
@@ -85,13 +85,13 @@ export const GENERATE_TEMPLATES_BOTTOM_FADE_CLASS =
 export type GenerateTemplateLane = "mini-movie" | "cum-shorts";
 
 const MINI_MOVIE_TEMPLATE_NAMES = new Set<string>([
-  "Anal",
-  "Doggystyle",
-  "Cowgirl",
-  "Bouncing Boobs",
-  "Reverse Cowgirl",
-  "Missionary",
-  "Prone Bone",
+  "Rear view",
+  "Down low",
+  "On top",
+  "In motion",
+  "Turned back",
+  "Eye to eye",
+  "Pressed flat",
 ]);
 
 export type GenerateTemplateItem = {
@@ -108,25 +108,38 @@ export type GenerateTemplateItem = {
 };
 
 /** Figma **14817:81435** — template detail Master Modal on Create. */
-export const GENERATE_TEMPLATE_MODAL_TAGS = [
-  "Brunette",
-  "Big tits",
-  "Carwash",
-  "Blue eyes",
+const GENERATE_TEMPLATE_TAG_SETS = [
+  ["Night light", "Soft focus", "Indoor"],
+  ["Gold room", "Warm tone", "Close"],
+  ["Low light", "Side angle", "Quiet"],
+  ["Studio", "Direct", "Still"],
+  ["Last light", "Tight frame", "Slow"],
+  ["Floor level", "Dim", "Steady"],
+  ["Above", "Motion", "Warm"],
+  ["Moving", "Bright", "Near"],
+  ["Turned", "Shadow", "Held"],
+  ["Near", "Dark", "Slow"],
+  ["Centered", "Soft", "Close"],
+  ["Low", "Bare", "Calm"],
+  ["Hands", "Warm", "Near"],
+  ["Face", "Soft light", "Still"],
+  ["Flat", "Close", "Quiet"],
 ] as const;
 
+export const GENERATE_TEMPLATE_MODAL_TAGS = GENERATE_TEMPLATE_TAG_SETS[0];
+
 export const GENERATE_TEMPLATE_MODAL_TOKEN_COST = "30";
-export const GENERATE_TEMPLATE_MODAL_GENERATE_LABEL = "Generate";
-export const GENERATE_TEMPLATE_MODAL_GALLERY_LABEL = "Go to gallery";
-export const GENERATE_TEMPLATE_MODAL_SETTINGS_LABEL = "Settings";
-export const GENERATE_TEMPLATE_MODAL_CLOSE_LABEL = "Close template";
-export const GENERATE_TEMPLATE_MODAL_LIKE_LABEL = "Like template";
-export const GENERATE_TEMPLATE_MODAL_UNLIKE_LABEL = "Unlike template";
+export const GENERATE_TEMPLATE_MODAL_GENERATE_LABEL = "Create scene";
+export const GENERATE_TEMPLATE_MODAL_GALLERY_LABEL = "Open collection";
+export const GENERATE_TEMPLATE_MODAL_SETTINGS_LABEL = "Options";
+export const GENERATE_TEMPLATE_MODAL_CLOSE_LABEL = "Close scene";
+export const GENERATE_TEMPLATE_MODAL_LIKE_LABEL = "Save scene";
+export const GENERATE_TEMPLATE_MODAL_UNLIKE_LABEL = "Unsave scene";
 export const GENERATE_TEMPLATE_MODAL_TOKEN_ICON_SRC = GENERATE_GROUP_TOKEN_ICON_SRC;
 export const GENERATE_TEMPLATE_MODAL_SETTINGS_ICON_SRC = "/assets/settings-outline.svg";
 
-export const GENERATE_TEMPLATE_MODAL_IMAGE2VIDEO_LABEL = "Image2Video";
-export const GENERATE_TEMPLATE_MODAL_EXTEND_VIDEO_LABEL = "Extend Video";
+export const GENERATE_TEMPLATE_MODAL_IMAGE2VIDEO_LABEL = "Photo start";
+export const GENERATE_TEMPLATE_MODAL_EXTEND_VIDEO_LABEL = "Longer cut";
 
 export const GENERATE_TEMPLATE_MODAL_MODE_TABS = [
   {
@@ -142,7 +155,7 @@ export const GENERATE_TEMPLATE_MODAL_MODE_TABS = [
 ] as const;
 
 export const GENERATE_TEMPLATE_MODAL_CLASS =
-  "z-999 max-h-[calc(100dvh-1rem)] min-w-0 overflow-y-auto overscroll-contain md:max-h-[min(860px,calc(100dvh-2rem))] md:max-w-[530px]! md:overflow-y-auto data-[vaul-drawer-direction=bottom]:h-fit! data-[vaul-drawer-direction=bottom]:max-h-[min(580px,calc(100dvh-1rem))]!";
+  "scrollbar-hidden z-999 max-h-[calc(100dvh-2rem)] min-w-0 overflow-y-auto overscroll-contain max-md:top-auto! max-md:right-0! max-md:bottom-0! max-md:left-0! max-md:w-full! max-md:max-w-none! max-md:translate-none! max-md:rounded-b-none! md:max-h-[min(620px,calc(100dvh-2rem))] md:max-w-[420px]! md:overflow-y-auto data-[vaul-drawer-direction=bottom]:h-fit! data-[vaul-drawer-direction=bottom]:max-h-[min(580px,calc(100dvh-1rem))]!";
 
 /** Templates can expose 1 or 2 start-content slots. Show two placeholders for now. */
 export const GENERATE_TEMPLATE_MODAL_PLACEHOLDER_COUNT = 2 as const;
@@ -296,7 +309,7 @@ export const GENERATE_TEMPLATE_ITEMS: GenerateTemplateItem[] = GENERATE_TEMPLATE
       insetImageSrc: dummyImage(index + 8),
       badgeLabel: AI_MODEL_TEMPLATES_DEFAULT_BADGE,
       niche,
-      tags: GENERATE_TEMPLATE_MODAL_TAGS,
+      tags: GENERATE_TEMPLATE_TAG_SETS[index % GENERATE_TEMPLATE_TAG_SETS.length],
       liked: true,
       lane: MINI_MOVIE_TEMPLATE_NAMES.has(name) ? "mini-movie" : "cum-shorts",
     };

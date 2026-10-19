@@ -8,7 +8,7 @@ import { SearchInput } from "@/components/common/general/search-input/search-inp
 import Tabs from "@/components/common/general/tabs/tabs";
 import { useIsDesktop } from "@/hooks/use-is-desktop";
 import { cn } from "@/lib/utils";
-import { BlurIcon } from "@/public/assets/icons";
+import { EyeOff } from "lucide-react";
 
 import {
   GENERATE_BLUR_NSFW_LABEL_OFF,
@@ -116,7 +116,7 @@ export function GenerateToolbar({
                 disabled={galleryActionsDisabled}
                 label={blurNsfw ? GENERATE_BLUR_NSFW_LABEL_ON : GENERATE_BLUR_NSFW_LABEL_OFF}
                 ariaLabel={blurNsfw ? GENERATE_BLUR_NSFW_LABEL_ON : GENERATE_BLUR_NSFW_LABEL_OFF}
-                icon={<BlurIcon className="size-5 shrink-0" aria-hidden />}
+                icon={<EyeOff className="size-5 shrink-0" aria-hidden />}
                 onPressedChange={onBlurNsfwChange}
               />
               <ToolbarToggle

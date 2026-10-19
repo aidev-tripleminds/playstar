@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils";
 
-import "./ai-loading.css";
+const ATOMS_LOADING_SRC = "/assets/loading/atoms.mp4";
 
 export const AI_LOADING_LABEL_WRAP_CLASS =
   "absolute inset-0 z-10 flex items-end justify-center p-3 md:p-4";
@@ -19,21 +19,17 @@ export function AiLoading({ className }: AiLoadingProps) {
     <div
       data-slot="ai-loading"
       aria-hidden
-      className={cn("absolute inset-0 flex items-center justify-center bg-[#0a0a0a]", className)}
+      className={cn("absolute inset-0 overflow-hidden bg-[#0a0a0a]", className)}
     >
-      <div className="ai-loading">
-        <span className="ai-loading-wash" />
-        <span className="ai-loading-ticks" />
-        <span className="ai-loading-track" />
-        <span className="ai-loading-sweep" />
-        <span className="ai-loading-wave">
-          <i />
-          <i />
-          <i />
-          <i />
-          <i />
-        </span>
-      </div>
+      <video
+        src={ATOMS_LOADING_SRC}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        className="absolute inset-0 h-full w-full object-cover"
+      />
     </div>
   );
 }

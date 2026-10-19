@@ -8,7 +8,7 @@ import {
 import { InfoButton } from "@/components/common/generate/info-button";
 import { DialogDescription } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
-import { ExternalIcon } from "@/public/assets/icons";
+import { ExternalLink } from "lucide-react";
 
 import {
   GENERATE_INFO_MODAL_GOT_IT_LABEL,
@@ -86,7 +86,7 @@ export function GenerateInfoModal({
             label={GENERATE_INFO_MODAL_WIKI_LABEL}
             leftIcon={false}
             rightIcon={false}
-            leftIconNode={<ExternalIcon className="size-5" aria-hidden />}
+            leftIconNode={<ExternalLink className="size-5" aria-hidden />}
             onClick={() => {
               if (wikiHref && wikiHref !== "#") {
                 window.open(wikiHref, "_blank", "noopener,noreferrer");

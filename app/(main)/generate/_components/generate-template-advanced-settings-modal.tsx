@@ -17,20 +17,13 @@ import {
 import { DialogDescription } from "@/components/ui/dialog";
 import { useIsDesktop } from "@/hooks/use-is-desktop";
 import { cn } from "@/lib/utils";
-import {
-  AspectRatioIcon,
-  ClockIcon,
-  Microphone2Icon,
-  VideoHorizontal,
-} from "@/public/assets/icons";
+import { Clock, Mic, Proportions, RectangleHorizontal, Settings } from "lucide-react";
 
 import {
   formatGenerateTemplateDuration,
   GENERATE_TEMPLATE_ADVANCED_SETTINGS_APPLY_LABEL,
   GENERATE_TEMPLATE_ADVANCED_SETTINGS_ASPECT_RATIO_DROPDOWN_LABEL,
-  GENERATE_TEMPLATE_ADVANCED_SETTINGS_ASPECT_RATIO_ICON_SRC,
   GENERATE_TEMPLATE_ADVANCED_SETTINGS_ASPECT_RATIO_LABEL,
-  GENERATE_TEMPLATE_ADVANCED_SETTINGS_AUDIO_ICON_SRC,
   GENERATE_TEMPLATE_ADVANCED_SETTINGS_AUDIO_LABEL,
   GENERATE_TEMPLATE_ADVANCED_SETTINGS_CANCEL_LABEL,
   GENERATE_TEMPLATE_ADVANCED_SETTINGS_CLASS,
@@ -40,10 +33,8 @@ import {
   GENERATE_TEMPLATE_ADVANCED_SETTINGS_DURATION_LABEL,
   GENERATE_TEMPLATE_ADVANCED_SETTINGS_OVERLAY_CLASS,
   GENERATE_TEMPLATE_ADVANCED_SETTINGS_RESOLUTION_DROPDOWN_LABEL,
-  GENERATE_TEMPLATE_ADVANCED_SETTINGS_RESOLUTION_ICON_SRC,
   GENERATE_TEMPLATE_ADVANCED_SETTINGS_RESOLUTION_LABEL,
   GENERATE_TEMPLATE_ADVANCED_SETTINGS_TITLE,
-  GENERATE_TEMPLATE_ADVANCED_SETTINGS_TITLE_ICON_SRC,
   GENERATE_TEMPLATE_ASPECT_RATIO_MODAL_TITLE,
   GENERATE_TEMPLATE_ASPECT_RATIO_OPTIONS,
   GENERATE_TEMPLATE_AUDIO_MODAL_TITLE,
@@ -205,7 +196,7 @@ export function GenerateTemplateAdvancedSettingsModal({
         open={open}
         onOpenChange={handleOpenChange}
         title={GENERATE_TEMPLATE_ADVANCED_SETTINGS_TITLE}
-        titleIconSrc={GENERATE_TEMPLATE_ADVANCED_SETTINGS_TITLE_ICON_SRC}
+        titleIcon={<Settings className="size-5" aria-hidden />}
         showIcon
         showMobileHandle
         overlayClassName={cn(
@@ -282,7 +273,7 @@ export function GenerateTemplateAdvancedSettingsModal({
                 label={GENERATE_TEMPLATE_ADVANCED_SETTINGS_ASPECT_RATIO_DROPDOWN_LABEL}
                 value={draft.aspectRatio}
                 options={aspectRatioOptions}
-                leftIcon={<AspectRatioIcon className="text-text-muted-strong size-5" />}
+                leftIcon={<Proportions className="text-text-muted-strong size-5" />}
                 widthMode="trigger"
                 disableMenu
                 expanded={activePicker === "aspectRatio"}
@@ -293,7 +284,7 @@ export function GenerateTemplateAdvancedSettingsModal({
                 label={GENERATE_TEMPLATE_ADVANCED_SETTINGS_RESOLUTION_DROPDOWN_LABEL}
                 value={draft.resolution}
                 options={[...GENERATE_TEMPLATE_RESOLUTION_OPTIONS]}
-                leftIcon={<VideoHorizontal className="text-text-muted-strong size-5" />}
+                leftIcon={<RectangleHorizontal className="text-text-muted-strong size-5" />}
                 widthMode="trigger"
                 disableMenu
                 expanded={activePicker === "resolution"}
@@ -304,7 +295,7 @@ export function GenerateTemplateAdvancedSettingsModal({
                 label={GENERATE_TEMPLATE_ADVANCED_SETTINGS_DURATION_DROPDOWN_LABEL}
                 value={draft.duration}
                 options={[{ value: draft.duration, label: draft.duration }]}
-                leftIcon={<ClockIcon className="text-text-muted-strong size-5" />}
+                leftIcon={<Clock className="text-text-muted-strong size-5" />}
                 widthMode="trigger"
                 disableMenu
                 expanded={activePicker === "duration"}
@@ -315,7 +306,7 @@ export function GenerateTemplateAdvancedSettingsModal({
                 label={GENERATE_TEMPLATE_ADVANCED_SETTINGS_AUDIO_LABEL}
                 value={draft.audio}
                 options={[...GENERATE_TEMPLATE_AUDIO_OPTIONS]}
-                leftIcon={<Microphone2Icon className="text-text-muted-strong size-5" />}
+                leftIcon={<Mic className="text-text-muted-strong size-5" />}
                 widthMode="trigger"
                 disableMenu
                 expanded={activePicker === "audio"}
@@ -354,7 +345,7 @@ export function GenerateTemplateAdvancedSettingsModal({
           <GenerateTemplateSettingsPickerModal
             open={open && activePicker === "aspectRatio"}
             title={GENERATE_TEMPLATE_ASPECT_RATIO_MODAL_TITLE}
-            titleIconSrc={GENERATE_TEMPLATE_ADVANCED_SETTINGS_ASPECT_RATIO_ICON_SRC}
+            titleIcon={<Proportions className="size-5" aria-hidden />}
             closeLabel="Close aspect ratio"
             description="Choose an aspect ratio."
             value={draft.aspectRatio}
@@ -371,7 +362,7 @@ export function GenerateTemplateAdvancedSettingsModal({
           <GenerateTemplateSettingsPickerModal
             open={open && activePicker === "resolution"}
             title={GENERATE_TEMPLATE_RESOLUTION_MODAL_TITLE}
-            titleIconSrc={GENERATE_TEMPLATE_ADVANCED_SETTINGS_RESOLUTION_ICON_SRC}
+            titleIcon={<RectangleHorizontal className="size-5" aria-hidden />}
             closeLabel="Close resolution"
             description="Choose a video resolution."
             value={draft.resolution}
@@ -400,7 +391,7 @@ export function GenerateTemplateAdvancedSettingsModal({
           <GenerateTemplateSettingsPickerModal
             open={open && activePicker === "audio"}
             title={GENERATE_TEMPLATE_AUDIO_MODAL_TITLE}
-            titleIconSrc={GENERATE_TEMPLATE_ADVANCED_SETTINGS_AUDIO_ICON_SRC}
+            titleIcon={<Mic className="size-5" aria-hidden />}
             closeLabel="Close audio"
             description="Choose whether this template includes audio."
             value={draft.audio}

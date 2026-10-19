@@ -5,7 +5,7 @@ import { createPortal } from "react-dom";
 
 import { OptionList } from "@/components/common/general/option-list/option-list";
 import { cn } from "@/lib/utils";
-import { MoreVerticalIcon } from "@/public/assets/icons";
+import { MoreVertical } from "lucide-react";
 
 import { dotOptionMenuItems } from "./constants";
 import type { DotOptionProps } from "./types";
@@ -168,7 +168,7 @@ export function DotOption({
           btnClassName,
         )}
       >
-        <MoreVerticalIcon className="rotate-90" />
+        <MoreVertical className="size-5 rotate-90" />
       </button>
 
       {menuOpen && menuPosition && typeof document !== "undefined"

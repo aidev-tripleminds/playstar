@@ -49,10 +49,10 @@ export type PlaceholderProcessingProps = {
 export function PlaceholderProcessing({
   state = "processing",
   variant = "default",
-  label = "Processing…",
-  title: _title = "Queued…",
+  label = "Creating scene",
+  title: _title = "Creating scene",
   subtitle: _subtitle = "Starting soon.",
-  generatingLabel = "Generating...",
+  generatingLabel = "Creating scene",
   moderationTitle,
   moderationDescription,
   secondaryActionLabel = "Copy prompt",
@@ -69,7 +69,7 @@ export function PlaceholderProcessing({
   className,
 }: PlaceholderProcessingProps) {
   const isLoading = state === "processing" || state === "generating" || state === "queuing";
-  const loadingLabel = state === "processing" ? label : generatingLabel;
+  const loadingLabel = generatingLabel || label;
 
   return (
     <section
